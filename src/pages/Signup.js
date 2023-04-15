@@ -8,7 +8,8 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    console.log(email, password, confirmPassword)
     // handle login logic here
   };
 
@@ -49,7 +50,7 @@ const Signup = () => {
           type="submit"
           className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
         >
-          Sign In
+          Sign Up
         </button>
         <div className="text-gray-700 text-center pt-2">
           Already have an account?{' '}

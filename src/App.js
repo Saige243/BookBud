@@ -12,8 +12,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<ProtectedRoute currentUser={currentUser}><Dashboard /></ProtectedRoute>} />
-        <Route exact path="/login" element={<Login />} />
+        {/* <Route exact path="/" element={<ProtectedRoute currentUser={currentUser}><Dashboard /></ProtectedRoute>} /> */}
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>

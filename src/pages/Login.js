@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { logout, user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(email, password)
 
+  const handleSubmit = () => {
+    loginWithRedirect()
   };
+
+  console.log(user)
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -46,6 +49,7 @@ const Login = () => {
           <Link to="/signup" className="text-blue-500 font-medium">
             Sign up here
           </Link>
+          <button onClick={() => loginWithRedirect()}>Log In</button>
         </div>
       </form>
     </div>

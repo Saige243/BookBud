@@ -6,14 +6,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logout, user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
 
 
   const handleSubmit = () => {
     loginWithRedirect()
   };
-
-  console.log(user)
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -36,7 +34,7 @@ const Login = () => {
           placeholder="******"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="block w-full px-4 py-2 mb-16 text-gray-700 border rounded shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
+          className="block w-full px-4 py-2 mb-10 text-gray-700 border rounded shadow-sm focus:outline-none focus:border-blue-500 focus:shadow-outline-blue"
         />
         <button
           type="submit"

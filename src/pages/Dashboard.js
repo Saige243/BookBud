@@ -1,54 +1,33 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState, useEffect } from "react";
+import { GetUserMetadata } from "../auth/Auth";
+import CircularProgress from '@mui/material/CircularProgress';
+import { PrimaryButton } from "../components/Buttons";
+
 
 function Dashboard() {
-  const { logout, user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [userMetadata, setUserMetadata] = useState({});
-  const { name, email, picture } = userMetadata
+  const { logout, isAuthenticated, isLoading } = useAuth0();
+  const userMetaData = GetUserMetadata()
+  const { name, email, picture } = userMetaData
 
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "dev-tbhd11g52ckde1t1.us.auth0.com";
-
-      try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: `https://${domain}/api/v2/`,
-            scope: "read:current_user",
-          },
-        });
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        const user_metadata = await metadataResponse.json();
-
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-      console.log('META:', userMetadata)
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub, user]);
-
+  const logoutButtonClick = () => {
+    logout({ logoutParams: { returnTo: "http://localhost:3000/" } })
+  }
 
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return (
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+        <CircularProgress />
+      </div>
+    )
   }
 
   return (
     isAuthenticated && (
       <div>
-        <button onClick={() => logout({ logoutParams: { returnTo: "http://localhost:3000/" } })}>
-          Log Out
-        </button>
+        <PrimaryButton
+          onClick={logoutButtonClick}
+          text="Logout"
+        />
         <img src={picture} alt={name} />
         <h2>Hi, {name}!</h2>
         <p>Email: {email}</p>

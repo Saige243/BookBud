@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
+import Alert from '@mui/material/Alert';
 
+const onError = (error) => {
+  return <Alert severity="error">{error}</Alert>
+}
 
 export function GetUserMetadata() {
-  const { logout, user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState({});
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export function GetUserMetadata() {
 
         setUserMetadata(user_metadata);
       } catch (e) {
-        console.log(e.message);
+        onError(e.message)
       }
     };
 

@@ -2,16 +2,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { GetUserMetadata } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
 import { PrimaryButton } from "../components/Buttons";
+import Navbar from "../components/Navbar";
 
 
 function Dashboard() {
-  const { logout, isAuthenticated, isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
   const userMetaData = GetUserMetadata()
-  const { name, email, picture } = userMetaData
-
-  const logoutButtonClick = () => {
-    logout({ logoutParams: { returnTo: "http://localhost:3000/" } })
-  }
+  const { name, email } = userMetaData
 
   if (isLoading) {
     return (
@@ -22,17 +19,10 @@ function Dashboard() {
   }
 
   return (
-    isAuthenticated && (
-      <div>
-        <PrimaryButton
-          onClick={logoutButtonClick}
-          text="Logout"
-        />
-        <img src={picture} alt={name} />
-        <h2>Hi, {name}!</h2>
-        <p>Email: {email}</p>
-      </div>
-    )
+    <>
+      <h2>Hi, {name}!</h2>
+      <p>Email: {email}</p>
+    </>
   )
 }
 

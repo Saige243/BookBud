@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from './pages/NotFound';
+import Navbar from './components/Navbar';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -18,6 +19,7 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated} isLoading={isLoading}>
+              <Navbar />
               <Dashboard />
             </ProtectedRoute>
           }

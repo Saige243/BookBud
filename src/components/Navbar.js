@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
 import { GetUserMetadata } from '../auth/Auth';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -21,10 +22,10 @@ function Navbar() {
   const userMetaData = GetUserMetadata()
   const { name, email, picture } = userMetaData
   const { logout } = useAuth0();
-
+  const navigate = useNavigate()
 
   const pages = ['Search', 'Library'];
-  const settings = [`Hi, ${name}!`, 'Profile', 'Account', 'Dashboard'];
+  const settings = [`Hi, ${name}!`];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,31 +44,36 @@ function Navbar() {
 
   const handleLogout = () => {
     logout()
-  };
+  }
+
+  const handleProfileClick = () => {
+    handleCloseUserMenu()
+    navigate('/profile')
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'grey' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <BookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            BookBud
-          </Typography>
-
+          <Link to="/dashboard">
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              BookBud
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -162,6 +168,11 @@ function Navbar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={handleProfileClick}>
+                {/* <Link to='/profile'> */}
+                <Typography textAlign="center">Profile</Typography>
+                {/* </Link> */}
+              </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>

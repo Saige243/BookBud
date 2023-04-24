@@ -12,16 +12,16 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
-import { GetUserMetadata } from '../auth/Auth';
+import { useAuth } from '../auth/Auth';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const userMetaData = GetUserMetadata()
-  const { name, email, picture } = userMetaData
   const { logout } = useAuth0();
+  const { userMetadata } = useAuth()
+  const { name, email, picture } = userMetadata
   const navigate = useNavigate()
 
   const pages = ['Search', 'Library'];

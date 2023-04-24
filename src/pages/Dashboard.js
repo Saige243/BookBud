@@ -1,14 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { GetUserMetadata } from "../auth/Auth";
+import { useAuth } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
-import { PrimaryButton } from "../components/Buttons";
-import Navbar from "../components/Navbar";
 
 
 function Dashboard() {
   const { isLoading } = useAuth0();
-  const userMetaData = GetUserMetadata()
-  const { name, email } = userMetaData
+  const { userMetadata } = useAuth()
+  const { name, email } = userMetadata
 
   if (isLoading) {
     return (

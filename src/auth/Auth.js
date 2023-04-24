@@ -6,9 +6,10 @@ const onError = (error) => {
   return <Alert severity="error">{error}</Alert>
 }
 
-export function GetUserMetadata() {
+const useAuth = () => {
   const { user, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -35,12 +36,17 @@ export function GetUserMetadata() {
         setUserMetadata(user_metadata);
       } catch (e) {
         onError(e.message)
+        setLoading(false);
       }
     };
 
     getUserMetadata();
   }, [getAccessTokenSilently, user?.sub, user]);
 
-  return userMetadata
+  return {
+    userMetadata,
+    loading
+  }
 }
 
+export { useAuth }

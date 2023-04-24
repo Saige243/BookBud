@@ -8,15 +8,8 @@ import Navbar from './components/Navbar';
 import Profile from './pages/Profile'
 
 
-const TestRoutes = () => {
-  <Route path="/profile" element={<Profile />} />
-}
-
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
-
-  console.log('auth?', isAuthenticated)
-  console.log('loading?', isLoading)
 
   return (
     <BrowserRouter>

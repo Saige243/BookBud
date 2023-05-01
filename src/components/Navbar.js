@@ -15,6 +15,7 @@ import BookIcon from '@mui/icons-material/Book';
 import { useAuth } from '../auth/Auth';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
+import SearchInput from './SearchInput'
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -24,7 +25,7 @@ function Navbar() {
   const { name, email, picture } = userMetadata
   const navigate = useNavigate()
 
-  const pages = ['Search', 'Library'];
+  const pages = ['Library'];
   const settings = [`Hi, ${name}!`];
 
   const handleOpenNavMenu = (event) => {
@@ -139,6 +140,11 @@ function Navbar() {
                 {page}
               </Button>
             ))}
+            <SearchInput
+              variant="filled"
+              label="Search for a title or author"
+              styles={{ backgroundColor: 'white', width: '100%' }}
+            />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

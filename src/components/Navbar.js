@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -144,6 +145,7 @@ function Navbar() {
               variant="filled"
               label="Search for a title or author"
               styles={{ backgroundColor: 'white', width: '100%' }}
+              inputProps={{ endAdornment: <Button sx={{ borderRadius: '60px' }} type="submit"><SearchIcon color='primary' /></Button> }}
             />
           </Box>
 

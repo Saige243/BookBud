@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function SearchInput({ variant, styles, label }) {
+export default function SearchInput({ variant, styles, label, inputProps }) {
   return (
     <Box
       component="form"
@@ -17,7 +17,7 @@ export default function SearchInput({ variant, styles, label }) {
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label={label} variant={variant} sx={styles} />
+      <TextField id="outlined-basic" label={label} variant={variant} sx={styles} InputProps={inputProps} />
     </Box>
   );
 }

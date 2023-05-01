@@ -1,12 +1,17 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuth } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useGetBooks } from "../hooks/useGetBooks";
 
 
 function Dashboard() {
   const { isLoading } = useAuth0();
   const { userMetadata } = useAuth()
   const { name, email } = userMetadata
+  const { books } = useGetBooks()
+
+  console.log(books)
+
 
   if (isLoading) {
     return (

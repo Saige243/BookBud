@@ -17,7 +17,6 @@ function App() {
     setSearchTerm(searchTerm);
   };
 
-
   return (
     <BrowserRouter>
       {isAuthenticated && <Navbar onSubmitSearch={handleSearch} />}

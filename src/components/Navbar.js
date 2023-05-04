@@ -21,10 +21,9 @@ import SearchInput from './SearchInput'
 function Navbar({ onSubmitSearch }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const { logout } = useAuth0();
   const { userMetadata } = useAuth()
-  const { name, email, picture } = userMetadata
+  const { name, picture } = userMetadata
   const navigate = useNavigate()
 
 

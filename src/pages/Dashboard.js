@@ -14,7 +14,7 @@ function Dashboard({ searchTerm }) {
 
   useEffect(() => {
     setDisplayedBooks(books);
-  }, [searchTerm, displayedBooks]);
+  }, [searchTerm, books]);
 
 
   if (isLoading) {

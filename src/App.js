@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -10,14 +11,20 @@ import Profile from './pages/Profile'
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
+
 
   return (
     <BrowserRouter>
-      {isAuthenticated && <Navbar />}
+      {isAuthenticated && <Navbar onSubmitSearch={handleSearch} />}
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} isLoading={isLoading} />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard searchTerm={searchTerm} />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
         <Route exact path="*" element={<NotFound />} />

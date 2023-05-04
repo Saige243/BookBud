@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,13 +18,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput'
 
-function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+function Navbar({ onSubmitSearch }) {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const { logout } = useAuth0();
   const { userMetadata } = useAuth()
   const { name, email, picture } = userMetadata
   const navigate = useNavigate()
+
 
   const pages = ['Library'];
   const settings = [`Hi, ${name}!`];
@@ -52,6 +54,11 @@ function Navbar() {
     handleCloseUserMenu()
     navigate('/profile')
   }
+
+  const submitSearchTerm = (searchTerm) => {
+    onSubmitSearch(searchTerm)
+  }
+
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'grey' }}>
@@ -146,6 +153,7 @@ function Navbar() {
               label="Search for a title or author"
               styles={{ backgroundColor: 'white', width: '100%' }}
               inputProps={{ endAdornment: <Button sx={{ borderRadius: '60px' }} type="submit"><SearchIcon color='primary' /></Button> }}
+              onSubmit={submitSearchTerm}
             />
           </Box>
 

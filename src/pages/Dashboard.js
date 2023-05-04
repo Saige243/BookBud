@@ -1,16 +1,20 @@
+import { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuth } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useGetBooks } from "../hooks/useGetBooks";
 
 
-function Dashboard() {
+function Dashboard({ searchTerm }) {
   const { isLoading } = useAuth0();
   const { userMetadata } = useAuth()
   const { name, email } = userMetadata
-  const { books } = useGetBooks()
+  const { books } = useGetBooks(searchTerm);
+  const [displayedBooks, setDisplayedBooks] = useState([]);
 
-  console.log(books)
+  useEffect(() => {
+    setDisplayedBooks(books);
+  }, [searchTerm, displayedBooks]);
 
 
   if (isLoading) {
@@ -25,6 +29,11 @@ function Dashboard() {
     <>
       <h2>Hi, {name}!</h2>
       <p>Email: {email}</p>
+      <ul>
+        {displayedBooks.map((book) => (
+          <li key={book.id}>{book.volumeInfo.title}</li>
+        ))}
+      </ul>
     </>
   )
 }

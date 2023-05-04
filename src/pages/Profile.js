@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { PrimaryButton } from '../components/Buttons';
+import { useAuth } from '../auth/Auth';
 
 export default function Profile() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const { userMetadata, editUserName } = useAuth()
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
   }
+
+  const handleNameChange = async () => {
+    await editUserName('saige cross')
+    console.log(userMetadata)
+  }
+
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -43,6 +49,7 @@ export default function Profile() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
             text='Submit'
+            onClick={handleNameChange}
           />
         </div>
       </form>

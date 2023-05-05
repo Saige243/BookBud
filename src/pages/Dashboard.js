@@ -26,7 +26,7 @@ function Dashboard({ searchTerm }) {
   }
 
   return (
-    <div className='pl-6 pr-6'>
+    <div className='px-6'>
       <h2>Hi, {name}!</h2>
       <p>Email: {email}</p>
       <div className='flex justify-center flex-row flex-wrap'>

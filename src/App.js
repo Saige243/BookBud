@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile'
+import BookPage from './pages/BookPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} isLoading={isLoading} />}>
           <Route path="/dashboard" element={<Dashboard searchTerm={searchTerm} />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/books/:bookId" element={<BookPage />} />
         </Route>
         <Route exact path="*" element={<NotFound />} />
       </Routes>

@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useAuth } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useGetBooks } from "../hooks/useGetBooks";
-
+import BookContainer from '../components/BookContainer';
 
 function Dashboard({ searchTerm }) {
   const { isLoading } = useAuth0();
@@ -26,15 +26,17 @@ function Dashboard({ searchTerm }) {
   }
 
   return (
-    <>
+    <div className='pl-6 pr-6'>
       <h2>Hi, {name}!</h2>
       <p>Email: {email}</p>
-      <ul>
+      <div className='flex justify-center flex-row flex-wrap'>
         {displayedBooks.map((book) => (
-          <li key={book.id}>{book.volumeInfo.title}</li>
+          <BookContainer
+            props={book}
+          />
         ))}
-      </ul>
-    </>
+      </div>
+    </div>
   )
 }
 

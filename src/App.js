@@ -14,6 +14,8 @@ function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   const [searchTerm, setSearchTerm] = useState('');
 
+  console.log('app search term:', searchTerm)
+
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
   };

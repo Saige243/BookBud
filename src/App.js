@@ -8,16 +8,17 @@ import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile'
 import BookPage from './pages/BookPage';
+import { useGetBooks } from './hooks/useGetBooks';
 
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   const [searchTerm, setSearchTerm] = useState('');
+  const { books } = useGetBooks(searchTerm);
 
-  console.log('app search term:', searchTerm)
-
-  const handleSearch = (searchTerm) => {
+  const handleSearch = (searchTerm, navigate) => {
     setSearchTerm(searchTerm);
+    console.log('app nav', navigate)
   };
 
   return (
@@ -26,9 +27,9 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} isLoading={isLoading} />}>
-          <Route path="/dashboard" element={<Dashboard searchTerm={searchTerm} />} />
+          <Route path="/dashboard" element={<Dashboard books={books} />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/books/:bookId" element={<BookPage />} />
+          <Route path="/books/:bookId" element={<BookPage navigate={handleSearch} />} />
         </Route>
         <Route exact path="*" element={<NotFound />} />
       </Routes>

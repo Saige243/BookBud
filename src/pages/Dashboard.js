@@ -2,19 +2,22 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuth } from "../auth/Auth";
 import CircularProgress from '@mui/material/CircularProgress';
-import { useGetBooks } from "../hooks/useGetBooks";
 import BookContainer from '../components/BookContainer';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function Dashboard({ searchTerm }) {
+
+function Dashboard({ books }) {
   const { isLoading } = useAuth0();
   const { userMetadata } = useAuth()
   const { name, email } = userMetadata
-  const { books } = useGetBooks(searchTerm);
   const [displayedBooks, setDisplayedBooks] = useState([]);
+  let location = useLocation();
+
+  console.log('dash location', location)
 
   useEffect(() => {
     setDisplayedBooks(books);
-  }, [searchTerm, books]);
+  }, [books]);
 
 
   if (isLoading) {
@@ -30,9 +33,10 @@ function Dashboard({ searchTerm }) {
       <h2>Hi, {name}!</h2>
       <p>Email: {email}</p>
       <div className='flex justify-center flex-row flex-wrap'>
-        {displayedBooks.map((book) => (
+        {displayedBooks.map((book, i) => (
           <BookContainer
             props={book}
+            key={i}
           />
         ))}
       </div>

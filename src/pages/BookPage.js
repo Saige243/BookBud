@@ -8,7 +8,6 @@ function BookPage() {
   const { bookId } = useParams();
   const { book, isLoading } = useGetBook(bookId)
   const [displayBook, setDisplayBook] = useState({});
-
   useEffect(() => {
     setDisplayBook(book);
   }, [bookId, book]);

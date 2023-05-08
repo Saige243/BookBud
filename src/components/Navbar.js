@@ -56,6 +56,7 @@ function Navbar({ onSubmitSearch }) {
 
   const submitSearchTerm = (searchTerm) => {
     onSubmitSearch(searchTerm)
+    navigate('/searchResults')
   }
 
 

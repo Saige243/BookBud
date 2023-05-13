@@ -1,11 +1,14 @@
+const dotenv = require("dotenv")
+dotenv.config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = 3001
 const colors = require('colors');
+const { mongo } = require('./config/config');
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://bookbud.lxq6zml.mongodb.net/myFirstDatabase";
+const uri = `mongodb+srv://${mongo.username}:${mongo.password}@bookbud.lxq6zml.mongodb.net/`;
 const client = new MongoClient(uri);
 
 const connectToDb = async () => {

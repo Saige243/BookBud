@@ -1,20 +1,84 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { PrimaryButton } from "../components/Buttons";
+import { useState } from 'react';
+import axios from 'axios';
+
 
 const Login = () => {
-  const { loginWithRedirect } = useAuth0();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
 
-  const getStarted = () => {
-    loginWithRedirect()
-  }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.get('http://localhost:3001/')
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen flex-col">
-      <h1>Welcome to BookBud!</h1>
-      <PrimaryButton
-        onClick={getStarted}
-        text="Get Started"
-      />
+    <div className="max-w-md mx-auto">
+      <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="username" className="block mb-2 font-medium">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            autoComplete="off"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="email" className="block mb-2 font-medium">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            autoComplete="off"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block mb-2 font-medium">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        >
+          Sign Up
+        </button>
+      </form>
     </div>
   );
 };

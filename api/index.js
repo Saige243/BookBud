@@ -6,6 +6,12 @@ const app = express()
 const port = 3001
 const colors = require('colors');
 const { mongo } = require('./config/config');
+const routes = require('./routes');
+
+app.use(cors())
+app.use('/', routes);
+app.use('/signup', routes);
+
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://${mongo.username}:${mongo.password}@bookbud.lxq6zml.mongodb.net/`;
@@ -14,20 +20,14 @@ const client = new MongoClient(uri);
 const connectToDb = async () => {
   try {
     await client.connect();
+    console.log(colors.blue("Connected to MongoDB"));
 
-    console.log(colors.blue("Connected to MongoDB"))
+    app.listen(port, () => {
+      console.log(colors.green(`Bookbud is listening on port ${port}`));
+    });
   } catch (e) {
     console.error(colors.red(e));
   }
-}
+};
 
 connectToDb()
-app.use(cors())
-
-app.get('/', (req, res) => {
-  res.send('Bookbud active')
-})
-
-app.listen(port, () => {
-  console.log(colors.green(`Bookbud is listening on port ${port}`))
-})

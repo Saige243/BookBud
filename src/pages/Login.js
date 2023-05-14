@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import axios from 'axios';
+import useAuth from '../auth/Auth';
+import axios from 'axios'
 
 
 const Login = () => {
+  const { signup } = useAuth()
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
   });
@@ -18,33 +19,19 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.get('http://localhost:3001/')
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    // try {
+    //   const response = await axios.get('http://localhost:3001/');
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error('Error on GET request:', error.response.data);
+    // }
+    signup(formData.email, formData.password)
   };
 
   return (
     <div className="max-w-md mx-auto">
       <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="username" className="block mb-2 font-medium">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            autoComplete="off"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
         <div className="mb-4">
           <label htmlFor="email" className="block mb-2 font-medium">
             Email

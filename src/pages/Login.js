@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useAuth from '../auth/Auth';
-import axios from 'axios'
 
 
 const Login = () => {
@@ -19,12 +18,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // try {
-    //   const response = await axios.get('http://localhost:3001/');
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error('Error on GET request:', error.response.data);
-    // }
     signup(formData.email, formData.password)
   };
 

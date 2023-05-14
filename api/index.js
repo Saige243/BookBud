@@ -7,7 +7,7 @@ const port = 3001
 const colors = require('colors');
 const { mongo } = require('./config/config');
 const routes = require('./routes');
-const { default: mongoose } = require("mongoose")
+const mongoose = require("mongoose")
 
 app.use(express.json());
 app.use(cors())

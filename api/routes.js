@@ -17,13 +17,10 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-
     const isPasswordValid = await user.comparePassword(password);
-
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -40,7 +37,7 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();

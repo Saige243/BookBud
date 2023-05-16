@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useAuth from '../auth/Auth';
 
-
 const Login = () => {
-  const { signup } = useAuth()
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,13 +17,13 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    signup(formData.email, formData.password)
+    e.preventDefault();
+    login(formData.email, formData.password);
   };
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
+      <h2 className="text-3xl font-bold text-center mb-4">Log In</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="block mb-2 font-medium">
@@ -56,9 +56,15 @@ const Login = () => {
           type="submit"
           className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
         >
-          Sign Up
+          Log In
         </button>
       </form>
+      <p className="mt-4 text-center">
+        Don't have an account?{' '}
+        <Link to="/signup" className="text-blue-500">
+          Sign Up
+        </Link>
+      </p>
     </div>
   );
 };

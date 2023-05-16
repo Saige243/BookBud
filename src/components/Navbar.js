@@ -14,21 +14,18 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
 import useAuth from '../auth/Auth';
-import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput'
 
 function Navbar({ onSubmitSearch }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { logout } = useAuth0();
-  const { userMetadata } = useAuth()
-  const { name, picture } = userMetadata
+  const { signout } = useAuth()
   const navigate = useNavigate()
 
 
   const pages = ['Library'];
-  const settings = [`Hi, ${name}!`];
+  const settings = [`Hi, user!`];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,7 +43,8 @@ function Navbar({ onSubmitSearch }) {
   };
 
   const handleLogout = () => {
-    logout()
+    signout()
+    console.log(localStorage)
   }
 
   const handleProfileClick = () => {
@@ -160,7 +158,7 @@ function Navbar({ onSubmitSearch }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Profile Image" src={picture} />
+                <Avatar alt="Profile Image" />
               </IconButton>
             </Tooltip>
             <Menu

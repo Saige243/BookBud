@@ -1,29 +1,29 @@
-import { useState, useContext } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, redirect } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import SearchResults from './pages/SearchResults';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
-import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile'
 import BookPage from './pages/BookPage';
 import { useGetBooks } from './hooks/useGetBooks';
-import { AuthContext } from './auth/AuthContext';
 import Signup from './pages/Signup'
+import useAuth from './auth/useAuth';
+import { AuthContext } from './auth/AuthContext';
 
 function App() {
-  // const { isAuthenticated, isLoading } = useAuth0();
-  const { isAuthenticated, isLoading } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState('');
   const { books } = useGetBooks(searchTerm);
+  const [jwtToken, setJwtToken] = useState(localStorage.getItem('jwtToken'));
 
   const handleSearch = async (searchTerm) => {
     setSearchTerm(searchTerm);
   };
 
-  console.log('is auth?', isAuthenticated)
+  console.log('AUTH?:', isAuthenticated)
 
   return (
     <BrowserRouter>
@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} isLoading={isLoading} />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/dashboard" element={<Dashboard books={books} />} />
           <Route path="/searchResults" element={<SearchResults books={books} searchTerm={searchTerm} />} />
           <Route path="/profile" element={<Profile />} />

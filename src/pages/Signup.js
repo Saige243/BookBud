@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useAuth from '../auth/Auth';
+import { useAuth } from '../auth/useAuth';
 import { Link } from 'react-router-dom';
 
 

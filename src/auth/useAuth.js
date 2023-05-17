@@ -34,7 +34,6 @@ const useAuth = () => {
 
       console.log(response.data);
     } catch (error) {
-      // console.error('Error on signup:', error.response.data);
       if (error.response.data.startsWith('E11000')) return onError('That email is taken.');
     }
   };
@@ -43,11 +42,10 @@ const useAuth = () => {
     localStorage.removeItem('jwtToken');
   };
 
-
   return {
     signup,
     signout,
-    login
+    login,
   };
 };
 

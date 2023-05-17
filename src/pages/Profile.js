@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PrimaryButton } from '../components/Buttons';
-import useAuth from '../auth/Auth';
+import { useAuth } from '../auth/useAuth';
 
 export default function Profile() {
   const [firstName, setFirstName] = useState('');

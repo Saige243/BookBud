@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import useAuth from '../auth/Auth';
+import { useAuth } from '../auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,9 +18,10 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(formData.email, formData.password);
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await login(formData.email, formData.password)
+    navigate('/dashboard')
   };
 
   return (

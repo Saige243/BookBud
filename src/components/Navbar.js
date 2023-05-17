@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BookIcon from '@mui/icons-material/Book';
-import useAuth from '../auth/Auth';
+import { useAuth } from '../auth/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput'
 

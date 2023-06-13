@@ -1,26 +1,24 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import useAuth from "../auth/useAuth";
-import CircularProgress from '@mui/material/CircularProgress';
-
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function Dashboard({ books }) {
-  // const { isLoading } = useAuth0();
-  // const { userMetadata } = useAuth()
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  console.log('user:', user)
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-  //       <CircularProgress />
-  //     </div>
-  //   )
-  // }
+  useEffect(() => {
+    if (user === null) {
+      alert('You must be logged in to view this page')
+      navigate('/')
+    }
+  }, [user])
 
   return (
-    <div className='px-6'>
-      <h2>Hi, User!</h2>
+    <div className="px-6">
+      <h2>Hi, user</h2>
       <p>Email: </p>
-      <div className='flex justify-center flex-row flex-wrap'>
-      </div>
+      <div className="flex justify-center flex-row flex-wrap"></div>
     </div>
   )
 }

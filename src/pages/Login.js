@@ -1,28 +1,34 @@
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import useAuth from '../auth/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import useAuth from '../auth/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate()
+  const { login } = useAuth()
+  let navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-  });
+  })
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await login(formData.email, formData.password)
-    navigate('/dashboard')
-  };
+    try {
+      await login(formData.email, formData.password)
+      navigate('/dashboard')
+    } catch (error) {
+      console.error('Error on login:', error)
+      throw new Error('Login failed')
+    }
+  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -69,7 +75,7 @@ const Login = () => {
         </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -29,18 +29,18 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route element={<ProtectedRoute isAuthenticated={user} />}>
-          <Route path="/dashboard" element={<Dashboard books={books} />} />
-          <Route
-            path="/searchResults"
-            element={<SearchResults books={books} searchTerm={searchTerm} />}
-          />
-          <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/books/:bookId"
-            element={<BookPage navigate={handleSearch} />}
-          />
-        </Route>
+        {/* <Route element={<ProtectedRoute isAuthenticated={user} />}> */}
+        <Route path="/dashboard" element={<Dashboard books={books} />} />
+        <Route
+          path="/searchResults"
+          element={<SearchResults books={books} searchTerm={searchTerm} />}
+        />
+        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/books/:bookId"
+          element={<BookPage navigate={handleSearch} />}
+        />
+        {/* </Route> */}
         <Route exact path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

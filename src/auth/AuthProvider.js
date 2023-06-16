@@ -1,14 +1,9 @@
 import useAuth from './useAuth'
-import { useState, useEffect } from 'react'
 import AuthContext from './AuthContext'
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
   const { getUser } = useAuth()
-
-  useEffect(() => {
-    setUser(getUser())
-  }, [])
+  const user = getUser()
 
   console.log('PROVIDER CURRENT USER', user)
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import SearchResults from './pages/SearchResults'
@@ -10,10 +10,10 @@ import Profile from './pages/Profile'
 import BookPage from './pages/BookPage'
 import { useGetBooks } from './hooks/useGetBooks'
 import Signup from './pages/Signup'
-import { useAuthContext } from './hooks/useAuthContext'
+import AuthContext from './auth/AuthContext'
 
 function App() {
-  const { user } = useAuthContext()
+  const { user } = useContext(AuthContext)
   const [searchTerm, setSearchTerm] = useState('')
   const { books } = useGetBooks(searchTerm)
 
@@ -29,18 +29,18 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        {/* <Route element={<ProtectedRoute isAuthenticated={user} />}> */}
-        <Route path="/dashboard" element={<Dashboard books={books} />} />
-        <Route
-          path="/searchResults"
-          element={<SearchResults books={books} searchTerm={searchTerm} />}
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route
-          path="/books/:bookId"
-          element={<BookPage navigate={handleSearch} />}
-        />
-        {/* </Route> */}
+        <Route element={<ProtectedRoute user={user} />}>
+          <Route path="/dashboard" element={<Dashboard books={books} />} />
+          <Route
+            path="/searchResults"
+            element={<SearchResults books={books} searchTerm={searchTerm} />}
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/books/:bookId"
+            element={<BookPage navigate={handleSearch} />}
+          />
+        </Route>
         <Route exact path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

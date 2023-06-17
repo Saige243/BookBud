@@ -1,10 +1,23 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useContext, useState, useEffect } from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
+import AuthContext from '../auth/AuthContext'
 
-const ProtectedRoute = ({ isAuthenticated, isLoading, children }) => {
-  if (!isAuthenticated && !isLoading) {
-    return <Navigate to="/" replace />;
+const ProtectedRoute = ({ children }) => {
+  const { currentUser } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [currentUser])
+
+  if (isLoading) {
+    return <div>Loading...</div>
   }
-  return children ? children : <Outlet />;
-};
+
+  if (!currentUser) {
+    return <Navigate to="/" replace />
+  }
+  return children ? children : <Outlet />
+}
 
 export default ProtectedRoute

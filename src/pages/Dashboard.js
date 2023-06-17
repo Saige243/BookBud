@@ -3,9 +3,9 @@ import { useContext, useEffect } from 'react'
 import AuthContext from '../auth/AuthContext'
 
 function Dashboard({ books }) {
-  const { user } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
-  console.log('DASH USER:', user)
+  console.log('DASH USER:', currentUser)
 
   // useEffect(() => {
   //   if (user === null) {
@@ -16,7 +16,7 @@ function Dashboard({ books }) {
 
   return (
     <div className="px-6">
-      <h2>Hi, user</h2>
+      <h2>Hi, {currentUser ? currentUser.email : ''}!</h2>
       <p>Email: </p>
       <div className="flex justify-center flex-row flex-wrap"></div>
     </div>

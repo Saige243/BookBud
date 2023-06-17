@@ -1,7 +1,11 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
+import AuthContext from './AuthContext'
+import { useContext } from 'react'
 
 const useAuth = () => {
+  const { setCurrentUser } = useContext(AuthContext)
+
   const getUser = () => {
     const jwtToken = localStorage.getItem('jwtToken')
     if (jwtToken) {
@@ -25,6 +29,8 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
+      const decodedToken = jwtDecode(jwtToken)
+      setCurrentUser(decodedToken)
       console.log(response.data)
     } catch (error) {
       console.error('Error on login:', error)

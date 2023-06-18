@@ -44,8 +44,10 @@ router.post('/signup', async (req, res) => {
       password: hashedPassword,
     })
     await newUser.save()
-    const token = jwt.sign({ firstName, lastName, email, password }, JWT_SECRET)
-
+    const token = jwt.sign(
+      { userId: newUser._id, firstName, lastName, email },
+      JWT_SECRET
+    )
     res.status(201).json({ message: 'User created successfully', token })
   } catch (error) {
     console.error('API:', error.message)

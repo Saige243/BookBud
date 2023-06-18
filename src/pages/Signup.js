@@ -1,32 +1,74 @@
-import { useState } from 'react';
-import useAuth from '../auth/useAuth';
-import { Link } from 'react-router-dom';
-
+import { useState } from 'react'
+import useAuth from '../auth/useAuth'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
   const { signup } = useAuth()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
-  });
+  })
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    signup(formData.email, formData.password)
-  };
+    try {
+      await signup(
+        formData.firstName,
+        formData.lastName,
+        formData.email,
+        formData.password
+      )
+      navigate('/dashboard')
+    } catch (error) {
+      console.error('Error on login:', error)
+      throw new Error('Login failed')
+    }
+  }
 
   return (
     <div className="max-w-md mx-auto">
       <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="mb-2">
+          <label htmlFor="email" className="block mb-2 font-medium">
+            First Name
+          </label>
+          <input
+            type="firstName"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            autoComplete="off"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="email" className="block mb-2 font-medium">
+            Last Name
+          </label>
+          <input
+            type="lastName"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            autoComplete="off"
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-2">
           <label htmlFor="email" className="block mb-2 font-medium">
             Email
           </label>
@@ -67,7 +109,7 @@ const Signup = () => {
         </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

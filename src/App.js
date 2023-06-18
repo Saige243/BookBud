@@ -31,8 +31,6 @@ function App() {
     setSearchTerm(searchTerm)
   }
 
-  console.log('Authenticated?:', currentUser)
-
   return (
     <BrowserRouter>
       {currentUser && <Navbar onSubmitSearch={handleSearch} />}

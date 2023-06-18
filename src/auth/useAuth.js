@@ -31,7 +31,6 @@ const useAuth = () => {
       localStorage.setItem('jwtToken', jwtToken)
       const decodedToken = jwtDecode(jwtToken)
       setCurrentUser(decodedToken)
-      console.log(response.data)
     } catch (error) {
       console.error('Error on login:', error)
       throw new Error('Login failed')
@@ -46,7 +45,8 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
-      console.log(response.data)
+      const decodedToken = jwtDecode(jwtToken)
+      setCurrentUser(decodedToken)
     } catch (error) {
       if (error.response.data.startsWith('E11000'))
         return onError('That email is taken.')
@@ -55,6 +55,7 @@ const useAuth = () => {
 
   const signout = () => {
     localStorage.removeItem('jwtToken')
+    setCurrentUser(null)
   }
 
   return {

@@ -6,8 +6,8 @@ function Dashboard({ books }) {
 
   return (
     <div className="px-6">
-      <h2>Hi, {currentUser ? currentUser.email : ''}!</h2>
-      <p>Email: </p>
+      <h2>Hi, !</h2>
+      <p>Email: {currentUser ? currentUser.email : ''}</p>
       <div className="flex justify-center flex-row flex-wrap"></div>
     </div>
   )

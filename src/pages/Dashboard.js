@@ -4,7 +4,7 @@ import AuthContext from '../auth/AuthContext'
 function Dashboard({ books }) {
   const { currentUser } = useContext(AuthContext)
 
-  console.log('dash currentUser:', currentUser)
+  console.log('DASH CURRENTUSER:', currentUser)
 
   return (
     <div className="px-6">

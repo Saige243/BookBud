@@ -16,15 +16,20 @@ import useAuth from './auth/useAuth'
 function App() {
   const { currentUser, setCurrentUser } = useContext(AuthContext)
   const { getUser } = useAuth()
-  const user = getUser()
   const [searchTerm, setSearchTerm] = useState('')
   const { books } = useGetBooks(searchTerm)
+  // setCurrentUser(currentUser)
 
   useEffect(() => {
-    setCurrentUser(user)
-    if (user === null) {
-      alert('You must be logged in to view this page')
+    const fetchUser = async () => {
+      try {
+        await getUser()
+      } catch (error) {
+        console.error('Error fetching user:', error)
+      }
     }
+
+    fetchUser()
   }, [])
 
   const handleSearch = async (searchTerm) => {
@@ -33,22 +38,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      {currentUser && <Navbar onSubmitSearch={handleSearch} />}
+      {/* {currentUser && <Navbar onSubmitSearch={handleSearch} />} */}
+      <Navbar onSubmitSearch={handleSearch} />
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard books={books} />} />
-          <Route
-            path="/searchResults"
-            element={<SearchResults books={books} searchTerm={searchTerm} />}
-          />
-          <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/books/:bookId"
-            element={<BookPage navigate={handleSearch} />}
-          />
-        </Route>
+        {/* <Route element={<ProtectedRoute />}> */}
+        <Route path="/dashboard" element={<Dashboard books={books} />} />
+        <Route
+          path="/searchResults"
+          element={<SearchResults books={books} searchTerm={searchTerm} />}
+        />
+        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/books/:bookId"
+          element={<BookPage navigate={handleSearch} />}
+        />
+        {/* </Route> */}
         <Route exact path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

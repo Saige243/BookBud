@@ -6,14 +6,21 @@ import { useContext } from 'react'
 const useAuth = () => {
   const { setCurrentUser } = useContext(AuthContext)
 
-  const getUser = () => {
+  const getUser = async () => {
     const jwtToken = localStorage.getItem('jwtToken')
     if (jwtToken) {
-      const decodedJwtToken = jwtDecode(jwtToken)
-      return decodedJwtToken
+      const decodedToken = jwtDecode(jwtToken)
+      const userId = decodedToken.userId
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/users/${userId}`
+        )
+        setCurrentUser(response.data.user)
+      } catch (error) {
+        console.error('Error on getUser:', error)
+      }
     } else {
-      console.log('no token found')
-      return null
+      setCurrentUser(null)
     }
   }
 
@@ -29,8 +36,9 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
-      const decodedToken = jwtDecode(jwtToken)
-      setCurrentUser(decodedToken)
+      // const decodedToken = jwtDecode(jwtToken)
+      // setCurrentUser(decodedToken)
+      await getUser()
     } catch (error) {
       console.error('Error on login:', error)
       throw new Error('Login failed')
@@ -47,8 +55,9 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
-      const decodedToken = jwtDecode(jwtToken)
-      setCurrentUser(decodedToken)
+      // const decodedToken = jwtDecode(jwtToken)
+      // setCurrentUser(decodedToken)
+      await getUser()
     } catch (error) {
       if (error.response.data.startsWith('E11000'))
         return onError('That email is taken.')

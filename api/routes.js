@@ -6,8 +6,21 @@ const bcrypt = require('bcrypt')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
-router.get('/', (req, res) => {
-  res.send('GET IS WORKING!')
+router.get('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    res.status(200).json({ user })
+  } catch (error) {
+    console.error('API:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
 })
 
 router.post('/login', async (req, res) => {
@@ -44,10 +57,7 @@ router.post('/signup', async (req, res) => {
       password: hashedPassword,
     })
     await newUser.save()
-    const token = jwt.sign(
-      { userId: newUser._id, firstName, lastName, email },
-      JWT_SECRET
-    )
+    const token = jwt.sign({ userId: newUser._id }, JWT_SECRET)
     res.status(201).json({ message: 'User created successfully', token })
   } catch (error) {
     console.error('API:', error.message)

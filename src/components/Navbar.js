@@ -1,50 +1,49 @@
-import { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import BookIcon from '@mui/icons-material/Book';
-import useAuth from '../auth/useAuth';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import SearchIcon from '@mui/icons-material/Search'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import BookIcon from '@mui/icons-material/Book'
+import useAuth from '../auth/useAuth'
+import { Link, useNavigate } from 'react-router-dom'
 import SearchInput from './SearchInput'
 
 function Navbar({ onSubmitSearch }) {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
   const { signout } = useAuth()
   const navigate = useNavigate()
 
-
-  const pages = ['Library'];
-  const settings = [`Hi, user!`];
+  const pages = ['Library']
+  const settings = [`Hi, user!`]
 
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    setAnchorElNav(event.currentTarget)
+  }
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    setAnchorElNav(null)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   const handleLogout = () => {
     signout()
-    console.log(localStorage)
+    navigate('/')
   }
 
   const handleProfileClick = () => {
@@ -56,7 +55,6 @@ function Navbar({ onSubmitSearch }) {
     onSubmitSearch(searchTerm)
     navigate('/searchResults')
   }
-
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'grey' }}>
@@ -150,7 +148,13 @@ function Navbar({ onSubmitSearch }) {
               variant="filled"
               label="Search for a title or author"
               styles={{ backgroundColor: 'white', width: '100%' }}
-              inputProps={{ endAdornment: <Button sx={{ borderRadius: '60px' }} type="submit"><SearchIcon color='primary' /></Button> }}
+              inputProps={{
+                endAdornment: (
+                  <Button sx={{ borderRadius: '60px' }} type="submit">
+                    <SearchIcon color="primary" />
+                  </Button>
+                ),
+              }}
               onSubmit={submitSearchTerm}
             />
           </Box>
@@ -195,6 +199,6 @@ function Navbar({ onSubmitSearch }) {
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  )
 }
-export default Navbar;
+export default Navbar

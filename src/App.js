@@ -14,7 +14,7 @@ import AuthContext from './auth/AuthContext'
 import useAuth from './auth/useAuth'
 
 function App() {
-  const { currentUser, setCurrentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const { getUser } = useAuth()
   const [searchTerm, setSearchTerm] = useState('')
   const { books } = useGetBooks(searchTerm)
@@ -36,25 +36,27 @@ function App() {
     setSearchTerm(searchTerm)
   }
 
+  console.log('APP CURRENT USER', currentUser)
+
   return (
     <BrowserRouter>
-      {/* {currentUser && <Navbar onSubmitSearch={handleSearch} />} */}
-      <Navbar onSubmitSearch={handleSearch} />
+      {currentUser && <Navbar onSubmitSearch={handleSearch} />}
+      {/* <Navbar onSubmitSearch={handleSearch} /> */}
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-        {/* <Route element={<ProtectedRoute />}> */}
-        <Route path="/dashboard" element={<Dashboard books={books} />} />
-        <Route
-          path="/searchResults"
-          element={<SearchResults books={books} searchTerm={searchTerm} />}
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route
-          path="/books/:bookId"
-          element={<BookPage navigate={handleSearch} />}
-        />
-        {/* </Route> */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard books={books} />} />
+          <Route
+            path="/searchResults"
+            element={<SearchResults books={books} searchTerm={searchTerm} />}
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/books/:bookId"
+            element={<BookPage navigate={handleSearch} />}
+          />
+        </Route>
         <Route exact path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

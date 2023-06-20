@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import AuthContext from '../auth/AuthContext'
 
 const ProtectedRoute = ({ children }) => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -11,12 +11,12 @@ const ProtectedRoute = ({ children }) => {
   }, [currentUser])
 
   console.log('PROTECTED ROUTE CURRENT USER', currentUser)
-
   if (isLoading) {
     return <div>Loading...</div>
   }
 
-  if (!currentUser || !currentUser.id) {
+  if (currentUser === null) {
+    console.log('NO USER:', currentUser)
     return <Navigate to="/" replace />
   }
 

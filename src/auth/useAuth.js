@@ -4,7 +4,7 @@ import AuthContext from './AuthContext'
 import { useContext } from 'react'
 
 const useAuth = () => {
-  const { updateCurrentUser } = useContext(AuthContext)
+  const { setCurrentUser } = useContext(AuthContext)
 
   const getUser = async () => {
     const jwtToken = localStorage.getItem('jwtToken')
@@ -15,12 +15,12 @@ const useAuth = () => {
         const response = await axios.get(
           `http://localhost:3001/users/${userId}`
         )
-        updateCurrentUser(response.data.user)
+        setCurrentUser(response.data.user)
       } catch (error) {
         console.error('Error on getUser:', error)
       }
     } else {
-      updateCurrentUser(null)
+      setCurrentUser(null)
     }
   }
 
@@ -66,7 +66,7 @@ const useAuth = () => {
 
   const signout = () => {
     localStorage.removeItem('jwtToken')
-    updateCurrentUser(null)
+    setCurrentUser(null)
   }
 
   return {

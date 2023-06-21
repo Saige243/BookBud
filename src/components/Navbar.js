@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -16,15 +16,16 @@ import BookIcon from '@mui/icons-material/Book'
 import useAuth from '../auth/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 import SearchInput from './SearchInput'
+import AuthContext from '../auth/AuthContext'
 
 function Navbar({ onSubmitSearch }) {
+  const { currentUser } = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
   const { signout } = useAuth()
   const navigate = useNavigate()
 
   const pages = ['Library']
-  const settings = [`Hi, user!`]
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -181,14 +182,16 @@ function Navbar({ onSubmitSearch }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem>
+                <Typography textAlign="center">
+                  <strong>
+                    {currentUser.firstName + ' ' + currentUser.lastName}
+                  </strong>
+                </Typography>
+              </MenuItem>
               <MenuItem onClick={handleProfileClick}>
                 {/* <Link to='/profile'> */}
-                <Typography textAlign="center">Profile</Typography>
+                <Typography textAlign="center">Edit Profile</Typography>
                 {/* </Link> */}
               </MenuItem>
               <MenuItem onClick={handleLogout}>

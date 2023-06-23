@@ -10,6 +10,7 @@ import BookPage from './pages/BookPage'
 import { useGetBooks } from './hooks/useGetBooks'
 import Signup from './pages/Signup'
 import AuthContext from './auth/AuthContext'
+import SavedBooks from './pages/SavedBooks'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
@@ -42,7 +43,14 @@ function App() {
             )
           }
         />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/savedBooks"
+          element={currentUser ? <SavedBooks /> : <Login />}
+        />
+        <Route
+          path="/profile"
+          element={currentUser ? <Profile /> : <Login />}
+        />
         <Route
           path="/books/:bookId"
           element={

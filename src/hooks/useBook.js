@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
+
 const useBook = () => {
   const useGetBook = (id) => {
     const [book, setBook] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
 
     useEffect(() => {
       if (id) {
@@ -17,10 +18,40 @@ const useBook = () => {
           })
         setIsLoading(false)
       }
-    }, [id, apiKey])
+    }, [id])
 
     return {
       book,
+      isLoading,
+    }
+  }
+
+  const useGetSavedBooks = ({ ids }) => {
+    const [savedBooks, setSavedBooks] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+      if (ids && ids.length > 0) {
+        setIsLoading(true)
+        Promise.all(
+          ids.map((id) =>
+            axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          )
+        )
+          .then((responses) => {
+            const booksData = responses.map((response) => response.data)
+            setSavedBooks(booksData)
+            setIsLoading(false)
+          })
+          .catch((error) => {
+            console.error('Error retrieving saved books:', error)
+            setIsLoading(false)
+          })
+      }
+    }, [ids])
+
+    return {
+      savedBooks,
       isLoading,
     }
   }
@@ -40,6 +71,7 @@ const useBook = () => {
 
   return {
     useGetBook,
+    useGetSavedBooks,
     saveBook,
   }
 }

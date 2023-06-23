@@ -17,6 +17,7 @@ import useAuth from '../auth/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 import SearchInput from './SearchInput'
 import AuthContext from '../auth/AuthContext'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 
 function Navbar({ onSubmitSearch }) {
   const { currentUser } = useContext(AuthContext)
@@ -24,8 +25,6 @@ function Navbar({ onSubmitSearch }) {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const { signout } = useAuth()
   const navigate = useNavigate()
-
-  const pages = ['Library']
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -109,11 +108,13 @@ function Navbar({ onSubmitSearch }) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {/* <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link to="/dashboard">
+                    <FavoriteIcon />
+                  </Link>
+                </Typography>
+              </MenuItem> */}
             </Menu>
           </Box>
           <BookIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -136,15 +137,14 @@ function Navbar({ onSubmitSearch }) {
             BookBud
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              <Link to="/savedBooks">
+                <FavoriteIcon />
+              </Link>
+            </Button>
             <SearchInput
               variant="filled"
               label="Search for a title or author"

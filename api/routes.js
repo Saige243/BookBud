@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
+// AUTH ROUTES
+
 router.get('/users/:userId', async (req, res) => {
   try {
     const userId = req.params.userId
@@ -62,6 +64,30 @@ router.post('/signup', async (req, res) => {
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json(error.message)
+  }
+})
+
+// BOOK ROUTES
+
+//save book route
+router.post('/books', async (req, res) => {
+  try {
+    const { userId, bookId } = req.body
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    user.savedBooks.push({ bookId: bookId })
+
+    await user.save()
+
+    res.status(200).json({ message: 'Book saved successfully' })
+  } catch (error) {
+    console.error('API:', error.message)
+    res.status(500).json({ message: 'Server error' })
   }
 })
 

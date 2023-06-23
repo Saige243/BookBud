@@ -19,6 +19,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  savedBooks: [
+    {
+      type: Array,
+      required: false,
+      ref: 'Book',
+    },
+  ],
 })
 
 // Compare the provided password with the stored password

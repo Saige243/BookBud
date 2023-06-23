@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useGetBook } from '../hooks/useGetBook'
-import { useParams } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
-import BookPageContainer from '../components/BookPageContainer';
+import useBook from '../hooks/useBook'
+import { useParams } from 'react-router-dom'
+import CircularProgress from '@mui/material/CircularProgress'
+import BookPageContainer from '../components/BookPageContainer'
 
 function BookPage() {
-  const { bookId } = useParams();
+  const { bookId } = useParams()
+  const { useGetBook } = useBook()
   const { book, isLoading } = useGetBook(bookId)
-  const [displayBook, setDisplayBook] = useState({});
+  const [displayBook, setDisplayBook] = useState({})
   useEffect(() => {
-    setDisplayBook(book);
-  }, [bookId, book]);
+    setDisplayBook(book)
+  }, [bookId, book])
 
   if (isLoading) {
     return (
@@ -21,7 +22,7 @@ function BookPage() {
   }
 
   return (
-    <div className='px-12 pt-12'>
+    <div className="px-12 pt-12">
       <BookPageContainer props={displayBook} />
     </div>
   )

@@ -20,7 +20,7 @@ function App() {
     setSearchTerm(searchTerm)
   }
 
-  console.log('APP CURRENT USER', currentUser)
+  // console.log(currentUser ? 'APP CURRENT USER', currentUser._id : 'NO USER')
 
   return (
     <BrowserRouter>

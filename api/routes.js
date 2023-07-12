@@ -67,6 +67,24 @@ router.post('/signup', async (req, res) => {
   }
 })
 
+router.patch('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId
+    const { firstName, lastName } = req.body
+
+    const user = await User.findById(userId)
+
+    user.firstName = firstName
+    user.lastName = lastName
+    await user.save()
+
+    res.status(200).json({ message: 'User updated successfully' })
+  } catch (error) {
+    console.error('Error updating user:', error)
+    res.status(500).json({ message: 'Failed to update user' })
+  }
+})
+
 // BOOK ROUTES
 
 //save book route

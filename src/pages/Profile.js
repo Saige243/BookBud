@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
-import { PrimaryButton } from '../components/Buttons';
-import useAuth from '../auth/useAuth';
+import React, { useState } from 'react'
+import { PrimaryButton } from '../components/Buttons'
+import useAuth from '../auth/useAuth'
+import { useContext } from 'react'
+import AuthContext from '../auth/AuthContext'
 
 export default function Profile() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const { userMetadata, editUserName } = useAuth()
+  const { currentUser } = useContext(AuthContext)
+  const [firstName, setFirstName] = useState(currentUser.firstName)
+  const [lastName, setLastName] = useState(currentUser.lastName)
+  const { editUserName } = useAuth()
 
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
   }
 
   const handleNameChange = async () => {
-    await editUserName('saige cross')
-    console.log(userMetadata)
+    await editUserName(firstName, lastName)
   }
-
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="firstName">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="firstName"
+          >
             First Name:
           </label>
           <input
@@ -33,7 +40,10 @@ export default function Profile() {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="lastName">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="lastName"
+          >
             Last Name:
           </label>
           <input
@@ -48,12 +58,11 @@ export default function Profile() {
           <PrimaryButton
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
-            text='Submit'
+            text="Submit"
             onClick={handleNameChange}
           />
         </div>
       </form>
     </div>
-  );
+  )
 }
-

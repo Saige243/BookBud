@@ -36,8 +36,6 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
-      // const decodedToken = jwtDecode(jwtToken)
-      // setCurrentUser(decodedToken)
       await getUser()
     } catch (error) {
       onError('Invalid email or password.')
@@ -54,8 +52,6 @@ const useAuth = () => {
       })
       const jwtToken = response.data.token
       localStorage.setItem('jwtToken', jwtToken)
-      // const decodedToken = jwtDecode(jwtToken)
-      // setCurrentUser(decodedToken)
       await getUser()
     } catch (error) {
       if (error.response.data.startsWith('E11000'))
@@ -68,11 +64,34 @@ const useAuth = () => {
     setCurrentUser(null)
   }
 
+  const editUserName = async (firstName, lastName) => {
+    const jwtToken = localStorage.getItem('jwtToken')
+    if (jwtToken) {
+      const decodedToken = jwtDecode(jwtToken)
+      const userId = decodedToken.userId
+      try {
+        const response = await axios.patch(
+          `http://localhost:3001/users/${userId}`,
+          {
+            firstName,
+            lastName,
+          }
+        )
+        setCurrentUser(response.data.user)
+      } catch (error) {
+        console.error('Error on editUserName:', error)
+      }
+    } else {
+      setCurrentUser(null)
+    }
+  }
+
   return {
     getUser,
     signup,
     signout,
     login,
+    editUserName,
   }
 }
 

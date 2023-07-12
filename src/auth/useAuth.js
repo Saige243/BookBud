@@ -6,6 +6,10 @@ import { useContext } from 'react'
 const useAuth = () => {
   const { setCurrentUser } = useContext(AuthContext)
 
+  const onError = (message) => {
+    alert(message)
+  }
+
   const getUser = async () => {
     const jwtToken = localStorage.getItem('jwtToken')
     if (jwtToken) {
@@ -24,10 +28,6 @@ const useAuth = () => {
     }
   }
 
-  const onError = (message) => {
-    alert(message)
-  }
-
   const login = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3001/login', {
@@ -40,8 +40,7 @@ const useAuth = () => {
       // setCurrentUser(decodedToken)
       await getUser()
     } catch (error) {
-      console.error('Error on login:', error)
-      throw new Error('Login failed')
+      onError('Invalid email or password.')
     }
   }
 

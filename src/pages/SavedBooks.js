@@ -15,8 +15,6 @@ function SavedBooks() {
     ids: savedBooks,
   })
 
-  console.log('work?:', savedBooksData)
-
   return (
     <div className="px-6">
       {savedBooksData.length > 0 && !isLoading ? (

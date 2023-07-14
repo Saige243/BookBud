@@ -11,6 +11,7 @@ import { useGetBooks } from './hooks/useGetBooks'
 import Signup from './pages/Signup'
 import AuthContext from './auth/AuthContext'
 import SavedBooks from './pages/SavedBooks'
+import Landing from './pages/Landing'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
@@ -21,13 +22,12 @@ function App() {
     setSearchTerm(searchTerm)
   }
 
-  // console.log(currentUser ? 'APP CURRENT USER', currentUser._id : 'NO USER')
-
   return (
     <BrowserRouter>
       {currentUser && <Navbar onSubmitSearch={handleSearch} />}
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route
           path="/dashboard"

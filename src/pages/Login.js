@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useAuth from '../auth/useAuth'
 import { useNavigate } from 'react-router-dom'
+import { PrimaryButton } from '../components/buttons/buttons'
 
 const Login = () => {
   const { login } = useAuth()
@@ -31,49 +32,63 @@ const Login = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-4">Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="block mb-2 font-medium">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            autoComplete="off"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-          />
+    <div className="flex h-screen">
+      <div className="bg-BBblue hidden lg:block w-1/2"></div>
+
+      <div className="flex items-center justify-center w-full lg:w-1/2 bg-BBwhite">
+        <div className="w-full max-w-md px-8 py-8">
+          <div className="pb-4">
+            <h1 className="text-5xl font-unbounded mb-2 text-BBprimary1">
+              Sign In
+            </h1>
+            <h2 className="text-3xl font-unbounded mb-4 text-BBmagenta">
+              Welcome back!
+            </h2>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-8">
+              <div className="mb-4">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                />
+              </div>
+            </div>
+            <div className="pt-16">
+              <PrimaryButton
+                text="Log In"
+                type="submit"
+                className="bg-BBmagenta text-white w-full"
+              />
+            </div>
+          </form>
+          <div>
+            <p className="mt-4 text-center">
+              Don't have an account?{' '}
+              <Link to="/signup" className="text-blue-500">
+                Sign Up
+              </Link>
+            </p>
+          </div>
         </div>
-        <div className="mb-6">
-          <label htmlFor="password" className="block mb-2 font-medium">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-        >
-          Log In
-        </button>
-      </form>
-      <p className="mt-4 text-center">
-        Don't have an account?{' '}
-        <Link to="/signup" className="text-blue-500">
-          Sign Up
-        </Link>
-      </p>
+      </div>
     </div>
   )
 }

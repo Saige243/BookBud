@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import { PrimaryButton } from '../components/buttons/buttons'
 
 const Signup = () => {
   const { signup } = useAuth()
@@ -34,99 +35,109 @@ const Signup = () => {
       )
       navigate('/dashboard')
     } catch (error) {
-      console.error('Error on login:', error)
-      throw new Error('Login failed')
+      console.error('Error on signup:', error)
+      throw new Error('Signup failed')
     }
     setSubmitting(false)
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <div className="mb-2">
-            <label htmlFor="firstName" className="block mb-2 font-medium">
-              First Name
-            </label>
-            <Field
-              type="text"
-              id="firstName"
-              name="firstName"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-red-500"
-            />
+    <div className="flex h-screen">
+      <div className="hidden lg:block w-1/2 bg-BBgreen"></div>
+
+      <div className="flex items-center justify-center w-full lg:w-1/2 bg-BBwhite">
+        <div className="w-full max-w-md px-8 py-8">
+          <div className="pb-4">
+            <h1 className="text-4xl font-unbounded mb-2 text-BBprimary1">
+              Create Account
+            </h1>
+            <h2 className="text-2xl font-unbounded mb-4 text-BBmagenta">
+              Nice to meet you!
+            </h2>
           </div>
-          <div className="mb-2">
-            <label htmlFor="lastName" className="block mb-2 font-medium">
-              Last Name
-            </label>
-            <Field
-              type="text"
-              id="lastName"
-              name="lastName"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            />
-            <ErrorMessage
-              name="lastName"
-              component="div"
-              className="text-red-500"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="email" className="block mb-2 font-medium">
-              Email
-            </label>
-            <Field
-              type="email"
-              id="email"
-              name="email"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-500"
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block mb-2 font-medium">
-              Password
-            </label>
-            <Field
-              type="password"
-              id="password"
-              name="password"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className="text-red-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
-            Sign Up
-          </button>
-        </Form>
-      </Formik>
-      <p className="mt-4 text-center">
-        Already have an account?{' '}
-        <Link to="/" className="text-blue-500">
-          Log In
-        </Link>
-      </p>
+            <Form>
+              <div className="space-y-6">
+                <div>
+                  <Field
+                    placeholder="First Name"
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                  />
+                  <ErrorMessage
+                    name="firstName"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+                <div>
+                  <Field
+                    placeholder="Last Name"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                  />
+                  <ErrorMessage
+                    name="lastName"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+                <div>
+                  <Field
+                    placeholder="Email"
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+                <div>
+                  <Field
+                    placeholder="Password"
+                    type="password"
+                    id="password"
+                    name="password"
+                    className="w-full px-4 py-2 border-4 border-BBblue rounded-full focus:outline-none focus:border-opacity-70 placeholder-BBblue"
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+              </div>
+              <div className="pt-16">
+                <PrimaryButton
+                  text="Sign Up"
+                  type="submit"
+                  className="bg-BBmagenta text-white w-full"
+                />
+              </div>
+            </Form>
+          </Formik>
+          <div className="flex justify-center mt-4">
+            <p>
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-500">
+                Log In
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

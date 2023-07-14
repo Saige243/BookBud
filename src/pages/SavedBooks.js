@@ -16,7 +16,7 @@ function SavedBooks() {
   })
 
   return (
-    <div className="px-6">
+    <div className="h-screen bg-BBwhite px-6">
       {savedBooksData.length > 0 && !isLoading ? (
         <>
           <div className="flex">

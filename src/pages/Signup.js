@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { PrimaryButton } from '../components/buttons/buttons'
+import LoginLogo from '../components/LoginLogo'
+import signupCheering from '../assets/images/illustrations/signupCheering.svg'
 
 const Signup = () => {
   const { signup } = useAuth()
@@ -43,7 +45,15 @@ const Signup = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="hidden lg:block w-1/2 bg-BBgreen"></div>
+      <div className="hidden lg:block w-1/2 bg-BBgreen">
+        <LoginLogo />
+        <img
+          src={signupCheering}
+          alt="People cheering"
+          className="absolute"
+          style={{ height: 575 }}
+        />
+      </div>
 
       <div className="flex items-center justify-center w-full lg:w-1/2 bg-BBwhite">
         <div className="w-full max-w-md px-8 py-8">

@@ -5,7 +5,7 @@ function Dashboard({ books }) {
   const { currentUser } = useContext(AuthContext)
 
   return (
-    <div className="px-6">
+    <div className="bg-BBwhite px-6 h-screen">
       <h2>Hi, {currentUser ? currentUser.firstName : ''}!</h2>
       <p>Email: {currentUser ? currentUser.email : ''}</p>
       <div className="flex justify-center flex-row flex-wrap"></div>

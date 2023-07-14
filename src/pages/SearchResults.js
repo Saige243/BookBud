@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import BookContainer from '../components/BookContainer';
-
+import { useState, useEffect } from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import BookContainer from '../components/BookContainer'
 
 function SearchResults({ books, searchTerm }) {
-  const [displayedBooks, setDisplayedBooks] = useState([]);
+  const [displayedBooks, setDisplayedBooks] = useState([])
 
   useEffect(() => {
-    setDisplayedBooks(books);
-  }, [books]);
+    setDisplayedBooks(books)
+  }, [books])
 
   // if (isLoading) {
   //   return (
@@ -19,18 +18,15 @@ function SearchResults({ books, searchTerm }) {
   // }
 
   return (
-    <div className='px-6'>
+    <div className="px-6 bg-BBwhite">
       {displayedBooks.length > 0 ? (
         <>
-          <div className='flex'>
+          <div className="flex">
             <h2>Search results for: {searchTerm}</h2>
           </div>
-          <div className='flex justify-center flex-row flex-wrap'>
+          <div className="flex justify-center flex-row flex-wrap">
             {displayedBooks.map((book, i) => (
-              <BookContainer
-                props={book}
-                key={i}
-              />
+              <BookContainer props={book} key={i} />
             ))}
           </div>
         </>

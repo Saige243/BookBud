@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useAuth from '../auth/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { PrimaryButton } from '../components/buttons/buttons'
+import BBLogo from '../assets/images/BBLogo.svg'
 
 const Login = () => {
   const { login } = useAuth()
@@ -33,7 +34,11 @@ const Login = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="bg-BBblue hidden lg:block w-1/2"></div>
+      <div className="bg-BBblue hidden lg:block w-1/2">
+        <div className="p-8">
+          <img src={BBLogo} alt="Logo" className="h-47 w-47" />
+        </div>
+      </div>
 
       <div className="flex items-center justify-center w-full lg:w-1/2 bg-BBwhite">
         <div className="w-full max-w-md px-8 py-8">

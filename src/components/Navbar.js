@@ -1,207 +1,45 @@
-import { useState, useContext } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
-import SearchIcon from '@mui/icons-material/Search'
-import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
-import BookIcon from '@mui/icons-material/Book'
-import useAuth from '../auth/useAuth'
+import LoginLogo from '../components/LoginLogo'
 import { Link, useNavigate } from 'react-router-dom'
-import SearchInput from './SearchInput'
-import AuthContext from '../auth/AuthContext'
-import FavoriteIcon from '@mui/icons-material/Favorite'
+import magnifyingGlass from '../assets/images/icons/magnifyingGlass.svg'
 
 function Navbar({ onSubmitSearch }) {
-  const { currentUser } = useContext(AuthContext)
-  const [anchorElNav, setAnchorElNav] = useState(null)
-  const [anchorElUser, setAnchorElUser] = useState(null)
-  const { signout } = useAuth()
   const navigate = useNavigate()
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
-  }
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
-
-  const handleLogout = () => {
-    signout()
-    navigate('/')
-  }
-
-  const handleProfileClick = () => {
-    handleCloseUserMenu()
-    navigate('/profile')
-  }
 
   const submitSearchTerm = (searchTerm) => {
     onSubmitSearch(searchTerm)
     navigate('/searchResults')
   }
 
-  return (
-    <AppBar position="static" sx={{ backgroundColor: 'grey' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <BookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/dashboard">
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              BookBud
-            </Typography>
-          </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {/* <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link to="/dashboard">
-                    <FavoriteIcon />
-                  </Link>
-                </Typography>
-              </MenuItem> */}
-            </Menu>
-          </Box>
-          <BookIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            BookBud
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              <Link to="/savedBooks">
-                <FavoriteIcon />
-              </Link>
-            </Button>
-            <SearchInput
-              variant="filled"
-              label="Search for a title or author"
-              styles={{ backgroundColor: 'white', width: '100%' }}
-              inputProps={{
-                endAdornment: (
-                  <Button sx={{ borderRadius: '60px' }} type="submit">
-                    <SearchIcon color="primary" />
-                  </Button>
-                ),
-              }}
-              onSubmit={submitSearchTerm}
-            />
-          </Box>
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      submitSearchTerm(event.target.value)
+    }
+  }
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Profile Image" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem>
-                <Typography textAlign="center">
-                  <strong>
-                    {currentUser.firstName + ' ' + currentUser.lastName}
-                  </strong>
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleProfileClick}>
-                {/* <Link to='/profile'> */}
-                <Typography textAlign="center">Edit Profile</Typography>
-                {/* </Link> */}
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+  return (
+    <div className="bg-BBwhite flex items-center justify-between">
+      <div>
+        <Link to="/dashboard">
+          <LoginLogo />
+        </Link>
+      </div>
+      <div className="relative w-full sm:w-1/2 lg:w-2/4 pr-4">
+        <input
+          type="text"
+          placeholder="Search for a title or author"
+          onSubmit={submitSearchTerm}
+          onKeyDown={handleKeyPress}
+          autoComplete="off"
+          className="w-full bg-transparent p-3 pl-10 border shadow-inner shadow-grey rounded-full focus:outline-none placeholder-BBprimary1 focus:border-BBblue"
+        />
+        <img
+          src={magnifyingGlass}
+          alt="Search"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 pointer-events-none "
+        />
+      </div>
+    </div>
   )
 }
+
 export default Navbar

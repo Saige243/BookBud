@@ -21,8 +21,8 @@ function SearchResults({ books, searchTerm }) {
     <div className="px-6 bg-BBwhite">
       {displayedBooks.length > 0 ? (
         <>
-          <div className="flex">
-            <h2>Search results for: {searchTerm}</h2>
+          <div className="flex justify-end">
+            <h2 className="pr-6">Search results for: "{searchTerm}"</h2>
           </div>
           <div className="flex justify-center flex-row flex-wrap">
             {displayedBooks.map((book, i) => (

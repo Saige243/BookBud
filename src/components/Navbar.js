@@ -30,7 +30,7 @@ function Navbar({ onSubmitSearch }) {
           onSubmit={submitSearchTerm}
           onKeyDown={handleKeyPress}
           autoComplete="off"
-          className="w-full bg-transparent p-3 pl-10 border shadow-inner shadow-grey rounded-full focus:outline-none placeholder-BBprimary1 focus:border-BBblue"
+          className="w-full bg-transparent p-3 pl-10 shadow-inner shadow-grey rounded-full focus:outline-none placeholder-BBprimary1 focus:border-BBblue border-2"
         />
         <img
           src={magnifyingGlass}

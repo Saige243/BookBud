@@ -1,16 +1,20 @@
+import { useContext } from 'react'
+import AuthContext from '../auth/AuthContext'
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
+  const { currentUser } = useContext(AuthContext)
+
   return (
     <div className="flex flex-col bg-BBwhite text-white h-screen w-64 pt-8">
       <div className="flex items-center justify-center p-4">
         <div className="flex-shrink-0 rounded-full h-16 w-16 bg-gray-500"></div>
         <div className="flex flex-col">
           <span className="ml-3 font-unbounded text-md text-BBprimary1">
-            John Doe
+            {currentUser.firstName} {currentUser.lastName}
           </span>
           <span className="ml-3 font-montserrat text-xs text-BBprimary1">
-            Books Read
+            Books Read:
           </span>
         </div>
       </div>

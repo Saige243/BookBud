@@ -2,10 +2,9 @@ import React from 'react'
 import { PrimaryButton } from './Buttons'
 import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import InfoIcon from '@mui/icons-material/Info'
-import StarIcon from '@mui/icons-material/Star'
 import useBook from '../hooks/useBook'
 import AuthContext from '../auth/AuthContext'
+import Rating from '@mui/material/Rating'
 
 function BookContainer({ props }) {
   const { currentUser } = React.useContext(AuthContext)
@@ -13,45 +12,40 @@ function BookContainer({ props }) {
   const { saveBook } = useBook()
 
   return (
-    <div className="flex flex-row border-2 rounded-md w-96 m-2 justify-between">
-      <div className="w-24 mr-2">
-        <img
-          className="w-full h-full"
-          src={volumeInfo?.imageLinks?.thumbnail}
-          alt={volumeInfo.title}
-        />
-      </div>
+    <div className="flex flex-col rounded-md m-3 justify-between hover:opacity-80 pb-12">
       <Link to={`/books/${props.id}`}>
-        <div className="flex flex-col justify-start">
-          <h2 className="font-bold">{volumeInfo.title}</h2>
-          <h3>{volumeInfo.authors}</h3>
-          <div className="flex align-middle h-full">
-            <p>
-              {volumeInfo.averageRating ? (
-                <>
-                  <span className="flex items-center">
-                    Rating: {volumeInfo.averageRating}
-                    <StarIcon
-                      fontSize="small"
-                      className="w-4 h-4 ml-1 text-yellow-500"
-                    />
-                  </span>
-                </>
-              ) : (
-                'No ratings'
-              )}
-            </p>
+        <div className="flex flex-col justify-center w-36 mr-2">
+          <div className="w-full h-60">
+            <img
+              className="object-cover w-full h-full rounded-md"
+              src={volumeInfo?.imageLinks?.thumbnail}
+              alt={volumeInfo.title}
+            />
+          </div>
+          <h2 className="font-bold font-unbounded font-lg truncate pt-2">
+            {volumeInfo.title}
+          </h2>
+          <h3 className="font-montserrat truncate">{volumeInfo.authors}</h3>
+          <div className="flex place-items-center">
+            <Rating
+              name="read-only"
+              value={volumeInfo.averageRating}
+              size="small"
+              precision={0.5}
+              readOnly
+            />
+            <p className="pl-2 text-sm">{volumeInfo.averageRating}</p>
           </div>
         </div>
       </Link>
-      <div className="flex flex-col align-middle justify-center">
+      {/* <div className="flex flex-col align-middle justify-center">
         <PrimaryButton
           size="tiny"
           text={<FavoriteIcon />}
           onClick={() => saveBook(currentUser._id, { bookId: props.id })}
         />
         <PrimaryButton size="tiny" text={<InfoIcon />} />
-      </div>
+      </div> */}
     </div>
   )
 }

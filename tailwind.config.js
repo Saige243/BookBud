@@ -13,6 +13,7 @@ module.exports = {
       },
       fontFamily: {
         unbounded: ['Unbounded', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },

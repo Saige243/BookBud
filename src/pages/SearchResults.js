@@ -17,6 +17,8 @@ function SearchResults({ books, searchTerm }) {
   //   )
   // }
 
+  console.log(books[0])
+
   return (
     <div className="px-6 bg-BBwhite">
       {displayedBooks.length > 0 ? (

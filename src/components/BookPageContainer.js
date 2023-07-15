@@ -20,7 +20,7 @@ function BookPageContainer({ props }) {
 
   return (
     <div className="h-screen flex flex-row w-full bg-BBwhite">
-      <div className="flex flex-col justify-center mr-2 text-center">
+      {/* <div className="flex flex-col justify-center mr-2 text-center">
         <img
           className=""
           src={volumeInfo?.imageLinks?.thumbnail}
@@ -48,8 +48,8 @@ function BookPageContainer({ props }) {
             </>
           )}
         </div>
-      </div>
-      <div className="flex flex-col w-full px-2">
+      </div> */}
+      {/* <div className="flex flex-col w-full px-2">
         <div>
           <h1 className="font-bold">{volumeInfo?.title}</h1>
           <p className="italic">{volumeInfo?.subtitle}</p>
@@ -75,7 +75,7 @@ function BookPageContainer({ props }) {
         <div className="pt-4">
           <p>{formattedDescription}</p>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

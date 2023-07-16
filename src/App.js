@@ -13,6 +13,7 @@ import AuthContext from './auth/AuthContext'
 import SavedBooks from './pages/SavedBooks'
 import Landing from './pages/Landing'
 import Layout from './components/Layout'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const { currentUser } = useContext(AuthContext)

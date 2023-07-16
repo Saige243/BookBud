@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Alert from '@mui/material/Alert'
+import AuthContext from '../auth/AuthContext'
+import { useContext } from 'react'
 
 const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
 
 const useBook = () => {
+  const { currentUser } = useContext(AuthContext)
+
+  const onSuccess = (message) => {
+    return <Alert severity="success">{message}</Alert>
+  }
+
   const useGetBook = (id) => {
     const [book, setBook] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -58,10 +67,24 @@ const useBook = () => {
 
   const saveBook = async (userId, bookId) => {
     try {
+      // Check if the bookId already exists in the user's saved books
+      const savedBooks = currentUser.savedBooks.map((book) =>
+        book.map((item) => item.bookId.bookId)
+      )
+      const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
+        bookArray.includes(bookId)
+      )
+      if (isBookAlreadySaved) {
+        throw new Error('Book is already in library')
+      }
+
+      // Save the book if it doesn't already exist
       const response = await axios.post('http://localhost:3001/books', {
         userId: userId,
         bookId: bookId,
       })
+
+      onSuccess('Book saved successfully!')
       return response.data
     } catch (error) {
       console.error('Error on saveBook:', error)

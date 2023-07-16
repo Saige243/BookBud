@@ -17,7 +17,7 @@ const CurrentlyReadingContainer = ({ props }) => {
           className="h-full rounded-l-[20px] object-cover"
         />
         <div className="pl-4 pt-2">
-          <h3 className="text-lg font-unbounded">{truncatedTitle}</h3>
+          <h1 className="text-lg font-unbounded">{truncatedTitle}</h1>
           <p className="text-sm font-unbounded">{volumeInfo.authors}</p>
         </div>
       </div>

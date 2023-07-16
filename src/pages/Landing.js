@@ -19,7 +19,11 @@ function Landing() {
         </h1>
         <div className="flex items-center justify-center p-8">
           <div className="space-x-2">
-            <GhostButton text="Sign Up" onClick={() => navigate('/signup')} />
+            <GhostButton
+              text="Sign Up"
+              onClick={() => navigate('/signup')}
+              className="p-2"
+            />
             <PrimaryButton
               text="Login"
               color="BBgreen"

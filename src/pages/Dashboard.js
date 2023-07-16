@@ -35,7 +35,7 @@ function Dashboard({ books, selectedCategoryTerm }) {
 
   return (
     <div className="px-6 bg-BBwhite min-h-screen">
-      <div className="flex justify-between py-2">
+      <div className="flex justify-between p-2">
         {categories.map((category, i) => (
           <GhostButton
             text={category}

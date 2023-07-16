@@ -26,56 +26,51 @@ function App() {
 
   return (
     <BrowserRouter>
-      {currentUser && (
-        <Layout onSubmitSearch={handleSearch}>
-          <Navbar onSubmitSearch={handleSearch} />
-          <div className="flex-grow">
-            <Routes>
-              <Route exact path="/" element={<Landing />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route
-                path="/dashboard"
-                element={
-                  currentUser ? (
+      <Layout onSubmitSearch={handleSearch}>
+        {currentUser && <Navbar onSubmitSearch={handleSearch} />}
+        <div className="flex-grow">
+          <Routes>
+            {currentUser ? (
+              <>
+                <Route exact path="/" element={<Landing />} />
+                <Route
+                  path="/dashboard"
+                  element={
                     <Dashboard
                       books={books}
                       selectedCategoryTerm={handleSearch}
                     />
-                  ) : (
-                    <Login />
-                  )
-                }
-              />
-              <Route
-                path="/searchResults"
-                element={
-                  currentUser ? (
+                  }
+                />
+                <Route
+                  path="/searchResults"
+                  element={
                     <SearchResults books={books} searchTerm={searchTerm} />
-                  ) : (
-                    <Login />
-                  )
-                }
-              />
-              <Route
-                path="/savedBooks"
-                element={currentUser ? <SavedBooks /> : <Login />}
-              />
-              <Route
-                path="/profile"
-                element={currentUser ? <Profile /> : <Login />}
-              />
-              <Route
-                path="/books/:bookId"
-                element={
-                  currentUser ? <BookPage navigate={handleSearch} /> : <Login />
-                }
-              />
-              <Route exact path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </Layout>
-      )}
+                  }
+                />
+                <Route path="/savedBooks" element={<SavedBooks />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route
+                  path="/books/:bookId"
+                  element={<BookPage navigate={handleSearch} />}
+                />
+              </>
+            ) : (
+              <>
+                <Route exact path="/" element={<Landing />} />
+                <Route path="/dashboard" element={<Login />} />
+                <Route path="/searchResults" element={<Login />} />
+                <Route path="/savedBooks" element={<Login />} />
+                <Route path="/profile" element={<Login />} />
+                <Route path="/books/:bookId" element={<Login />} />
+              </>
+            )}
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </Layout>
     </BrowserRouter>
   )
 }

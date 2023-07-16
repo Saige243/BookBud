@@ -20,7 +20,8 @@ const AuthProvider = ({ children }) => {
           )
           setCurrentUser(response.data.user)
         } catch (error) {
-          console.error('Error on getUser:', error)
+          console.log('Error on getUser:', error)
+          console.log('currentUser:', currentUser)
         }
       } else {
         setCurrentUser(null)

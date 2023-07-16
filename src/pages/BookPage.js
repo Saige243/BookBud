@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 function BookPage() {
   const { bookId } = useParams()
-  const { useGetBook, saveBook } = useBook()
+  const { useGetBook, saveBook, addToCurrentlyReading } = useBook()
   const { book, isLoading } = useGetBook(bookId)
   const [displayBook, setDisplayBook] = useState({})
   const [showFullDescription, setShowFullDescription] = useState(false)
@@ -50,6 +50,16 @@ function BookPage() {
       })
   }
 
+  const handleAddToCurrentlyReading = () => {
+    addToCurrentlyReading(currentUser._id, { bookId: bookId })
+      .then((res) => {
+        toast.success(`${volumeInfo.title} added to currently reading!`)
+      })
+      .catch((error) => {
+        toast.warning(`${volumeInfo.title} you're already reading this book!`)
+      })
+  }
+
   return (
     <>
       <ToastContainer
@@ -64,9 +74,9 @@ function BookPage() {
         pauseOnHover
         theme="colored"
       />
-      <div className="h-screen flex w-full justify-center bg-BBblue">
-        <div className="flex flex-col w-full md:w-3/6 px-20 bg-BBwhite">
-          <div className="grid grid-cols-3 pt-4">
+      <div className="flex min-h-screen justify-center bg-BBblue">
+        <div className="flex flex-col w-full md:w-3/6 px-20 bg-BBwhite pt-24 mt-6 rounded-t-full">
+          <div className="grid grid-cols-3 pt-4 ">
             <div className="flex flex-col place-items-center justify-center pt-2 text-center space-y-6">
               <div className="flex space-x-4">
                 <img src={orangeBook} alt="Logo" className="h-50" />
@@ -99,7 +109,11 @@ function BookPage() {
                 // onClick={() => console.log('Clicked!')}
                 onClick={() => handleSaveBook()}
               />
-              <GhostButton text="Currently Reading" className="text-xs/10" />
+              <GhostButton
+                text="Currently Reading"
+                className="text-xs/10"
+                onClick={() => handleAddToCurrentlyReading()}
+              />
             </div>
           </div>
           <div className="pt-8">
@@ -116,7 +130,7 @@ function BookPage() {
             </h2>
             <div className="flex align-middle h-full"></div>
           </div>
-          <div className="pt-4">
+          <div className="pt-4 pb-20">
             <h2 className="font-unbounded text-sm">Description</h2>
             <p className="font-montserrat">
               {truncatedDescription}

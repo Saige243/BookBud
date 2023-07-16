@@ -1,12 +1,18 @@
 import { useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { Link } from 'react-router-dom'
+import LoginLogo from '../components/LoginLogo'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
 
   return (
-    <div className="flex flex-col bg-BBwhite text-white h-screen w-64 pt-8">
+    <div className="flex flex-col bg-BBwhite text-white min-h-screen w-64 pt-8">
+      <div>
+        <Link to="/dashboard">
+          <LoginLogo />
+        </Link>
+      </div>
       <div className="flex items-center justify-center p-4">
         <div className="flex-shrink-0 rounded-full h-16 w-16 bg-gray-500"></div>
         <div className="flex flex-col">
@@ -38,7 +44,6 @@ const Sidebar = () => {
         >
           <p className="font-unbounded text-BBprimary1 pl-8">Community</p>
         </Link>
-        {/* </div> */}
       </div>
     </div>
   )

@@ -11,6 +11,8 @@ function BookContainer({ props }) {
   const { volumeInfo } = props
   const { saveBook } = useBook()
 
+  console.log('props book:', props)
+
   return (
     <div className="flex flex-col rounded-md m-3 justify-between hover:opacity-80 pb-12">
       <Link to={`/books/${props.id}`}>

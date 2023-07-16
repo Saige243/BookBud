@@ -26,9 +26,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      {currentUser && <Navbar onSubmitSearch={handleSearch} />}
       {currentUser && (
-        <Layout>
+        <Layout onSubmitSearch={handleSearch}>
+          <Navbar onSubmitSearch={handleSearch} />
           <div className="flex-grow">
             <Routes>
               <Route exact path="/" element={<Landing />} />

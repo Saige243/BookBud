@@ -17,12 +17,7 @@ function Navbar({ onSubmitSearch }) {
   }
 
   return (
-    <div className="bg-BBwhite flex items-center justify-between">
-      <div>
-        <Link to="/dashboard">
-          <LoginLogo />
-        </Link>
-      </div>
+    <div className="bg-BBwhite flex items-center justify-end py-2">
       <div className="relative w-full sm:w-1/2 lg:w-2/4 pr-4">
         <input
           type="text"

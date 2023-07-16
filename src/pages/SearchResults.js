@@ -17,8 +17,6 @@ function SearchResults({ books, searchTerm }) {
   //   )
   // }
 
-  console.log(books[0])
-
   return (
     <div className="px-6 bg-BBwhite">
       {displayedBooks.length > 0 ? (
@@ -26,7 +24,7 @@ function SearchResults({ books, searchTerm }) {
           <div className="flex justify-end">
             <h2 className="pr-6">Search results for: "{searchTerm}"</h2>
           </div>
-          <div className="flex justify-center flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap">
             {displayedBooks.map((book, i) => (
               <BookContainer props={book} key={i} />
             ))}

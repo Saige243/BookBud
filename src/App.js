@@ -36,7 +36,16 @@ function App() {
               <Route exact path="/signup" element={<Signup />} />
               <Route
                 path="/dashboard"
-                element={currentUser ? <Dashboard books={books} /> : <Login />}
+                element={
+                  currentUser ? (
+                    <Dashboard
+                      books={books}
+                      selectedCategoryTerm={handleSearch}
+                    />
+                  ) : (
+                    <Login />
+                  )
+                }
               />
               <Route
                 path="/searchResults"

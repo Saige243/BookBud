@@ -13,7 +13,7 @@ export const GhostButton = ({ text, onClick, className }) => {
   return (
     <button
       onClick={onClick}
-      className={`bg-transparent text-BBprimary1 font-unbounded hover:opacity-70 border-2 border-BBprimary1 rounded-full ${className}`}
+      className={`text-BBprimary1 font-unbounded hover:opacity-70 border-2 border-BBprimary1 rounded-full ${className}`}
     >
       {text}
     </button>

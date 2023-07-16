@@ -18,7 +18,7 @@ function SearchResults({ books, searchTerm }) {
   // }
 
   return (
-    <div className="px-6 bg-BBwhite">
+    <div className="px-6 bg-BBwhite min-h-screen">
       {displayedBooks.length > 0 ? (
         <>
           <div className="flex justify-end">

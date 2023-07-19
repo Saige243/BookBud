@@ -23,7 +23,7 @@ function BookPage() {
   const { volumeInfo } = displayBook
 
   if (!volumeInfo) {
-    return <div>Loading...</div>
+    return <div className="bg-BBwhite min-h-screen">Loading...</div>
   }
 
   const description = volumeInfo.description

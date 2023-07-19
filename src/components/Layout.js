@@ -67,7 +67,7 @@ const Sidebar = () => {
         {/* <button onClick={() => signout()}></button> */}
       </div>
 
-      <div className="flex flex-col flex-wrap pl-8 pt-6">
+      <div className="flex flex-col flex-wrap p-4 pt-6">
         {displayedBooks.map((book) => (
           <SideNavCurrentlyReading key={book.id} props={book} />
         ))}

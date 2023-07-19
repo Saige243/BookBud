@@ -30,7 +30,7 @@ function SavedBooks() {
         <h1 className="font-unbounded">Currently Reading</h1>
       </div>
       {currentlyReadingData.length > 0 && !isLoading ? (
-        <div className="flex flex-row flex-wrap">
+        <div className="flex flex-row flex-wrap justify-evenly">
           {currentlyReadingData.map((book) => (
             <CurrentlyReadingContainer key={book.id} props={book} />
           ))}
@@ -47,7 +47,7 @@ function SavedBooks() {
           <div className="flex">
             <h2 className="font-unbounded">Want to read</h2>
           </div>
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap justify-evenly">
             {savedBooksData.map((book, i) => (
               <BookContainer props={book} key={i} />
             ))}

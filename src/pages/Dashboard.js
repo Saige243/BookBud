@@ -50,7 +50,7 @@ function Dashboard({ books, selectedCategoryTerm }) {
         ))}
       </div>
       <div className="bg-BBwhite min-h-screen">
-        <div className="flex flex-row flex-wrap">
+        <div className="flex flex-row flex-wrap justify-evenly">
           {displayedBooks.map((book, i) => (
             <BookContainer props={book} key={i} />
           ))}

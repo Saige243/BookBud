@@ -12,7 +12,7 @@ function BookContainer({ props }) {
   const { saveBook } = useBook()
 
   return (
-    <div className="flex flex-col rounded-md m-3 justify-between hover:opacity-80 pb-12">
+    <div className="flex flex-col rounded-md m-3 justify-between hover:opacity-80 pb-16">
       <Link to={`/books/${props.id}`}>
         <div className="flex flex-col justify-center w-36 mr-2">
           <div className="w-full h-60">

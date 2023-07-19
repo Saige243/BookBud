@@ -31,8 +31,6 @@ function Dashboard({ books, selectedCategoryTerm }) {
     selectedCategoryTerm(category)
   }
 
-  console.log('Dashbooks:', books)
-
   return (
     <div className="px-6 bg-BBwhite min-h-screen">
       <div className="flex justify-between p-2">

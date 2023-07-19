@@ -1,10 +1,11 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { Link } from 'react-router-dom'
 import LoginLogo from '../components/LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import useAuth from '../auth/useAuth'
+import AccountMenuDropdown from './AccountMenuDropdown'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
@@ -21,11 +22,17 @@ const Sidebar = () => {
 
   const displayedBooks = currentlyReadingData.slice(0, 2)
 
+  useEffect(() => {
+    setCurrentlyReading(
+      currentUser?.currentlyReading?.map((item) => item[0].bookId.bookId) || []
+    )
+  }, [currentUser])
+
   // const links = ['Home', 'My Library', 'Search', 'Sign Out']
   // const pages = ['/dashboard', '/savedBook', '', '']
 
   return (
-    <div className="flex flex-col bg-BBwhite text-white min-h-screen w-80 pt-8">
+    <div className="flex flex-col bg-BBwhite text-white min-h-screen pt-8">
       <div>
         <Link to="/dashboard">
           <LoginLogo />
@@ -33,13 +40,18 @@ const Sidebar = () => {
       </div>
 
       <div className="flex items-center justify-center p-4">
-        <div className="">
-          <p className="ml-3 font-unbounded text-md text-BBprimary1">
-            {currentUser.firstName} {currentUser.lastName}
-          </p>
-          <p className="ml-3 font-montserrat text-xs text-BBprimary1">
-            Books Read:
-          </p>
+        <div className="flex items-center">
+          <div>
+            <AccountMenuDropdown />
+          </div>
+          <div>
+            <p className="ml-3 font-unbounded text-md text-BBprimary1">
+              {currentUser.firstName} {currentUser.lastName}
+            </p>
+            <p className="ml-3 font-montserrat text-xs text-BBprimary1">
+              Books Read:
+            </p>
+          </div>
         </div>
       </div>
 

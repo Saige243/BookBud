@@ -10,7 +10,7 @@ const CurrentlyReadingContainer = ({ props }) => {
 
   return (
     <Link to={`/books/${props.id}`}>
-      <div className="h-40 w-96 book-container rounded-[20px] shadow-xl flex  mx-2 mt-3 mb-20 hover:opacity-80">
+      <div className="h-40 w-96 book-container rounded-[20px] shadow-xl flex mx-2 mt-3 mb-12 hover:opacity-80">
         <img
           src={volumeInfo.imageLinks.thumbnail}
           alt={volumeInfo.title}

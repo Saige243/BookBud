@@ -8,7 +8,7 @@ import AccountMenuDropdown from './AccountMenuDropdown'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
-  const { useGetCurrentlyReading } = useBook()
+  const { useGetCurrentlyReading, isLoading } = useBook()
 
   const [currentlyReading, setCurrentlyReading] = useState(
     currentUser?.currentlyReading?.map((item) => item[0].bookId.bookId) || []
@@ -66,9 +66,10 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col flex-wrap p-4 pt-6">
-        {displayedBooks.map((book) => (
-          <SideNavCurrentlyReading key={book.id} props={book} />
-        ))}
+        {!isLoading &&
+          displayedBooks.map((book) => (
+            <SideNavCurrentlyReading key={book.id} props={book} />
+          ))}
       </div>
     </div>
   )

@@ -1,12 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
-import AuthContext from '../auth/AuthContext'
+// import AuthContext from '../auth/AuthContext'
 import { GhostButton, PrimaryButton } from '../components/buttons/buttons'
 import BookContainer from '../components/BookContainer'
 
-function Dashboard({ books, selectedCategoryTerm }) {
-  const { currentUser } = useContext(AuthContext)
+function Dashboard({ books, selectedCategoryTerm, isLoading }) {
+  // const { currentUser } = useContext(AuthContext)
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
   const [displayedBooks, setDisplayedBooks] = useState([])
+
+  console.log('isLoading', isLoading)
 
   useEffect(() => {
     setDisplayedBooks(books)
@@ -49,9 +51,10 @@ function Dashboard({ books, selectedCategoryTerm }) {
       </div>
       <div className="bg-BBwhite min-h-screen">
         <div className="flex flex-row flex-wrap justify-evenly">
-          {displayedBooks.map((book, i) => (
-            <BookContainer props={book} key={i} />
-          ))}
+          {!isLoading &&
+            displayedBooks.map((book, i) => (
+              <BookContainer props={book} key={i} />
+            ))}
         </div>
       </div>
     </div>

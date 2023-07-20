@@ -17,8 +17,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
-  const [searchTerm, setSearchTerm] = useState('')
-  const { books } = useGetBooks(searchTerm)
+  const [searchTerm, setSearchTerm] = useState('Best Sellers')
+  const { books, isLoading } = useGetBooks(searchTerm)
 
   const handleSearch = async (searchTerm) => {
     setSearchTerm(searchTerm)
@@ -38,6 +38,7 @@ function App() {
                   element={
                     <Dashboard
                       books={books}
+                      isLoading={isLoading}
                       selectedCategoryTerm={handleSearch}
                     />
                   }

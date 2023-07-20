@@ -1,22 +1,34 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { set } from 'mongoose'
 
 const useGetBooks = (searchTerm) => {
-  const [books, setBooks] = useState([]);
-  const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY;
+  const [books, setBooks] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
 
   useEffect(() => {
     if (searchTerm) {
-      axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + apiKey + "&maxResults=20")
+      setIsLoading(true)
+      axios
+        .get(
+          'https://www.googleapis.com/books/v1/volumes?q=' +
+            searchTerm +
+            '&key=' +
+            apiKey +
+            '&maxResults=20'
+        )
         .then((data) => {
-          setBooks(data.data.items);
-        });
+          setBooks(data.data.items)
+        })
+      setIsLoading(false)
     }
-  }, [searchTerm, apiKey]);
+  }, [searchTerm, apiKey])
 
   return {
     books,
-  };
-};
+    isLoading,
+  }
+}
 
-export { useGetBooks };
+export { useGetBooks }

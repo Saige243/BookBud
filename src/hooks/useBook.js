@@ -7,10 +7,11 @@ const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
 
 const useBook = () => {
   const { currentUser } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
 
   const useGetBook = (id) => {
     const [book, setBook] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       if (id) {
@@ -32,7 +33,7 @@ const useBook = () => {
 
   const useGetSavedBooks = ({ ids }) => {
     const [savedBooks, setSavedBooks] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       if (ids && ids.length > 0) {
@@ -62,7 +63,7 @@ const useBook = () => {
 
   const useGetCurrentlyReading = ({ ids }) => {
     const [currentlyReading, setCurrentlyReading] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       if (ids && ids.length > 0) {
@@ -146,6 +147,7 @@ const useBook = () => {
     saveBook,
     addToCurrentlyReading,
     useGetCurrentlyReading,
+    isLoading,
   }
 }
 

@@ -8,8 +8,6 @@ function Dashboard({ books, selectedCategoryTerm, isLoading }) {
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
   const [displayedBooks, setDisplayedBooks] = useState([])
 
-  console.log('isLoading', isLoading)
-
   useEffect(() => {
     setDisplayedBooks(books)
   }, [books])

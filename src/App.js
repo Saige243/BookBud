@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
-  const [searchTerm, setSearchTerm] = useState('Best Sellers')
+  const [searchTerm, setSearchTerm] = useState('nyt best sellers')
   const { books, isLoading } = useGetBooks(searchTerm)
 
   const handleSearch = async (searchTerm) => {

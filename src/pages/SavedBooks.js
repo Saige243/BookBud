@@ -7,7 +7,7 @@ import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
 
 function SavedBooks() {
   const { currentUser } = useContext(AuthContext)
-  const { useGetSavedBooks, useGetCurrentlyReading } = useBook()
+  const { useGetSavedBooks, useGetCurrentlyReading, isLoading } = useBook()
 
   const [currentlyReading, setCurrentlyReading] = useState(
     currentUser.currentlyReading.map((item) => item[0].bookId.bookId)
@@ -16,7 +16,7 @@ function SavedBooks() {
     currentUser.savedBooks.map((item) => item[0].bookId.bookId)
   )
 
-  const { savedBooks: savedBooksData, isLoading } = useGetSavedBooks({
+  const { savedBooks: savedBooksData } = useGetSavedBooks({
     ids: savedBooks,
   })
 
@@ -31,9 +31,10 @@ function SavedBooks() {
       </div>
       {currentlyReadingData.length > 0 && !isLoading ? (
         <div className="flex flex-row flex-wrap justify-evenly">
-          {currentlyReadingData.map((book) => (
-            <CurrentlyReadingContainer key={book.id} props={book} />
-          ))}
+          {!isLoading &&
+            currentlyReadingData.map((book) => (
+              <CurrentlyReadingContainer key={book.id} props={book} />
+            ))}
         </div>
       ) : (
         <h1>
@@ -48,9 +49,10 @@ function SavedBooks() {
             <h2 className="font-unbounded">Want to read</h2>
           </div>
           <div className="flex flex-row flex-wrap justify-evenly">
-            {savedBooksData.map((book, i) => (
-              <BookContainer props={book} key={i} />
-            ))}
+            {!isLoading &&
+              savedBooksData.map((book, i) => (
+                <BookContainer props={book} key={i} />
+              ))}
           </div>
         </>
       ) : (

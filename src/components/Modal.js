@@ -3,6 +3,10 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { PrimaryButton } from './Buttons'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import useBook from '../hooks/useBook'
+import AuthContext from '../auth/AuthContext'
 
 const style = {
   position: 'absolute',
@@ -17,13 +21,43 @@ const style = {
 }
 
 export default function BasicModal({ modalText, bookId }) {
+  const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
+  const [selectedValue, setSelectedValue] = React.useState('')
+  const { saveBook, addToCurrentlyReading } = useBook()
 
   const handleOpen = () => {
     setOpen(true)
   }
 
   const handleClose = () => setOpen(false)
+
+  const handleSelectChange = (event) => {
+    setSelectedValue(event.target.value)
+  }
+
+  const handleSave = () => {
+    if (!selectedValue) {
+      return
+    }
+
+    if (selectedValue === 'Add to Library') {
+      saveBook(currentUser._id, { bookId: bookId })
+      // console.log('save book:', bookId)
+    } else if (selectedValue === 'Add to Currently Reading') {
+      addToCurrentlyReading(currentUser._id, { bookId: bookId })
+    } else if (selectedValue === 'Add to Finished') {
+      console.log('Finished')
+    }
+
+    handleClose()
+  }
+
+  const customSelectStyle = {
+    '&:focus': {
+      outline: 'none',
+    },
+  }
 
   return (
     <div>
@@ -33,34 +67,26 @@ export default function BasicModal({ modalText, bookId }) {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        disableEnforceFocus
       >
         <Box sx={style}>
           <p>Add to list</p>
-          <hr />
-          <input
-            type="radio"
-            id="wantToRead"
-            name="fav_language"
-            value="Want to Read"
-          />
-          <label htmlFor="wantToRead">Want to Read</label>
-          <br />
-          <input
-            type="radio"
-            id="currentlyReading"
-            name="fav_language"
-            value="Currently Reading"
-          />
-          <label htmlFor="currentlyReading">Currently Reading</label>
-          <br />
-          <input
-            type="radio"
-            id="finished"
-            name="fav_language"
-            value="Finished"
-          />
-          <label htmlFor="finished">Finished</label>
-          <br />
+          <Select
+            value={selectedValue}
+            onChange={handleSelectChange}
+            label="Add to list"
+            fullWidth
+            sx={customSelectStyle}
+          >
+            <MenuItem value="Add to Library">Add to Library</MenuItem>
+            <MenuItem value="Add to Currently Reading">
+              Add to Currently Reading
+            </MenuItem>
+            <MenuItem value="Add to Finished">Add to Finished</MenuItem>
+          </Select>
+          <div className="flex justify-center">
+            <PrimaryButton text="Save" onClick={handleSave} />
+          </div>
         </Box>
       </Modal>
     </div>

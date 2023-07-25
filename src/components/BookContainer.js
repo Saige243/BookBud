@@ -13,7 +13,7 @@ function BookContainer({ props }) {
   const { saveBook } = useBook()
 
   const openModal = (id) => {
-    console.log('open modal', id)
+    // console.log('open modal', id)
   }
 
   return (

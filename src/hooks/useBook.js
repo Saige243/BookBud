@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
+import { debounce } from 'lodash'
 
 const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
 
@@ -35,23 +36,28 @@ const useBook = () => {
     const [savedBooks, setSavedBooks] = useState([])
     // const [isLoading, setIsLoading] = useState(false)
 
+    // Step 2: Use debounce to control the rate of API requests
+    const debouncedFetch = debounce((bookIds) => {
+      setIsLoading(true)
+      Promise.all(
+        bookIds.map((id) =>
+          axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
+        )
+      )
+        .then((responses) => {
+          const booksData = responses.map((response) => response.data)
+          setSavedBooks(booksData)
+          setIsLoading(false)
+        })
+        .catch((error) => {
+          console.error('Error retrieving saved books:', error.message)
+          setIsLoading(false)
+        })
+    }, 1000) // Adjust the debounce delay as needed (e.g., 1000ms = 1 second)
+
     useEffect(() => {
       if (ids && ids.length > 0) {
-        setIsLoading(true)
-        Promise.all(
-          ids.map((id) =>
-            axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
-          )
-        )
-          .then((responses) => {
-            const booksData = responses.map((response) => response.data)
-            setSavedBooks(booksData)
-            setIsLoading(false)
-          })
-          .catch((error) => {
-            console.error('Error retrieving saved books:', error)
-            setIsLoading(false)
-          })
+        debouncedFetch(ids) // Use the debounced function here
       }
     }, [ids])
 

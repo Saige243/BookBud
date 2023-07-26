@@ -108,6 +108,27 @@ router.post('/books', async (req, res) => {
   }
 })
 
+router.delete('/books', async (req, res) => {
+  try {
+    const { userId, bookId } = req.query
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    user.savedBooks.pull({ bookId: bookId })
+
+    await user.save()
+
+    res.status(200).json({ message: 'Book deleted from library successfully' })
+  } catch (error) {
+    console.error('API:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+})
+
 // currently reading route
 router.post('/books/currently-reading', async (req, res) => {
   try {
@@ -124,6 +145,27 @@ router.post('/books/currently-reading', async (req, res) => {
     await user.save()
 
     res.status(200).json({ message: 'Book added to currently reading' })
+  } catch (error) {
+    console.error('API:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+})
+
+router.delete('/books/currently-reading', async (req, res) => {
+  try {
+    const { userId, bookId } = req.query
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    user.currentlyReading.pull({ bookId: bookId })
+
+    await user.save()
+
+    res.status(200).json({ message: 'Book removed from currently reading.' })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })

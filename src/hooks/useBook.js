@@ -4,15 +4,12 @@ import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
 import { debounce } from 'lodash'
 
-const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY
-
 const useBook = () => {
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
 
   const useGetBook = (id) => {
     const [book, setBook] = useState([])
-    // const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       if (id) {
@@ -34,9 +31,7 @@ const useBook = () => {
 
   const useGetSavedBooks = ({ ids }) => {
     const [savedBooks, setSavedBooks] = useState([])
-    // const [isLoading, setIsLoading] = useState(false)
 
-    // Step 2: Use debounce to control the rate of API requests
     const debouncedFetch = debounce((bookIds) => {
       setIsLoading(true)
       Promise.all(
@@ -53,11 +48,11 @@ const useBook = () => {
           console.error('Error retrieving saved books:', error.message)
           setIsLoading(false)
         })
-    }, 1000) // Adjust the debounce delay as needed (e.g., 1000ms = 1 second)
+    }, 1000)
 
     useEffect(() => {
       if (ids && ids.length > 0) {
-        debouncedFetch(ids) // Use the debounced function here
+        debouncedFetch(ids)
       }
     }, [ids])
 
@@ -69,7 +64,6 @@ const useBook = () => {
 
   const useGetCurrentlyReading = ({ ids }) => {
     const [currentlyReading, setCurrentlyReading] = useState([])
-    // const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       if (ids && ids.length > 0) {
@@ -123,6 +117,24 @@ const useBook = () => {
     }
   }
 
+  const removeBookFromCurrentlyReading = async (userId, bookId) => {
+    try {
+      const response = await axios.delete(
+        'http://localhost:3001/books/currently-reading',
+        {
+          params: {
+            userId: userId,
+            bookId: bookId,
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error('Error on removeBookFromSaved:', error)
+      throw new Error('Remove book failed')
+    }
+  }
+
   const saveBook = async (userId, bookId) => {
     try {
       const savedBooks = currentUser.savedBooks.map((book) =>
@@ -147,11 +159,28 @@ const useBook = () => {
     }
   }
 
+  const removeBookFromSaved = async (userId, bookId) => {
+    try {
+      const response = await axios.delete('http://localhost:3001/books', {
+        params: {
+          userId: userId,
+          bookId: bookId,
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.error('Error on removeBookFromSaved:', error)
+      throw new Error('Remove book failed')
+    }
+  }
+
   return {
     useGetBook,
     useGetSavedBooks,
     saveBook,
+    removeBookFromSaved,
     addToCurrentlyReading,
+    removeBookFromCurrentlyReading,
     useGetCurrentlyReading,
     isLoading,
   }

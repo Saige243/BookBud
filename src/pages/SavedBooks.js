@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { useState } from 'react'
 import useBook from '../hooks/useBook'
-import BookContainer from '../components/BookContainer'
+import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
 
 function SavedBooks() {
@@ -51,7 +51,7 @@ function SavedBooks() {
           <div className="flex flex-row flex-wrap justify-evenly">
             {!isLoading &&
               savedBooksData.map((book, i) => (
-                <BookContainer props={book} key={i} />
+                <SavedBookContainer props={book} key={i} />
               ))}
           </div>
         </>

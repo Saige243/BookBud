@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { GhostButton } from '../components/buttons/buttons'
 import BookContainer from '../components/BookContainer'
@@ -7,12 +8,14 @@ function Dashboard({
   selectedCategoryTerm,
   isLoading,
 }: {
-  bookIds: string[]
+  bookIds: any
   selectedCategoryTerm: (category: string) => void
   isLoading: boolean
 }) {
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
-  const [displayedBooks, setDisplayedBooks] = useState<string[]>([])
+  const [displayedBooks, setDisplayedBooks] = useState<any>([])
+
+  console.log('bookIDS', bookIds)
 
   useEffect(() => {
     setDisplayedBooks(bookIds)

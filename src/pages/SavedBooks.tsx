@@ -1,3 +1,4 @@
+import React from 'react'
 import { useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { useState } from 'react'
@@ -10,10 +11,10 @@ function SavedBooks() {
   const { useGetSavedBooks, useGetCurrentlyReading, isLoading } = useBook()
 
   const [currentlyReading, setCurrentlyReading] = useState(
-    currentUser.currentlyReading.map((item) => item[0].bookId.bookId)
+    currentUser.currentlyReading.map((item: any) => item[0].bookId.bookId)
   )
   const [savedBooks, setSavedBooks] = useState(
-    currentUser.savedBooks.map((item) => item[0].bookId.bookId)
+    currentUser.savedBooks.map((item: any) => item[0].bookId.bookId)
   )
 
   const { savedBooks: savedBooksData } = useGetSavedBooks({
@@ -32,7 +33,7 @@ function SavedBooks() {
       {currentlyReadingData.length > 0 && !isLoading ? (
         <div className="flex flex-row flex-wrap justify-evenly">
           {!isLoading &&
-            currentlyReadingData.map((book) => (
+            currentlyReadingData.map((book: any) => (
               <CurrentlyReadingContainer key={book.id} props={book} />
             ))}
         </div>

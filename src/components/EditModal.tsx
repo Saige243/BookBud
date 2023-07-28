@@ -22,6 +22,13 @@ export default function EditModal({
   bookId,
   innerText,
   parentComponent,
+  closeModal,
+}: {
+  modalText: any
+  bookId: any
+  innerText: any
+  parentComponent: any
+  closeModal?: any
 }) {
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)

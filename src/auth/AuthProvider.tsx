@@ -1,18 +1,24 @@
+import React from 'react'
 import AuthContext from './AuthContext'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
+import jwtDecode, { JwtPayload } from 'jwt-decode' // Import JwtPayload
+
+interface DecodedToken extends JwtPayload {
+  userId: string
+}
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem('currentUser'))
+  const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'))
+  const [currentUser, setCurrentUser] = useState<any>(
+    storedCurrentUser !== null ? storedCurrentUser : null
   )
 
   useEffect(() => {
     const getUser = async () => {
       const jwtToken = localStorage.getItem('jwtToken')
       if (jwtToken) {
-        const decodedToken = jwtDecode(jwtToken)
+        const decodedToken: DecodedToken = jwtDecode(jwtToken)
         const userId = decodedToken.userId
         try {
           const response = await axios.get(

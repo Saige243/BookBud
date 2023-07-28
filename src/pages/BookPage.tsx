@@ -8,7 +8,7 @@ import star from '../assets/images/icons/Star.svg'
 import AuthContext from '../auth/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 
-function BookPage() {
+function BookPage({ navigate }) {
   const { bookId } = useParams()
   const { useGetBook, saveBook, addToCurrentlyReading } = useBook()
   const { book } = useGetBook(bookId)

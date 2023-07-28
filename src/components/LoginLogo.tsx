@@ -1,3 +1,4 @@
+import React from 'react'
 import BBLogo from '../assets/images/BBLogo.svg'
 
 function LoginLogo() {

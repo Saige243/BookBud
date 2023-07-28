@@ -1,13 +1,17 @@
+import React from 'react'
+
 export function PrimaryButton({
   text,
   onClick,
   type,
   size,
+  className,
 }: {
   text?: string | JSX.Element
   onClick?: React.MouseEventHandler
   type?: any
   size?: any
+  className: string
 }) {
   return (
     <button

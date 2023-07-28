@@ -1,13 +1,17 @@
+import React from 'react'
+
 export const PrimaryButton = ({
   text,
   onClick,
   className,
   color,
+  type,
 }: {
-  text: string
-  onClick: React.MouseEventHandler
-  className: string
-  color: string
+  text?: string
+  onClick?: React.MouseEventHandler
+  className?: string
+  color?: string
+  type?: string
 }) => {
   return (
     <button

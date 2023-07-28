@@ -1,7 +1,8 @@
+import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { Link } from 'react-router-dom'
-import LoginLogo from '../components/LoginLogo'
+import LoginLogo from './LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import AccountMenuDropdown from './AccountMenuDropdown'
@@ -67,7 +68,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col flex-wrap p-4 pt-6">
         {!isLoading &&
-          displayedBooks.map((book) => (
+          displayedBooks.map((book: any) => (
             <SideNavCurrentlyReading key={book.id} props={book} />
           ))}
       </div>
@@ -75,7 +76,7 @@ const Sidebar = () => {
   )
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ onSubmitSearch, children }) => {
   const { currentUser } = useContext(AuthContext)
 
   return (

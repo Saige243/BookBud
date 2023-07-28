@@ -1,7 +1,11 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
+import jwtDecode, { JwtPayload } from 'jwt-decode'
 import AuthContext from './AuthContext'
 import { useContext } from 'react'
+
+interface DecodedToken extends JwtPayload {
+  userId: string
+}
 
 const useAuth = () => {
   const { setCurrentUser } = useContext(AuthContext)
@@ -13,7 +17,7 @@ const useAuth = () => {
   const getUser = async () => {
     const jwtToken = localStorage.getItem('jwtToken')
     if (jwtToken) {
-      const decodedToken = jwtDecode(jwtToken)
+      const decodedToken: DecodedToken = jwtDecode(jwtToken)
       const userId = decodedToken.userId
       try {
         const response = await axios.get(
@@ -67,7 +71,7 @@ const useAuth = () => {
   const editUserName = async (firstName, lastName) => {
     const jwtToken = localStorage.getItem('jwtToken')
     if (jwtToken) {
-      const decodedToken = jwtDecode(jwtToken)
+      const decodedToken: DecodedToken = jwtDecode(jwtToken)
       const userId = decodedToken.userId
       try {
         const response = await axios.patch(

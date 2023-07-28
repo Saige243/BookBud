@@ -123,7 +123,7 @@ const useBook = () => {
 
   const removeBookFromCurrentlyReading = async (
     userId: string,
-    bookId: string
+    bookId: { bookId: string | undefined }
   ) => {
     try {
       const response = await axios.delete(
@@ -171,7 +171,7 @@ const useBook = () => {
 
   const removeBookFromSaved = async (
     userId: string,
-    bookId: string | undefined
+    bookId: { bookId: string | undefined }
   ) => {
     try {
       const response = await axios.delete('http://localhost:3001/books', {

@@ -1,10 +1,9 @@
 import React from 'react'
-import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useBook from '../hooks/useBook'
 import { useParams } from 'react-router-dom'
 import { GhostButton } from '../components/buttons/buttons'
-import orangeBook from '../assets/images/icons/orangeBook.svg'
+import { ReactComponent as orangeBook } from '../assets/images/icons/orangeBook.svg'
 import star from '../assets/images/icons/Star.svg'
 import AuthContext from '../auth/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
@@ -12,10 +11,10 @@ import { ToastContainer, toast } from 'react-toastify'
 function BookPage() {
   const { bookId } = useParams()
   const { useGetBook, saveBook, addToCurrentlyReading } = useBook()
-  const { book, isLoading } = useGetBook(bookId)
-  const [displayBook, setDisplayBook] = useState({})
+  const { book } = useGetBook(bookId)
+  const [displayBook, setDisplayBook] = useState<any>({})
   const [showFullDescription, setShowFullDescription] = useState(false)
-  const { currentUser } = React.useContext(AuthContext)
+  const { currentUser }: any = React.useContext(AuthContext)
 
   useEffect(() => {
     setDisplayBook(book)
@@ -28,9 +27,6 @@ function BookPage() {
 
   const description = volumeInfo.description
   const formattedDescription = description.replace(/<[^>]*>/g, '')
-  const formattedPublishDate = moment(volumeInfo.publishedDate).format(
-    'MMMM D, YYYY'
-  )
 
   const truncatedDescription = showFullDescription
     ? formattedDescription

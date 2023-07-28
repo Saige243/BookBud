@@ -1,16 +1,22 @@
-import { useState, useEffect, useContext } from 'react'
-// import AuthContext from '../auth/AuthContext'
-import { GhostButton, PrimaryButton } from '../components/buttons/buttons'
+import { useState, useEffect } from 'react'
+import { GhostButton } from '../components/buttons/buttons'
 import BookContainer from '../components/BookContainer'
 
-function Dashboard({ books, selectedCategoryTerm, isLoading }) {
-  // const { currentUser } = useContext(AuthContext)
+function Dashboard({
+  bookIds,
+  selectedCategoryTerm,
+  isLoading,
+}: {
+  bookIds: string[]
+  selectedCategoryTerm: (category: string) => void
+  isLoading: boolean
+}) {
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
-  const [displayedBooks, setDisplayedBooks] = useState([])
+  const [displayedBooks, setDisplayedBooks] = useState<string[]>([])
 
   useEffect(() => {
-    setDisplayedBooks(books)
-  }, [books])
+    setDisplayedBooks(bookIds)
+  }, [bookIds])
 
   const categories = [
     'Best Sellers',
@@ -26,7 +32,7 @@ function Dashboard({ books, selectedCategoryTerm, isLoading }) {
   const selectedCategoryStyles =
     'bg-BBgreen text-BBprimary1 p-2 text-BBwhite border-none'
 
-  const handleCategorySelection = (category) => {
+  const handleCategorySelection = (category: string) => {
     setSelectedCategory(category)
     selectedCategoryTerm(category)
   }

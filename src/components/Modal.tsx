@@ -1,12 +1,12 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { PrimaryButton } from './Buttons'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import useBook from '../hooks/useBook'
 import AuthContext from '../auth/AuthContext'
+import { User } from '../types'
 
 const style = {
   position: 'absolute',
@@ -20,8 +20,14 @@ const style = {
   p: 4,
 }
 
-export default function BasicModal({ modalText, bookId }) {
-  const { currentUser } = React.useContext(AuthContext)
+export default function BasicModal({
+  modalText,
+  bookId,
+}: {
+  modalText: any
+  bookId: string
+}) {
+  const { currentUser }: any = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState('')
   const { saveBook, addToCurrentlyReading } = useBook()
@@ -32,7 +38,7 @@ export default function BasicModal({ modalText, bookId }) {
 
   const handleClose = () => setOpen(false)
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (event: any) => {
     setSelectedValue(event.target.value)
   }
 
@@ -43,7 +49,6 @@ export default function BasicModal({ modalText, bookId }) {
 
     if (selectedValue === 'Add to Library') {
       saveBook(currentUser._id, { bookId: bookId })
-      // console.log('save book:', bookId)
     } else if (selectedValue === 'Add to Currently Reading') {
       addToCurrentlyReading(currentUser._id, { bookId: bookId })
     } else if (selectedValue === 'Add to Finished') {

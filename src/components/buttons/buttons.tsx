@@ -1,4 +1,14 @@
-export const PrimaryButton = ({ text, onClick, className, color }) => {
+export const PrimaryButton = ({
+  text,
+  onClick,
+  className,
+  color,
+}: {
+  text: string
+  onClick: React.MouseEventHandler
+  className: string
+  color: string
+}) => {
   return (
     <button
       onClick={onClick}
@@ -9,7 +19,15 @@ export const PrimaryButton = ({ text, onClick, className, color }) => {
   )
 }
 
-export const GhostButton = ({ text, onClick, className }) => {
+export const GhostButton = ({
+  text,
+  onClick,
+  className,
+}: {
+  text: string
+  onClick: React.MouseEventHandler
+  className: string
+}) => {
   return (
     <button
       onClick={onClick}

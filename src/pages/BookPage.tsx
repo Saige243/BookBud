@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import useBook from '../hooks/useBook'
 import { useParams } from 'react-router-dom'
 import { GhostButton } from '../components/buttons/buttons'
-import { ReactComponent as orangeBook } from '../assets/images/icons/orangeBook.svg'
+import { ReactComponent as OrangeBook } from '../assets/images/icons/orangeBook.svg'
 import star from '../assets/images/icons/Star.svg'
 import AuthContext from '../auth/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
@@ -75,7 +75,7 @@ function BookPage({ navigate }) {
           <div className="grid grid-cols-3 pt-4 ">
             <div className="flex flex-col place-items-center justify-center pt-2 text-center space-y-6">
               <div className="flex space-x-4">
-                <img src={orangeBook} alt="Logo" className="h-50" />
+                <OrangeBook />
                 <div className="">
                   <p className="font-unbounded text-md">
                     {volumeInfo.pageCount}

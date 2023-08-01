@@ -19,8 +19,12 @@ const useBook = () => {
           .get(`https://www.googleapis.com/books/v1/volumes/${id}`)
           .then((data) => {
             setBook(data.data)
+            setIsLoading(false)
           })
-        setIsLoading(false)
+          .catch((error) => {
+            console.error('Error fetching book:', error)
+            setIsLoading(false)
+          })
       }
     }, [id])
 
@@ -33,27 +37,23 @@ const useBook = () => {
   const useGetSavedBooks = ({ ids }: { ids: string[] }) => {
     const [savedBooks, setSavedBooks] = useState<string[]>([])
 
-    const debouncedFetch = debounce((bookIds: string[]) => {
-      setIsLoading(true)
-      Promise.all(
-        bookIds.map((id) =>
-          axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
-        )
-      )
-        .then((responses) => {
-          const booksData = responses.map((response) => response.data)
-          setSavedBooks(booksData)
-          setIsLoading(false)
-        })
-        .catch((error) => {
-          console.error('Error retrieving saved books:', error.message)
-          setIsLoading(false)
-        })
-    }, 1000)
-
     useEffect(() => {
       if (ids && ids.length > 0) {
-        debouncedFetch(ids)
+        setIsLoading(true)
+        Promise.all(
+          ids.map((id) =>
+            axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          )
+        )
+          .then((responses) => {
+            const booksData = responses.map((response) => response.data)
+            setSavedBooks(booksData)
+            setIsLoading(false)
+          })
+          .catch((error) => {
+            console.error('Error retrieving saved books:', error)
+            setIsLoading(false)
+          })
       }
     }, [ids])
 
@@ -101,7 +101,7 @@ const useBook = () => {
         book.map((item: any) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some(
-        (bookArray: any) => bookArray.includes(bookId)
+        (bookArray: any) => bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error("You're already reading this book")
@@ -116,8 +116,8 @@ const useBook = () => {
         return response.data
       }
     } catch (error) {
-      console.error('Error on saveBook:', error)
-      throw new Error('Save book failed')
+      console.error('Error on addToCurrentlyReading:', error)
+      throw new Error('Add to currently reading failed')
     }
   }
 
@@ -137,8 +137,8 @@ const useBook = () => {
       )
       return response.data
     } catch (error) {
-      console.error('Error on removeBookFromSaved:', error)
-      throw new Error('Remove book failed')
+      console.error('Error on removeBookFromCurrentlyReading:', error)
+      throw new Error('Remove book from currently reading failed')
     }
   }
 
@@ -151,7 +151,7 @@ const useBook = () => {
         book.map((item: any) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some(
-        (bookArray: any) => bookArray.includes(bookId)
+        (bookArray: any) => bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error('Book is already in library')
@@ -183,7 +183,7 @@ const useBook = () => {
       return response.data
     } catch (error) {
       console.error('Error on removeBookFromSaved:', error)
-      throw new Error('Remove book failed')
+      throw new Error('Remove book from saved books failed')
     }
   }
 

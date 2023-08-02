@@ -8,8 +8,6 @@ const useBook = () => {
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
 
-  if (!currentUser) return null
-
   const useGetBook = (id: string | undefined) => {
     const [book, setBook] = useState([])
 
@@ -95,7 +93,7 @@ const useBook = () => {
 
   const addToCurrentlyReading = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book: SavedBook[]) =>
+      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
         book.map((item) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
@@ -142,7 +140,7 @@ const useBook = () => {
 
   const saveBook = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book: SavedBook[]) =>
+      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
         book.map((item) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>

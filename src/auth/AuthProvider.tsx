@@ -3,6 +3,7 @@ import AuthContext from './AuthContext'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import jwtDecode, { JwtPayload } from 'jwt-decode' // Import JwtPayload
+import { User, AuthContextValue } from '../types'
 
 interface DecodedToken extends JwtPayload {
   userId: string
@@ -10,7 +11,7 @@ interface DecodedToken extends JwtPayload {
 
 const AuthProvider = ({ children }) => {
   const storedCurrentUser = JSON.parse(localStorage.getItem('currentUser'))
-  const [currentUser, setCurrentUser] = useState<any>(
+  const [currentUser, setCurrentUser] = useState<User | null>(
     storedCurrentUser !== null ? storedCurrentUser : null
   )
 
@@ -37,10 +38,13 @@ const AuthProvider = ({ children }) => {
     getUser()
   }, [])
 
+  const contextValue: AuthContextValue = {
+    currentUser,
+    setCurrentUser,
+  }
+
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   )
 }
 

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { User } from '../types'
+import { AuthContextValue } from '../types'
 
-const AuthContext = createContext<any>(null)
+const AuthContext = createContext<AuthContextValue>(null)
 export default AuthContext

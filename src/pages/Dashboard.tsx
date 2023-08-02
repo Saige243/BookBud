@@ -15,8 +15,6 @@ function Dashboard({
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
   const [displayedBooks, setDisplayedBooks] = useState<any>([])
 
-  console.log('bookIDS', bookIds)
-
   useEffect(() => {
     setDisplayedBooks(bookIds)
   }, [bookIds])

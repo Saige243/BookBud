@@ -10,7 +10,7 @@ interface DecodedToken extends JwtPayload {
 const useAuth = () => {
   const { setCurrentUser } = useContext(AuthContext)
 
-  const onError = (message) => {
+  const onError = (message: string) => {
     alert(message)
   }
 

@@ -45,7 +45,7 @@ const Sidebar = () => {
           </div>
           <div>
             <p className="ml-3 font-unbounded text-md text-BBprimary1">
-              {currentUser.firstName} {currentUser.lastName}
+              {currentUser?.firstName} {currentUser?.lastName}
             </p>
             <p className="ml-3 font-montserrat text-xs text-BBprimary1">
               Books Read:

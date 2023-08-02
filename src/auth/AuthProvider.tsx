@@ -3,7 +3,7 @@ import AuthContext from './AuthContext'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import jwtDecode, { JwtPayload } from 'jwt-decode' // Import JwtPayload
-import { User, AuthContextValue } from '../types'
+import { User } from '../types'
 
 interface DecodedToken extends JwtPayload {
   userId: string
@@ -38,13 +38,10 @@ const AuthProvider = ({ children }) => {
     getUser()
   }, [])
 
-  const contextValue: AuthContextValue = {
-    currentUser,
-    setCurrentUser,
-  }
-
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 

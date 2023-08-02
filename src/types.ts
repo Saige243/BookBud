@@ -5,12 +5,15 @@ export type User = {
   createdAt: string
   updatedAt: string
   savedBooks: any[]
+  currentlyReading: any[]
+  firstName: string
+  lastName: string
 } | null
 
 export type AuthContextValue = {
   currentUser: User | null
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>
-} | null
+  setCurrentUser: React.Dispatch<React.SetStateAction<User>>
+}
 
 export type Book = {
   id: string

@@ -11,7 +11,7 @@ export function PrimaryButton({
   onClick?: React.MouseEventHandler
   type?: any
   size?: any
-  className: string
+  className?: string
 }) {
   return (
     <button

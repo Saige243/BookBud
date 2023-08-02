@@ -4,8 +4,14 @@ import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Bookmark'
 import Rating from '@mui/material/Rating'
 import Modal from './Modal'
+import { Book } from '../types'
 
-function BookContainer({ props }: { props: any }) {
+interface BookContainerProps {
+  id: string
+  volumeInfo: Book
+}
+
+function BookContainer({ props }: { props: BookContainerProps }) {
   const { volumeInfo } = props
 
   const openModal = (id: string) => {

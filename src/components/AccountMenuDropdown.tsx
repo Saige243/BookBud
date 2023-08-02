@@ -15,7 +15,7 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function AccountMenu() {
-  const { currentUser }: any = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
   const { signout } = useAuth()
   const [anchorEl, setAnchorEl] = React.useState(null)

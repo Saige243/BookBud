@@ -21,7 +21,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('nyt best sellers')
   const { books, isLoading } = useGetBooks(searchTerm)
 
-  const handleSearch = async (searchTerm) => {
+  const handleSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm)
   }
 

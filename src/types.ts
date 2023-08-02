@@ -18,4 +18,10 @@ export type AuthContextValue = {
 export type Book = {
   id: string
   title: string
+  authors: string[]
+  description: string
+  imageLinks: {
+    thumbnail: string
+  }
+  averageRating: number
 }

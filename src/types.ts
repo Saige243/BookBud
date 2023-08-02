@@ -25,3 +25,5 @@ export type Book = {
   }
   averageRating: number
 }
+
+export type SavedBook = { bookId: { bookId: string } }

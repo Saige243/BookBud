@@ -13,7 +13,7 @@ function Dashboard({
   isLoading: boolean
 }) {
   const [selectedCategory, setSelectedCategory] = useState('Best Sellers')
-  const [displayedBooks, setDisplayedBooks] = useState<any>([])
+  const [displayedBooks, setDisplayedBooks] = useState([])
 
   useEffect(() => {
     setDisplayedBooks(bookIds)

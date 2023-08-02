@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
-import { debounce } from 'lodash'
-import { User } from '../types'
+import { SavedBook } from '../types'
 
 const useBook = () => {
-  const { currentUser }: any = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
+
+  if (!currentUser) return null
 
   const useGetBook = (id: string | undefined) => {
     const [book, setBook] = useState([])
@@ -92,16 +93,13 @@ const useBook = () => {
     }
   }
 
-  const addToCurrentlyReading = async (
-    userId: string,
-    bookId: { bookId: string | undefined }
-  ) => {
+  const addToCurrentlyReading = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book: string[]) =>
-        book.map((item: any) => item.bookId.bookId)
+      const savedBooks = currentUser.savedBooks.map((book: SavedBook[]) =>
+        book.map((item) => item.bookId.bookId)
       )
-      const isBookAlreadySaved = Object.values(savedBooks).some(
-        (bookArray: any) => bookArray.includes(bookId.bookId)
+      const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
+        bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error("You're already reading this book")
@@ -142,16 +140,13 @@ const useBook = () => {
     }
   }
 
-  const saveBook = async (
-    userId: string,
-    bookId: { bookId: string | undefined }
-  ) => {
+  const saveBook = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book: string[]) =>
-        book.map((item: any) => item.bookId.bookId)
+      const savedBooks = currentUser.savedBooks.map((book: SavedBook[]) =>
+        book.map((item) => item.bookId.bookId)
       )
-      const isBookAlreadySaved = Object.values(savedBooks).some(
-        (bookArray: any) => bookArray.includes(bookId.bookId)
+      const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
+        bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error('Book is already in library')

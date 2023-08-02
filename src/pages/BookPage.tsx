@@ -14,12 +14,14 @@ function BookPage({ navigate }) {
   const { book } = useGetBook(bookId)
   const [displayBook, setDisplayBook] = useState<any>({})
   const [showFullDescription, setShowFullDescription] = useState(false)
-  const { currentUser }: any = React.useContext(AuthContext)
+  const { currentUser } = React.useContext(AuthContext)
 
   useEffect(() => {
     setDisplayBook(book)
   }, [bookId, book])
   const { volumeInfo } = displayBook
+
+  if (!currentUser) return null
 
   if (!volumeInfo) {
     return <div className="bg-BBwhite min-h-screen">Loading...</div>
@@ -41,7 +43,7 @@ function BookPage({ navigate }) {
       .then((res) => {
         toast.success(`${volumeInfo.title} added to library!`)
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         toast.warning(`${volumeInfo.title} is already in your library`)
       })
   }
@@ -51,7 +53,7 @@ function BookPage({ navigate }) {
       .then((res) => {
         toast.success(`${volumeInfo.title} added to currently reading!`)
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         toast.warning(`${volumeInfo.title} you're already reading this book!`)
       })
   }

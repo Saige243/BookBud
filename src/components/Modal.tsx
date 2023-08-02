@@ -6,7 +6,6 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import useBook from '../hooks/useBook'
 import AuthContext from '../auth/AuthContext'
-import { User } from '../types'
 
 const style = {
   position: 'absolute',
@@ -24,13 +23,15 @@ export default function BasicModal({
   modalText,
   bookId,
 }: {
-  modalText: any
+  modalText: string
   bookId: string
 }) {
-  const { currentUser }: any = React.useContext(AuthContext)
+  const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState('')
   const { saveBook, addToCurrentlyReading } = useBook()
+
+  if (!currentUser) return null
 
   const handleOpen = () => {
     setOpen(true)
@@ -38,7 +39,7 @@ export default function BasicModal({
 
   const handleClose = () => setOpen(false)
 
-  const handleSelectChange = (event: any) => {
+  const handleSelectChange = (event) => {
     setSelectedValue(event.target.value)
   }
 

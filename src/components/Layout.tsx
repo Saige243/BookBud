@@ -28,7 +28,7 @@ const Sidebar = () => {
   }, [currentUser])
 
   const links = ['Home', 'My Library', 'Community']
-  const pages = ['/dashboard', '/savedBooks']
+  const pages = ['/dashboard', '/savedBooks', '/community']
 
   return (
     <div className="flex flex-col bg-BBwhite text-white min-h-screen pt-8">

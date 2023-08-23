@@ -15,6 +15,7 @@ import SavedBooks from './pages/SavedBooks'
 import Landing from './pages/Landing'
 import Layout from './components/Layout'
 import 'react-toastify/dist/ReactToastify.css'
+import Community from './pages/Community'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
@@ -47,10 +48,15 @@ function App() {
                 <Route
                   path="/searchResults"
                   element={
-                    <SearchResults books={books} searchTerm={searchTerm} />
+                    <SearchResults
+                      books={books}
+                      searchTerm={searchTerm}
+                      isLoading={isLoading}
+                    />
                   }
                 />
                 <Route path="/savedBooks" element={<SavedBooks />} />
+                <Route path="/community" element={<Community />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route
                   path="/books/:bookId"

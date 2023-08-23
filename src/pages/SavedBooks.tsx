@@ -33,7 +33,7 @@ function SavedBooks() {
       </div>
       {isLoading ? (
         <div className="flex justify-center h-screen place-items-center">
-          <div className="relative bottom-20">
+          <div className="relative bottom-28">
             <LoadingSpinner />
           </div>
         </div>

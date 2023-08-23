@@ -5,6 +5,7 @@ import { useState } from 'react'
 import useBook from '../hooks/useBook'
 import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 function SavedBooks() {
   const { currentUser } = useContext(AuthContext)
@@ -30,37 +31,45 @@ function SavedBooks() {
       <div>
         <h1 className="font-unbounded">Currently Reading</h1>
       </div>
-      {currentlyReadingData.length > 0 && !isLoading ? (
-        <div className="flex flex-row flex-wrap justify-evenly">
-          {!isLoading &&
-            currentlyReadingData.map((book) => (
-              <CurrentlyReadingContainer key={book} props={book} />
-            ))}
+      {isLoading ? (
+        <div className="flex justify-center h-screen place-items-center">
+          <div className="relative bottom-20">
+            <LoadingSpinner />
+          </div>
         </div>
       ) : (
-        <h1>
-          You've got no books currently reading! Click the heart button on a
-          book after searching to add.
-        </h1>
-      )}
-
-      {savedBooksData.length > 0 && !isLoading ? (
         <>
-          <div className="flex">
-            <h2 className="font-unbounded">Want to read</h2>
-          </div>
-          <div className="flex flex-row flex-wrap justify-evenly">
-            {!isLoading &&
-              savedBooksData.map((book, i) => (
-                <SavedBookContainer props={book} key={i} />
+          {currentlyReadingData.length > 0 ? (
+            <div className="flex flex-row flex-wrap justify-evenly">
+              {currentlyReadingData.map((book) => (
+                <CurrentlyReadingContainer key={book} props={book} />
               ))}
-          </div>
+            </div>
+          ) : (
+            <h1>
+              You've got no books currently reading! Click the heart button on a
+              book after searching to add.
+            </h1>
+          )}
+
+          {savedBooksData.length > 0 ? (
+            <>
+              <div className="flex">
+                <h2 className="font-unbounded">Want to read</h2>
+              </div>
+              <div className="flex flex-row flex-wrap justify-evenly">
+                {savedBooksData.map((book, i) => (
+                  <SavedBookContainer props={book} key={i} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <h1>
+              You've got no favorites yet! Click the heart button on a book
+              after searching to add.
+            </h1>
+          )}
         </>
-      ) : (
-        <h1>
-          You've got no favorites yet! Click the heart button on a book after
-          searching to add.
-        </h1>
       )}
     </div>
   )

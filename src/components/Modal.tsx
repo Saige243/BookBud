@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { PrimaryButton } from './Buttons'
 import Select from '@mui/material/Select'
@@ -20,11 +19,19 @@ const style = {
   p: 4,
 }
 
-export default function BasicModal({ modalText, bookId }) {
+export default function BasicModal({
+  modalText,
+  bookId,
+}: {
+  modalText: string
+  bookId: string
+}) {
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState('')
   const { saveBook, addToCurrentlyReading } = useBook()
+
+  if (!currentUser) return null
 
   const handleOpen = () => {
     setOpen(true)
@@ -43,7 +50,6 @@ export default function BasicModal({ modalText, bookId }) {
 
     if (selectedValue === 'Add to Library') {
       saveBook(currentUser._id, { bookId: bookId })
-      // console.log('save book:', bookId)
     } else if (selectedValue === 'Add to Currently Reading') {
       addToCurrentlyReading(currentUser._id, { bookId: bookId })
     } else if (selectedValue === 'Add to Finished') {

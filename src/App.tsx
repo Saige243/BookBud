@@ -1,3 +1,4 @@
+import React from 'react'
 import { useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
@@ -20,7 +21,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('nyt best sellers')
   const { books, isLoading } = useGetBooks(searchTerm)
 
-  const handleSearch = async (searchTerm) => {
+  const handleSearch = async (searchTerm: string) => {
     setSearchTerm(searchTerm)
   }
 
@@ -32,12 +33,12 @@ function App() {
           <Routes>
             {currentUser ? (
               <>
-                <Route exact path="/" element={<Landing />} />
+                <Route path="/" element={<Landing />} />
                 <Route
                   path="/dashboard"
                   element={
                     <Dashboard
-                      books={books}
+                      bookIds={books}
                       isLoading={isLoading}
                       selectedCategoryTerm={handleSearch}
                     />
@@ -58,7 +59,7 @@ function App() {
               </>
             ) : (
               <>
-                <Route exact path="/" element={<Landing />} />
+                <Route path="/" element={<Landing />} />
                 <Route path="/dashboard" element={<Login />} />
                 <Route path="/searchResults" element={<Login />} />
                 <Route path="/savedBooks" element={<Login />} />
@@ -66,9 +67,9 @@ function App() {
                 <Route path="/books/:bookId" element={<Login />} />
               </>
             )}
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="*" element={<NotFound />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </Layout>

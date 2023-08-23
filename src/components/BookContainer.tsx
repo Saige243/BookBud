@@ -2,17 +2,19 @@ import React from 'react'
 import { PrimaryButton } from './Buttons'
 import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Bookmark'
-import useBook from '../hooks/useBook'
-import AuthContext from '../auth/AuthContext'
 import Rating from '@mui/material/Rating'
 import Modal from './Modal'
+import { Book } from '../types'
 
-function BookContainer({ props }) {
-  const { currentUser } = React.useContext(AuthContext)
+interface BookContainerProps {
+  id: string
+  volumeInfo: Book
+}
+
+function BookContainer({ props }: { props: BookContainerProps }) {
   const { volumeInfo } = props
-  const { saveBook } = useBook()
 
-  const openModal = (id) => {
+  const openModal = (id: string) => {
     // console.log('open modal', id)
   }
 
@@ -27,7 +29,7 @@ function BookContainer({ props }) {
                   text={
                     <Modal modalText={<FavoriteIcon />} bookId={props.id} />
                   }
-                  onClick={(event) => {
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault()
                     openModal(props.id)
                   }}
@@ -56,14 +58,6 @@ function BookContainer({ props }) {
           </div>
         </div>
       </Link>
-      {/* <div className="flex flex-col align-middle justify-center">
-        <PrimaryButton
-          size="tiny"
-          text={<FavoriteIcon />}
-          onClick={() => saveBook(currentUser._id, { bookId: props.id })}
-        />
-        <PrimaryButton size="tiny" text={<InfoIcon />} />
-      </div> */}
     </div>
   )
 }

@@ -22,10 +22,19 @@ export default function EditModal({
   bookId,
   innerText,
   parentComponent,
+  closeModal,
+}: {
+  modalText: string
+  bookId: string
+  innerText: string
+  parentComponent: string
+  closeModal?: boolean
 }) {
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
   const { removeBookFromSaved, removeBookFromCurrentlyReading } = useBook()
+
+  if (!currentUser) return null
 
   const handleOpen = () => {
     setOpen(true)
@@ -34,7 +43,7 @@ export default function EditModal({
   const handleClose = () => setOpen(false)
 
   const handleConfirm = async () => {
-    console.log(currentUser._id)
+    console.log(currentUser?._id)
     if (parentComponent === 'savedBooks') {
       removeBookFromSaved(currentUser._id, { bookId: bookId })
       handleClose()

@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
-import { debounce } from 'lodash'
+import { SavedBook } from '../types'
 
 const useBook = () => {
   const { currentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
 
-  const useGetBook = (id) => {
+  const useGetBook = (id: string | undefined) => {
     const [book, setBook] = useState([])
 
     useEffect(() => {
@@ -18,8 +18,12 @@ const useBook = () => {
           .get(`https://www.googleapis.com/books/v1/volumes/${id}`)
           .then((data) => {
             setBook(data.data)
+            setIsLoading(false)
           })
-        setIsLoading(false)
+          .catch((error) => {
+            console.error('Error fetching book:', error)
+            setIsLoading(false)
+          })
       }
     }, [id])
 
@@ -29,30 +33,26 @@ const useBook = () => {
     }
   }
 
-  const useGetSavedBooks = ({ ids }) => {
-    const [savedBooks, setSavedBooks] = useState([])
-
-    const debouncedFetch = debounce((bookIds) => {
-      setIsLoading(true)
-      Promise.all(
-        bookIds.map((id) =>
-          axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
-        )
-      )
-        .then((responses) => {
-          const booksData = responses.map((response) => response.data)
-          setSavedBooks(booksData)
-          setIsLoading(false)
-        })
-        .catch((error) => {
-          console.error('Error retrieving saved books:', error.message)
-          setIsLoading(false)
-        })
-    }, 1000)
+  const useGetSavedBooks = ({ ids }: { ids: string[] }) => {
+    const [savedBooks, setSavedBooks] = useState<string[]>([])
 
     useEffect(() => {
       if (ids && ids.length > 0) {
-        debouncedFetch(ids)
+        setIsLoading(true)
+        Promise.all(
+          ids.map((id) =>
+            axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          )
+        )
+          .then((responses) => {
+            const booksData = responses.map((response) => response.data)
+            setSavedBooks(booksData)
+            setIsLoading(false)
+          })
+          .catch((error) => {
+            console.error('Error retrieving saved books:', error)
+            setIsLoading(false)
+          })
       }
     }, [ids])
 
@@ -62,8 +62,8 @@ const useBook = () => {
     }
   }
 
-  const useGetCurrentlyReading = ({ ids }) => {
-    const [currentlyReading, setCurrentlyReading] = useState([])
+  const useGetCurrentlyReading = ({ ids }: { ids: string[] }) => {
+    const [currentlyReading, setCurrentlyReading] = useState<string[]>([])
 
     useEffect(() => {
       if (ids && ids.length > 0) {
@@ -91,13 +91,13 @@ const useBook = () => {
     }
   }
 
-  const addToCurrentlyReading = async (userId, bookId) => {
+  const addToCurrentlyReading = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book) =>
+      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
         book.map((item) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
-        bookArray.includes(bookId)
+        bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error("You're already reading this book")
@@ -112,12 +112,15 @@ const useBook = () => {
         return response.data
       }
     } catch (error) {
-      console.error('Error on saveBook:', error)
-      throw new Error('Save book failed')
+      console.error('Error on addToCurrentlyReading:', error)
+      throw new Error('Add to currently reading failed')
     }
   }
 
-  const removeBookFromCurrentlyReading = async (userId, bookId) => {
+  const removeBookFromCurrentlyReading = async (
+    userId: string,
+    bookId: { bookId: string | undefined }
+  ) => {
     try {
       const response = await axios.delete(
         'http://localhost:3001/books/currently-reading',
@@ -130,18 +133,18 @@ const useBook = () => {
       )
       return response.data
     } catch (error) {
-      console.error('Error on removeBookFromSaved:', error)
-      throw new Error('Remove book failed')
+      console.error('Error on removeBookFromCurrentlyReading:', error)
+      throw new Error('Remove book from currently reading failed')
     }
   }
 
-  const saveBook = async (userId, bookId) => {
+  const saveBook = async (userId: string, bookId: SavedBook[]) => {
     try {
-      const savedBooks = currentUser.savedBooks.map((book) =>
+      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
         book.map((item) => item.bookId.bookId)
       )
       const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
-        bookArray.includes(bookId)
+        bookArray.includes(bookId.bookId)
       )
       if (isBookAlreadySaved) {
         throw new Error('Book is already in library')
@@ -159,7 +162,10 @@ const useBook = () => {
     }
   }
 
-  const removeBookFromSaved = async (userId, bookId) => {
+  const removeBookFromSaved = async (
+    userId: string,
+    bookId: { bookId: string | undefined }
+  ) => {
     try {
       const response = await axios.delete('http://localhost:3001/books', {
         params: {
@@ -170,7 +176,7 @@ const useBook = () => {
       return response.data
     } catch (error) {
       console.error('Error on removeBookFromSaved:', error)
-      throw new Error('Remove book failed')
+      throw new Error('Remove book from saved books failed')
     }
   }
 

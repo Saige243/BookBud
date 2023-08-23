@@ -1,19 +1,18 @@
 import React from 'react'
-import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useBook from '../hooks/useBook'
 import { useParams } from 'react-router-dom'
 import { GhostButton } from '../components/buttons/buttons'
-import orangeBook from '../assets/images/icons/orangeBook.svg'
+import { ReactComponent as OrangeBook } from '../assets/images/icons/orangeBook.svg'
 import star from '../assets/images/icons/Star.svg'
 import AuthContext from '../auth/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 
-function BookPage() {
+function BookPage({ navigate }) {
   const { bookId } = useParams()
   const { useGetBook, saveBook, addToCurrentlyReading } = useBook()
-  const { book, isLoading } = useGetBook(bookId)
-  const [displayBook, setDisplayBook] = useState({})
+  const { book } = useGetBook(bookId)
+  const [displayBook, setDisplayBook] = useState<any>({})
   const [showFullDescription, setShowFullDescription] = useState(false)
   const { currentUser } = React.useContext(AuthContext)
 
@@ -22,15 +21,14 @@ function BookPage() {
   }, [bookId, book])
   const { volumeInfo } = displayBook
 
+  if (!currentUser) return null
+
   if (!volumeInfo) {
     return <div className="bg-BBwhite min-h-screen">Loading...</div>
   }
 
   const description = volumeInfo.description
   const formattedDescription = description.replace(/<[^>]*>/g, '')
-  const formattedPublishDate = moment(volumeInfo.publishedDate).format(
-    'MMMM D, YYYY'
-  )
 
   const truncatedDescription = showFullDescription
     ? formattedDescription
@@ -45,7 +43,7 @@ function BookPage() {
       .then((res) => {
         toast.success(`${volumeInfo.title} added to library!`)
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         toast.warning(`${volumeInfo.title} is already in your library`)
       })
   }
@@ -55,7 +53,7 @@ function BookPage() {
       .then((res) => {
         toast.success(`${volumeInfo.title} added to currently reading!`)
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         toast.warning(`${volumeInfo.title} you're already reading this book!`)
       })
   }
@@ -79,7 +77,7 @@ function BookPage() {
           <div className="grid grid-cols-3 pt-4 ">
             <div className="flex flex-col place-items-center justify-center pt-2 text-center space-y-6">
               <div className="flex space-x-4">
-                <img src={orangeBook} alt="Logo" className="h-50" />
+                <OrangeBook />
                 <div className="">
                   <p className="font-unbounded text-md">
                     {volumeInfo.pageCount}

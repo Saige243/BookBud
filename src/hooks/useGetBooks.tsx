@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { set } from 'mongoose'
 
-const useGetBooks = (searchTerm) => {
+const useGetBooks = (searchTerm: string) => {
   const [books, setBooks] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const apiKey = process.env.REACT_APP_GOOGLEBOOKS_API_KEY

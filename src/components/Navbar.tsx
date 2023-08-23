@@ -1,5 +1,5 @@
-import LoginLogo from '../components/LoginLogo'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import magnifyingGlass from '../assets/images/icons/magnifyingGlass.svg'
 
 function Navbar({ onSubmitSearch }) {

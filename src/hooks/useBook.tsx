@@ -33,7 +33,7 @@ const useBook = () => {
     }
   }
 
-  const useGetSavedBooks = ({ ids }: { ids: string[] }) => {
+  const useGetSavedBooks = ({ ids }: { ids: string[] | undefined }) => {
     const [savedBooks, setSavedBooks] = useState<string[]>([])
 
     useEffect(() => {
@@ -62,7 +62,7 @@ const useBook = () => {
     }
   }
 
-  const useGetCurrentlyReading = ({ ids }: { ids: string[] }) => {
+  const useGetCurrentlyReading = ({ ids }: { ids: string[] | undefined }) => {
     const [currentlyReading, setCurrentlyReading] = useState<string[]>([])
 
     useEffect(() => {

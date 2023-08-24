@@ -31,14 +31,14 @@ const Sidebar = () => {
   const pages = ['/dashboard', '/savedBooks', '/community']
 
   return (
-    <div className="flex flex-col bg-BBwhite text-white min-h-screen pt-8">
+    <div className="hidden sm:flex flex-col bg-BBwhite text-white min-h-screen pt-8">
       <div>
         <Link to="/dashboard">
           <LoginLogo />
         </Link>
       </div>
 
-      <div className="flex items-center justify-center p-4">
+      <div className="hidden sm:flex items-center justify-center p-4">
         <div className="flex items-center">
           <div>
             <AccountMenuDropdown />

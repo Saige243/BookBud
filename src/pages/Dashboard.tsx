@@ -40,7 +40,7 @@ function Dashboard({
 
   return (
     <div className="px-6 bg-BBwhite min-h-screen">
-      <div className="flex justify-between p-2">
+      <div className="hidden md:flex justify-between p-2">
         {categories.map((category, i) => (
           <GhostButton
             text={category}

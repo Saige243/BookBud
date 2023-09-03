@@ -23,7 +23,7 @@ export default function BasicModal({
   modalText,
   bookId,
 }: {
-  modalText: string
+  modalText: string | React.ReactNode
   bookId: string
 }) {
   const { currentUser } = React.useContext(AuthContext)

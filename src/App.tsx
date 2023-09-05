@@ -16,6 +16,7 @@ import Landing from './pages/Landing'
 import Layout from './components/Layout'
 import 'react-toastify/dist/ReactToastify.css'
 import Community from './pages/Community'
+import MobileNav from './components/MobileNav'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
@@ -30,6 +31,7 @@ function App() {
     <BrowserRouter>
       <Layout onSubmitSearch={handleSearch}>
         {currentUser && <Navbar onSubmitSearch={handleSearch} />}
+        {currentUser && <MobileNav />}
         <div className="flex-grow">
           <Routes>
             {currentUser ? (

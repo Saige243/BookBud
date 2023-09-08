@@ -71,6 +71,7 @@ function App() {
                 <Route path="/dashboard" element={<Login />} />
                 <Route path="/searchResults" element={<Login />} />
                 <Route path="/savedBooks" element={<Login />} />
+                <Route path="/community" element={<Login />} />
                 <Route path="/profile" element={<Login />} />
                 <Route path="/books/:bookId" element={<Login />} />
               </>

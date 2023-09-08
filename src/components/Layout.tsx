@@ -6,6 +6,7 @@ import LoginLogo from './LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import AccountMenuDropdown from './AccountMenuDropdown'
+import MobileNav from './MobileNav'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
@@ -80,10 +81,16 @@ const Layout = ({ onSubmitSearch, children }) => {
   const { currentUser } = useContext(AuthContext)
 
   return (
-    <div className="flex">
-      {currentUser && <Sidebar />}
-      <div className="flex-grow">{children}</div>
-    </div>
+    <>
+      <div className="flex">
+        {currentUser && <Sidebar />}
+        <div className="flex-grow">{children}</div>
+      </div>
+      <div className="flex mb-12">
+        {currentUser && <MobileNav />}
+        <div className="flex-grow">{children}</div>
+      </div>
+    </>
   )
 }
 

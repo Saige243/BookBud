@@ -6,6 +6,7 @@ import useBook from '../hooks/useBook'
 import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { Book } from '../types'
 
 function SavedBooks() {
   const { currentUser } = useContext(AuthContext)
@@ -41,8 +42,8 @@ function SavedBooks() {
         <>
           {currentlyReadingData.length > 0 ? (
             <div className="flex flex-row flex-wrap justify-evenly">
-              {currentlyReadingData.map((book) => (
-                <CurrentlyReadingContainer key={book} props={book} />
+              {currentlyReadingData.map((book: any) => (
+                <CurrentlyReadingContainer key={book.id} props={book} />
               ))}
             </div>
           ) : (
@@ -58,8 +59,8 @@ function SavedBooks() {
                 <h2 className="font-unbounded">Want to read</h2>
               </div>
               <div className="flex flex-row flex-wrap justify-evenly">
-                {savedBooksData.map((book, i) => (
-                  <SavedBookContainer props={book} key={i} />
+                {savedBooksData.map((book: any) => (
+                  <SavedBookContainer props={book} key={book.id} />
                 ))}
               </div>
             </>

@@ -21,10 +21,10 @@ function BookContainer({ props }: { props: BookContainerProps }) {
   return (
     <div className="flex flex-col rounded-md md:m-3 justify-between hover:opacity-80 pb-16">
       <Link to={`/books/${props.id}`}>
-        <div className="flex flex-col justify-center w-24 md:w-36 mr-2">
-          <div className="relative h-40 md:h-60">
+        <div className="flex flex-col justify-center w-24 2xl:w-36 mr-2">
+          <div className="relative h-40 2xl:h-60">
             <div className="absolute h-60 w-20 opacity-0 hover:opacity-100">
-              <div className="relative md:left-[87px]">
+              <div className="relative left-[43px] top-[100px]">
                 <PrimaryButton
                   text={
                     <Modal modalText={<FavoriteIcon />} bookId={props.id} />

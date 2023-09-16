@@ -24,11 +24,11 @@ export default function EditModal({
   parentComponent,
   closeModal,
 }: {
-  modalText: string
+  modalText: string | JSX.Element
   bookId: string
   innerText: string
   parentComponent: string
-  closeModal?: boolean
+  closeModal?: () => void
 }) {
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)

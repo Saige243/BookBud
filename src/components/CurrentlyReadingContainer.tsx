@@ -27,7 +27,7 @@ const CurrentlyReadingContainer = ({ props }) => {
   return (
     <Link to={`/books/${props.id}`}>
       <div
-        className="h-40 w-96 book-container rounded-[20px] shadow-xl flex mx-2 mt-3 mb-12 hover:opacity-80"
+        className="h-24 w-72 book-container rounded-[20px] shadow-xl flex mx-2 mt-3 mb-12 hover:opacity-80"
         onMouseEnter={() => setIsModalOpen(true)}
         onMouseLeave={() => setIsModalOpen(false)}
       >
@@ -37,12 +37,12 @@ const CurrentlyReadingContainer = ({ props }) => {
           className="h-full rounded-l-[20px] object-cover"
         />
         <div className="pl-4 pt-2">
-          <h1 className="text-lg font-unbounded">{truncatedTitle}</h1>
+          <h1 className="text-sm font-unbounded">{truncatedTitle}</h1>
           <p className="text-sm font-unbounded">{volumeInfo.authors}</p>
         </div>
         {isModalOpen && (
-          <div className="absolute h-40 w-96">
-            <div className="relative left-[320px]">
+          <div className="absolute h-24 w-72">
+            <div className="relative left-[230px] top-[32px]">
               <PrimaryButton
                 text={
                   <EditModal

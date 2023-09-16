@@ -18,12 +18,12 @@ function SavedBookContainer({ props }) {
   }
 
   return (
-    <div className="flex flex-col rounded-md m-3 justify-between hover:opacity-80 pb-16">
+    <div className="flex flex-col rounded-md m-3 justify-around hover:opacity-80 pb-16">
       <Link to={`/books/${props.id}`}>
-        <div className="flex flex-col justify-center w-36 mr-2">
-          <div className="relative h-60">
+        <div className="flex flex-col justify-center w-24 2xl:w-36 mr-2">
+          <div className="relative h-40 2xl:h-60">
             <div className="absolute h-60 w-36 opacity-0 hover:opacity-100">
-              <div className="relative left-[87px]">
+              <div className="relative left-[43px] top-[100px]">
                 <PrimaryButton
                   text={
                     <EditModal

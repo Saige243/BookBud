@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import LoginLogo from './LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import AccountMenuDropdown from './AccountMenuDropdown'
 import MobileNav from './MobileNav'
+import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
@@ -77,18 +78,25 @@ const Sidebar = () => {
   )
 }
 
-const Layout = ({ onSubmitSearch, children }) => {
+const Layout = ({ onSubmitSearch }) => {
   const { currentUser } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  if (!currentUser) return navigate('/login')
 
   return (
     <>
       <div className="flex">
         {currentUser && <Sidebar />}
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow">
+          <Outlet />
+        </div>
       </div>
       <div className="flex mb-12">
         {currentUser && <MobileNav />}
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow">
+          <Outlet />
+        </div>
       </div>
     </>
   )

@@ -41,7 +41,7 @@ function SavedBooks() {
       ) : (
         <>
           {currentlyReadingData.length > 0 ? (
-            <div className="flex flex-row flex-wrap justify-evenly">
+            <div className="flex flex-row flex-wrap">
               {currentlyReadingData.map((book: any) => (
                 <CurrentlyReadingContainer key={book.id} props={book} />
               ))}
@@ -58,7 +58,7 @@ function SavedBooks() {
               <div className="flex">
                 <h2 className="font-unbounded">Want to read</h2>
               </div>
-              <div className="flex flex-row flex-wrap justify-evenly">
+              <div className="flex flex-row flex-wrap">
                 {savedBooksData.map((book: any) => (
                   <SavedBookContainer props={book} key={book.id} />
                 ))}

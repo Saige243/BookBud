@@ -29,59 +29,45 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Layout onSubmitSearch={handleSearch}>
-        {currentUser && <Navbar onSubmitSearch={handleSearch} />}
-        {currentUser && <MobileNav />}
-        <div className="flex-grow">
-          <Routes>
-            {currentUser ? (
-              <>
-                <Route path="/" element={<Landing />} />
-                <Route
-                  path="/dashboard"
-                  element={
-                    <Dashboard
-                      bookIds={books}
-                      isLoading={isLoading}
-                      selectedCategoryTerm={handleSearch}
-                    />
-                  }
+      {currentUser && <Navbar onSubmitSearch={handleSearch} />}
+      {currentUser && <MobileNav />}
+      <div className="flex-grow">
+        <Routes>
+          <Route element={<Layout onSubmitSearch={handleSearch} />}>
+            <Route path="/" element={<Landing />} />
+            <Route
+              path="/dashboard"
+              element={
+                <Dashboard
+                  bookIds={books}
+                  isLoading={isLoading}
+                  selectedCategoryTerm={handleSearch}
                 />
-                <Route
-                  path="/searchResults"
-                  element={
-                    <SearchResults
-                      books={books}
-                      searchTerm={searchTerm}
-                      isLoading={isLoading}
-                    />
-                  }
+              }
+            />
+            <Route
+              path="/searchResults"
+              element={
+                <SearchResults
+                  books={books}
+                  searchTerm={searchTerm}
+                  isLoading={isLoading}
                 />
-                <Route path="/savedBooks" element={<SavedBooks />} />
-                <Route path="/community" element={<Community />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route
-                  path="/books/:bookId"
-                  element={<BookPage navigate={handleSearch} />}
-                />
-              </>
-            ) : (
-              <>
-                <Route path="/" element={<Landing />} />
-                <Route path="/dashboard" element={<Login />} />
-                <Route path="/searchResults" element={<Login />} />
-                <Route path="/savedBooks" element={<Login />} />
-                <Route path="/community" element={<Login />} />
-                <Route path="/profile" element={<Login />} />
-                <Route path="/books/:bookId" element={<Login />} />
-              </>
-            )}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </Layout>
+              }
+            />
+            <Route path="/savedBooks" element={<SavedBooks />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/books/:bookId"
+              element={<BookPage navigate={handleSearch} />}
+            />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }

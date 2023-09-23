@@ -3,9 +3,14 @@ import splashManReading from '../assets/images/illustrations/splashManReading.sv
 import { PrimaryButton, GhostButton } from '../components/buttons/buttons'
 import { useNavigate } from 'react-router-dom'
 import LoginLogo from '../components/LoginLogo'
+import AuthContext from '../auth/AuthContext'
 
 function Landing() {
+  const { currentUser } = React.useContext(AuthContext)
   const navigate = useNavigate()
+
+  if (currentUser) return navigate('/dashboard')
+
   return (
     <div className="h-screen bg-BBpurple text-white">
       <LoginLogo />

@@ -92,12 +92,6 @@ const Layout = ({ onSubmitSearch }) => {
           <Outlet />
         </div>
       </div>
-      <div className="flex mb-12">
-        {currentUser && <MobileNav />}
-        <div className="flex-grow">
-          <Outlet />
-        </div>
-      </div>
     </>
   )
 }

@@ -1,15 +1,18 @@
 import React from 'react'
-import splashManReading from '../assets/images/illustrations/splashManReading.svg'
-import { PrimaryButton, GhostButton } from '../components/buttons/buttons'
 import { useNavigate } from 'react-router-dom'
 import LoginLogo from '../components/LoginLogo'
 import AuthContext from '../auth/AuthContext'
+import { PrimaryButton, GhostButton } from '../components/buttons/buttons'
+import splashManReading from '../assets/images/illustrations/splashManReading.svg'
 
 function Landing() {
   const { currentUser } = React.useContext(AuthContext)
   const navigate = useNavigate()
 
-  if (currentUser) return navigate('/dashboard')
+  if (!currentUser) {
+    navigate('/dashboard')
+    return null
+  }
 
   return (
     <div className="h-screen bg-BBpurple text-white">

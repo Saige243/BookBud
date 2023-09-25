@@ -6,7 +6,6 @@ import LoginLogo from './LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import AccountMenuDropdown from './AccountMenuDropdown'
-import MobileNav from './MobileNav'
 import { useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -78,21 +77,22 @@ const Sidebar = () => {
   )
 }
 
-const Layout = ({ onSubmitSearch }) => {
+const Layout = () => {
   const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  if (!currentUser) return navigate('/login')
+  if (!currentUser) {
+    navigate('/login')
+    return null
+  }
 
   return (
-    <>
-      <div className="flex">
-        {currentUser && <Sidebar />}
-        <div className="flex-grow">
-          <Outlet />
-        </div>
+    <div className="flex">
+      {currentUser && <Sidebar />}
+      <div className="flex-grow">
+        <Outlet />
       </div>
-    </>
+    </div>
   )
 }
 

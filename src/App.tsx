@@ -33,7 +33,7 @@ function App() {
       {currentUser && <MobileNav />}
       <div className="flex-grow">
         <Routes>
-          <Route element={<Layout onSubmitSearch={handleSearch} />}>
+          <Route element={<Layout />}>
             <Route path="/" element={<Landing />} />
             <Route
               path="/dashboard"

@@ -9,7 +9,7 @@ function Landing() {
   const { currentUser } = React.useContext(AuthContext)
   const navigate = useNavigate()
 
-  if (!currentUser) {
+  if (currentUser) {
     navigate('/dashboard')
     return null
   }

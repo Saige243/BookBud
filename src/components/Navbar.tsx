@@ -1,6 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import magnifyingGlass from '../assets/images/icons/magnifyingGlass.svg'
+import LoginLogo from './LoginLogo'
 
 function Navbar({ onSubmitSearch }) {
   const navigate = useNavigate()
@@ -17,7 +18,12 @@ function Navbar({ onSubmitSearch }) {
   }
 
   return (
-    <div className="bg-BBwhite hidden sm:flex items-center justify-end py-2">
+    <div className="bg-BBwhite hidden md:flex items-center justify-between py-2">
+      <div className="hidden md:flex">
+        <Link to="/dashboard">
+          <LoginLogo />
+        </Link>
+      </div>
       <div className="relative w-full sm:w-1/2 lg:w-2/4 pr-4">
         <input
           type="text"

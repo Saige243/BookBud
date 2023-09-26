@@ -15,7 +15,7 @@ const useGetBooks = (searchTerm: string) => {
             searchTerm +
             '&key=' +
             apiKey +
-            '&maxResults=20'
+            '&maxResults=40'
         )
         .then((data) => {
           setBooks(data.data.items)

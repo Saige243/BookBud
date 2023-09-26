@@ -23,7 +23,7 @@ function MobileNav() {
 
   return (
     <div className="flex bg-BBwhite z-10 w-full">
-      <div className="flex md:hidden w-full place-items-center justify-around">
+      <div className="flex lg:hidden w-full place-items-center justify-around">
         <IconButton
           size="large"
           aria-label="account of current user"

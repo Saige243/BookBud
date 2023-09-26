@@ -18,8 +18,8 @@ function Navbar({ onSubmitSearch }) {
   }
 
   return (
-    <div className="bg-BBwhite hidden md:flex items-center justify-between py-2">
-      <div className="hidden md:flex">
+    <div className="bg-BBwhite hidden lg:flex items-center justify-between py-2">
+      <div className="hidden lg:flex">
         <Link to="/dashboard">
           <LoginLogo />
         </Link>

@@ -27,14 +27,14 @@ const CurrentlyReadingContainer = ({ props }) => {
   return (
     <Link to={`/books/${props.id}`}>
       <div
-        className="h-24 w-72 book-container rounded-[20px] shadow-xl flex mx-2 mt-3 mb-12 hover:opacity-80"
+        className="h-24 w-72 book-container rounded-[10px] shadow-xl flex mx-2 mt-3 mb-12 hover:opacity-80"
         onMouseEnter={() => setIsModalOpen(true)}
         onMouseLeave={() => setIsModalOpen(false)}
       >
         <img
           src={volumeInfo.imageLinks.thumbnail}
           alt={volumeInfo.title}
-          className="h-full rounded-l-[20px] object-cover"
+          className="h-full rounded-l-[10px] object-cover"
         />
         <div className="pl-4 pt-2">
           <h1 className="text-sm font-unbounded">{truncatedTitle}</h1>

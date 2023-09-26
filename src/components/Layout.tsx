@@ -32,17 +32,17 @@ const Sidebar = () => {
   const pages = ['/dashboard', '/savedBooks', '/community']
 
   return (
-    <div className="hidden md:flex flex-col bg-BBwhite text-white min-h-screen pt-8">
-      <div className="hidden sm:flex items-center justify-center p-4">
+    <div className="hidden lg:flex flex-col bg-BBwhite text-white min-h-screen pt-8">
+      <div className="hidden sm:flex items-center justify-center">
         <div className="flex items-center">
           <div>
             <AccountMenuDropdown />
           </div>
           <div>
-            <p className="ml-3 font-unbounded text-md text-BBprimary1">
+            <p className="ml-1 font-unbounded text-md text-BBprimary1">
               {currentUser?.firstName} {currentUser?.lastName}
             </p>
-            <p className="ml-3 font-montserrat text-xs text-BBprimary1">
+            <p className="ml-1 font-montserrat text-xs text-BBprimary1">
               Books Read:
             </p>
           </div>

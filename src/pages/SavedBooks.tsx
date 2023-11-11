@@ -6,7 +6,6 @@ import useBook from '../hooks/useBook'
 import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { Book } from '../types'
 
 function SavedBooks() {
   const { currentUser } = useContext(AuthContext)

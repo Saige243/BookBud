@@ -117,7 +117,7 @@ const useBook = () => {
     }
   }
 
-  const removeBookFromCurrentlyReading = async (
+  const removeFromCurrentlyReading = async (
     userId: string,
     bookId: { bookId: string | undefined }
   ) => {
@@ -162,7 +162,7 @@ const useBook = () => {
     }
   }
 
-  const removeBookFromSaved = async (
+  const removeFromWantToRead = async (
     userId: string,
     bookId: { bookId: string | undefined }
   ) => {
@@ -184,9 +184,9 @@ const useBook = () => {
     useGetBook,
     useGetSavedBooks,
     saveBook,
-    removeBookFromSaved,
+    removeFromWantToRead,
     addToCurrentlyReading,
-    removeBookFromCurrentlyReading,
+    removeFromCurrentlyReading,
     useGetCurrentlyReading,
     isLoading,
   }

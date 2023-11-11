@@ -11,7 +11,7 @@ import BookPage from './pages/BookPage'
 import { useGetBooks } from './hooks/useGetBooks'
 import Signup from './pages/Signup'
 import AuthContext from './auth/AuthContext'
-import SavedBooks from './pages/SavedBooks'
+import MyBooks from './pages/MyBooks'
 import Landing from './pages/Landing'
 import Layout from './components/Layout'
 import 'react-toastify/dist/ReactToastify.css'
@@ -55,7 +55,7 @@ function App() {
                 />
               }
             />
-            <Route path="/savedBooks" element={<SavedBooks />} />
+            <Route path="/mybooks" element={<MyBooks />} />
             <Route path="/community" element={<Community />} />
             <Route path="/profile" element={<Profile />} />
             <Route

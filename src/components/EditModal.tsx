@@ -44,7 +44,7 @@ export default function EditModal({
 
   const handleConfirm = async () => {
     console.log(currentUser?._id)
-    if (parentComponent === 'savedBooks') {
+    if (parentComponent === 'mybooks') {
       removeFromWantToRead(currentUser._id, { bookId: bookId })
       handleClose()
     } else if (parentComponent === 'currentlyReading') {

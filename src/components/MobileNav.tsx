@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom'
 function MobileNav() {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
 
-  const links = ['Home', 'My Library', 'Community']
-  const pages = ['/dashboard', '/savedBooks', '/community']
+  const links = ['Home', 'My Books', 'Community']
+  const pages = ['/dashboard', '/mybooks', '/community']
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)

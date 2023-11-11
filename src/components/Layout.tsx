@@ -28,8 +28,8 @@ const Sidebar = () => {
     )
   }, [currentUser])
 
-  const links = ['Home', 'My Library', 'Community']
-  const pages = ['/dashboard', '/savedBooks', '/community']
+  const links = ['Home', 'My Books', 'Community']
+  const pages = ['/dashboard', '/mybooks', '/community']
 
   return (
     <div className="hidden lg:flex flex-col bg-BBwhite text-white min-h-screen pt-8">

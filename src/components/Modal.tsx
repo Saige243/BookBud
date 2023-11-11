@@ -48,7 +48,7 @@ export default function BasicModal({
       return
     }
 
-    if (selectedValue === 'Add to Library') {
+    if (selectedValue === 'Add to Want to Read') {
       saveBook(currentUser._id, { bookId: bookId })
     } else if (selectedValue === 'Add to Currently Reading') {
       addToCurrentlyReading(currentUser._id, { bookId: bookId })
@@ -84,7 +84,7 @@ export default function BasicModal({
             fullWidth
             sx={customSelectStyle}
           >
-            <MenuItem value="Add to Library">Add to Library</MenuItem>
+            <MenuItem value="Add to Want to Read">Add to Want to Read</MenuItem>
             <MenuItem value="Add to Currently Reading">
               Add to Currently Reading
             </MenuItem>

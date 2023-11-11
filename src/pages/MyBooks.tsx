@@ -7,7 +7,7 @@ import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
 import LoadingSpinner from '../components/LoadingSpinner'
 
-function SavedBooks() {
+function MyBooks() {
   const { currentUser } = useContext(AuthContext)
   const { useGetSavedBooks, useGetCurrentlyReading, isLoading } = useBook()
 
@@ -75,4 +75,4 @@ function SavedBooks() {
   )
 }
 
-export default SavedBooks
+export default MyBooks

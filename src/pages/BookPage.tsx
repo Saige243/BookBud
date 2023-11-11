@@ -102,9 +102,8 @@ function BookPage({ navigate }) {
             />
             <div className="flex flex-col justify-center space-y-4 p-4">
               <GhostButton
-                text="Add to Library"
+                text="Add to Want to Read"
                 className="text-xs/10"
-                // onClick={() => console.log('Clicked!')}
                 onClick={() => handleSaveBook()}
               />
               <GhostButton

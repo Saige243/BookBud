@@ -32,7 +32,11 @@ export default function EditModal({
 }) {
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
-  const { removeFromWantToRead, removeFromCurrentlyReading } = useBook()
+  const {
+    removeFromWantToRead,
+    removeFromCurrentlyReading,
+    removeFromFinished,
+  } = useBook()
 
   if (!currentUser) return null
 
@@ -44,14 +48,19 @@ export default function EditModal({
 
   const handleConfirm = async () => {
     console.log(currentUser?._id)
-    if (parentComponent === 'mybooks') {
+    if (innerText === 'Remove from want to read?') {
       removeFromWantToRead(currentUser._id, { bookId: bookId })
       handleClose()
-    } else if (parentComponent === 'currentlyReading') {
+    } else if (innerText === 'Remove from currently reading?') {
       removeFromCurrentlyReading(currentUser._id, { bookId: bookId })
+      handleClose()
+    } else if (innerText === 'Remove from finished?') {
+      removeFromFinished(currentUser._id, { bookId: bookId })
       handleClose()
     }
   }
+
+  console.log('PARENT: ', parentComponent)
 
   return (
     <div>

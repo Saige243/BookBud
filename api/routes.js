@@ -194,4 +194,26 @@ router.post('/books/finished', async (req, res) => {
     res.status(500).json({ message: 'Server error' })
   }
 })
+
+router.delete('/books/finished', async (req, res) => {
+  try {
+    const { userId, bookId } = req.query
+
+    const user = await User.findById(userId)
+
+    if (!userId) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    user.finishedBooks.pull({ bookId: bookId })
+
+    await user.save()
+
+    res.status(200).json({ message: 'Book removed from finished' })
+  } catch (error) {
+    console.error('API:', error.message)
+    res.status(500).json({ message: 'Server error' })
+  }
+})
+
 module.exports = router

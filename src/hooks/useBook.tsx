@@ -225,6 +225,27 @@ const useBook = () => {
     }
   }
 
+  const removeFromFinished = async (
+    userId: string,
+    bookId: { bookId: string | undefined }
+  ) => {
+    try {
+      const response = await axios.delete(
+        'http://localhost:3001/books/finished',
+        {
+          params: {
+            userId: userId,
+            bookId: bookId,
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error('Error on removeBookFromFinished:', error)
+      throw new Error('Remove book from finished failed')
+    }
+  }
+
   return {
     useGetBook,
     useGetSavedBooks,
@@ -235,6 +256,7 @@ const useBook = () => {
     useGetCurrentlyReading,
     useGetFinishedBooks,
     addToFinished,
+    removeFromFinished,
     isLoading,
   }
 }

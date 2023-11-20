@@ -5,7 +5,13 @@ import EditIcon from '@mui/icons-material/Edit'
 import Rating from '@mui/material/Rating'
 import EditModal from './EditModal'
 
-function SavedBookContainer({ props }) {
+function SavedBookContainer({
+  props,
+  innerText,
+}: {
+  props: any
+  innerText: string
+}) {
   const { volumeInfo } = props
 
   const openModal = (id) => {
@@ -24,7 +30,7 @@ function SavedBookContainer({ props }) {
                     <EditModal
                       modalText={<EditIcon />}
                       bookId={props.id}
-                      innerText="Remove from want to read?"
+                      innerText={innerText}
                       parentComponent="savedbooks"
                     />
                   }

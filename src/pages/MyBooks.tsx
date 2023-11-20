@@ -72,7 +72,11 @@ function MyBooks() {
             <>
               <div className="flex flex-row flex-wrap">
                 {savedBooksData.map((book: any) => (
-                  <SavedBookContainer props={book} key={book.id} />
+                  <SavedBookContainer
+                    props={book}
+                    key={book.id}
+                    innerText="Remove from want to read?"
+                  />
                 ))}
               </div>
             </>
@@ -90,7 +94,11 @@ function MyBooks() {
             <>
               <div className="flex flex-row flex-wrap">
                 {finishedBooksData.map((book: any) => (
-                  <SavedBookContainer props={book} key={book.id} />
+                  <SavedBookContainer
+                    props={book}
+                    key={book.id}
+                    innerText="Remove from finished?"
+                  />
                 ))}
               </div>
             </>

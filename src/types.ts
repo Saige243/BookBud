@@ -6,6 +6,7 @@ export type User = {
   updatedAt: string
   savedBooks: any[]
   currentlyReading: any[]
+  finishedBooks: any[]
   firstName: string
   lastName: string
 } | null

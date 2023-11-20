@@ -91,6 +91,35 @@ const useBook = () => {
     }
   }
 
+  const useGetFinishedBooks = ({ ids }: { ids: string[] | undefined }) => {
+    const [finishedBooks, setFinishedBooks] = useState<string[]>([])
+
+    useEffect(() => {
+      if (ids && ids.length > 0) {
+        setIsLoading(true)
+        Promise.all(
+          ids.map((id) =>
+            axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          )
+        )
+          .then((responses) => {
+            const booksData = responses.map((response) => response.data)
+            setFinishedBooks(booksData)
+            setIsLoading(false)
+          })
+          .catch((error) => {
+            console.error('Error retrieving finished books:', error)
+            setIsLoading(false)
+          })
+      }
+    }, [ids])
+
+    return {
+      finishedBooks,
+      isLoading,
+    }
+  }
+
   const addToCurrentlyReading = async (userId: string, bookId: SavedBook[]) => {
     try {
       const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
@@ -180,6 +209,22 @@ const useBook = () => {
     }
   }
 
+  const addToFinished = async (userId: string, bookId: SavedBook[]) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/books/finished',
+        {
+          userId: userId,
+          bookId: bookId,
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error('Error on addToFinished:', error)
+      throw new Error('Add to finished failed')
+    }
+  }
+
   return {
     useGetBook,
     useGetSavedBooks,
@@ -188,6 +233,8 @@ const useBook = () => {
     addToCurrentlyReading,
     removeFromCurrentlyReading,
     useGetCurrentlyReading,
+    useGetFinishedBooks,
+    addToFinished,
     isLoading,
   }
 }

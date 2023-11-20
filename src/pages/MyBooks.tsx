@@ -9,7 +9,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 
 function MyBooks() {
   const { currentUser } = useContext(AuthContext)
-  const { useGetSavedBooks, useGetCurrentlyReading, isLoading } = useBook()
+  const {
+    useGetSavedBooks,
+    useGetCurrentlyReading,
+    useGetFinishedBooks,
+    isLoading,
+  } = useBook()
 
   const [currentlyReading, setCurrentlyReading] = useState(
     currentUser?.currentlyReading.map((item: any) => item[0].bookId.bookId)
@@ -18,12 +23,20 @@ function MyBooks() {
     currentUser?.savedBooks.map((item: any) => item[0].bookId.bookId)
   )
 
+  const [finishedBooks, setFinishedBooks] = useState(
+    currentUser?.finishedBooks.map((item: any) => item[0].bookId.bookId)
+  )
+
   const { savedBooks: savedBooksData } = useGetSavedBooks({
     ids: savedBooks,
   })
 
   const { currentlyReading: currentlyReadingData } = useGetCurrentlyReading({
     ids: currentlyReading,
+  })
+
+  const { finishedBooks: finishedBooksData } = useGetFinishedBooks({
+    ids: finishedBooks,
   })
 
   return (
@@ -52,11 +65,11 @@ function MyBooks() {
             </h1>
           )}
 
+          <div className="flex">
+            <h2 className="font-unbounded">Want to read</h2>
+          </div>
           {savedBooksData.length > 0 ? (
             <>
-              <div className="flex">
-                <h2 className="font-unbounded">Want to read</h2>
-              </div>
               <div className="flex flex-row flex-wrap">
                 {savedBooksData.map((book: any) => (
                   <SavedBookContainer props={book} key={book.id} />
@@ -68,6 +81,21 @@ function MyBooks() {
               You've got no favorites yet! Click the heart button on a book
               after searching to add.
             </h1>
+          )}
+
+          <div className="flex">
+            <h2 className="font-unbounded">Finished</h2>
+          </div>
+          {finishedBooksData.length > 0 ? (
+            <>
+              <div className="flex flex-row flex-wrap">
+                {finishedBooksData.map((book: any) => (
+                  <SavedBookContainer props={book} key={book.id} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <h1>You haven't finished anything yet! Keep reading!</h1>
           )}
         </>
       )}

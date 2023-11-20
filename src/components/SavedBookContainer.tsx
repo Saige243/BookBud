@@ -1,17 +1,12 @@
 import React from 'react'
 import { PrimaryButton } from './Buttons'
 import { Link } from 'react-router-dom'
-import FavoriteIcon from '@mui/icons-material/Bookmark'
 import EditIcon from '@mui/icons-material/Edit'
-import useBook from '../hooks/useBook'
-import AuthContext from '../auth/AuthContext'
 import Rating from '@mui/material/Rating'
 import EditModal from './EditModal'
 
 function SavedBookContainer({ props }) {
-  const { currentUser } = React.useContext(AuthContext)
   const { volumeInfo } = props
-  const { saveBook } = useBook()
 
   const openModal = (id) => {
     // console.log('open modal', id)
@@ -29,7 +24,7 @@ function SavedBookContainer({ props }) {
                     <EditModal
                       modalText={<EditIcon />}
                       bookId={props.id}
-                      innerText="Remove from library?"
+                      innerText="Remove from want to read?"
                       parentComponent="savedbooks"
                     />
                   }

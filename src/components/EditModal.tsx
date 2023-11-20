@@ -64,7 +64,7 @@ export default function EditModal({
         disableEnforceFocus
       >
         <Box sx={style}>
-          <p className="text-center">{innerText}</p>
+          <p className="text-center font-unbounded">{innerText}</p>
           <div className="flex flex-row justify-center">
             <PrimaryButton text="Confirm" onClick={handleConfirm} />
             <PrimaryButton text="Cancel" onClick={() => handleClose()} />

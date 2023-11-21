@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
-import { SavedBook } from '../types'
 
 const useBook = () => {
   const { currentUser } = useContext(AuthContext)
@@ -120,14 +119,16 @@ const useBook = () => {
     }
   }
 
-  const addToCurrentlyReading = async (userId: string, bookId: SavedBook[]) => {
+  const addToCurrentlyReading = async (userId: string, bookId: string) => {
     try {
-      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
-        book.map((item) => item.bookId.bookId)
+      const savedBooks: any = currentUser?.savedBooks.map((book) =>
+        book.map((item: { bookId: string }) => item.bookId)
       )
-      const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
-        bookArray.includes(bookId.bookId)
-      )
+      const isBookAlreadySaved = savedBooks
+        ? savedBooks.some((bookArray: string | string[]) =>
+            bookArray.includes(bookId)
+          )
+        : false
       if (isBookAlreadySaved) {
         throw new Error("You're already reading this book")
       } else {
@@ -146,10 +147,7 @@ const useBook = () => {
     }
   }
 
-  const removeFromCurrentlyReading = async (
-    userId: string,
-    bookId: { bookId: string | undefined }
-  ) => {
+  const removeFromCurrentlyReading = async (userId: string, bookId: string) => {
     try {
       const response = await axios.delete(
         'http://localhost:3001/books/currently-reading',
@@ -167,14 +165,16 @@ const useBook = () => {
     }
   }
 
-  const addToWantToRead = async (userId: string, bookId: SavedBook[]) => {
+  const addToWantToRead = async (userId: string, bookId: string) => {
     try {
-      const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
-        book.map((item) => item.bookId.bookId)
+      const savedBooks = currentUser?.savedBooks.map((book) =>
+        book.map((item: { bookId: string }) => item.bookId)
       )
-      const isBookAlreadySaved = Object.values(savedBooks).some((bookArray) =>
-        bookArray.includes(bookId.bookId)
-      )
+      const isBookAlreadySaved = savedBooks
+        ? savedBooks.some((bookArray: string | string[]) =>
+            bookArray.includes(bookId)
+          )
+        : false
       if (isBookAlreadySaved) {
         throw new Error('Book is already in library')
       }
@@ -191,10 +191,7 @@ const useBook = () => {
     }
   }
 
-  const removeFromWantToRead = async (
-    userId: string,
-    bookId: { bookId: string | undefined }
-  ) => {
+  const removeFromWantToRead = async (userId: string, bookId: string) => {
     try {
       const response = await axios.delete('http://localhost:3001/books', {
         params: {
@@ -209,7 +206,7 @@ const useBook = () => {
     }
   }
 
-  const addToFinished = async (userId: string, bookId: SavedBook[]) => {
+  const addToFinished = async (userId: string, bookId: string) => {
     try {
       const response = await axios.post(
         'http://localhost:3001/books/finished',
@@ -225,10 +222,7 @@ const useBook = () => {
     }
   }
 
-  const removeFromFinished = async (
-    userId: string,
-    bookId: { bookId: string | undefined }
-  ) => {
+  const removeFromFinished = async (userId: string, bookId: string) => {
     try {
       const response = await axios.delete(
         'http://localhost:3001/books/finished',

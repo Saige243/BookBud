@@ -17,14 +17,14 @@ function MyBooks() {
   } = useBook()
 
   const [currentlyReading, setCurrentlyReading] = useState(
-    currentUser?.currentlyReading.map((item: any) => item[0].bookId.bookId)
+    currentUser?.currentlyReading.map((item: any) => item[0].bookId)
   )
   const [savedBooks, setSavedBooks] = useState(
-    currentUser?.savedBooks.map((item: any) => item[0].bookId.bookId)
+    currentUser?.savedBooks.map((item: any) => item[0].bookId)
   )
 
   const [finishedBooks, setFinishedBooks] = useState(
-    currentUser?.finishedBooks.map((item: any) => item[0].bookId.bookId)
+    currentUser?.finishedBooks.map((item: any) => item[0].bookId)
   )
 
   const { savedBooks: savedBooksData } = useGetWantToReadBooks({
@@ -59,7 +59,7 @@ function MyBooks() {
               ))}
             </div>
           ) : (
-            <h1>
+            <h1 className="pb-20">
               You've got no books currently reading! Click the heart button on a
               book after searching to add.
             </h1>
@@ -81,7 +81,7 @@ function MyBooks() {
               </div>
             </>
           ) : (
-            <h1>
+            <h1 className="pb-20">
               You've got no favorites yet! Click the heart button on a book
               after searching to add.
             </h1>
@@ -103,7 +103,9 @@ function MyBooks() {
               </div>
             </>
           ) : (
-            <h1>You haven't finished anything yet! Keep reading!</h1>
+            <h1 className="pb-20">
+              You haven't finished anything yet! Keep reading!
+            </h1>
           )}
         </>
       )}

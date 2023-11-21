@@ -49,11 +49,11 @@ export default function BasicModal({
     }
 
     if (selectedValue === 'Add to Want to Read') {
-      addToWantToRead(currentUser._id, { bookId: bookId })
+      addToWantToRead(currentUser._id, bookId)
     } else if (selectedValue === 'Add to Currently Reading') {
-      addToCurrentlyReading(currentUser._id, { bookId: bookId })
+      addToCurrentlyReading(currentUser._id, bookId)
     } else if (selectedValue === 'Add to Finished') {
-      addToFinished(currentUser._id, { bookId: bookId })
+      addToFinished(currentUser._id, bookId)
     }
 
     handleClose()

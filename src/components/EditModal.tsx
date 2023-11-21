@@ -49,13 +49,13 @@ export default function EditModal({
   const handleConfirm = async () => {
     console.log(currentUser?._id)
     if (innerText === 'Remove from want to read?') {
-      removeFromWantToRead(currentUser._id, { bookId: bookId })
+      removeFromWantToRead(currentUser._id, bookId)
       handleClose()
     } else if (innerText === 'Remove from currently reading?') {
-      removeFromCurrentlyReading(currentUser._id, { bookId: bookId })
+      removeFromCurrentlyReading(currentUser._id, bookId)
       handleClose()
     } else if (innerText === 'Remove from finished?') {
-      removeFromFinished(currentUser._id, { bookId: bookId })
+      removeFromFinished(currentUser._id, bookId)
       handleClose()
     }
   }

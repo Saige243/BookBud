@@ -13,8 +13,8 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: '#F6F4E4',
+  borderRadius: '10px',
   boxShadow: 24,
   p: 4,
 }
@@ -60,6 +60,8 @@ export default function BasicModal({
   }
 
   const customSelectStyle = {
+    bgcolor: '#F6F4E4',
+    outline: 'none',
     '&:focus': {
       outline: 'none',
     },
@@ -76,7 +78,7 @@ export default function BasicModal({
         disableEnforceFocus
       >
         <Box sx={style}>
-          <p>Add to list</p>
+          <p className="font-unbounded pb-2">Add to list</p>
           <Select
             value={selectedValue}
             onChange={handleSelectChange}
@@ -84,11 +86,15 @@ export default function BasicModal({
             fullWidth
             sx={customSelectStyle}
           >
-            <MenuItem value="Add to Want to Read">Add to Want to Read</MenuItem>
-            <MenuItem value="Add to Currently Reading">
-              Add to Currently Reading
+            <MenuItem value="Add to Want to Read">
+              <p className="font-montserrat">Add to Want to Read</p>
             </MenuItem>
-            <MenuItem value="Add to Finished">Add to Finished</MenuItem>
+            <MenuItem value="Add to Currently Reading">
+              <p className="font-montserrat">Add to Currently Reading</p>
+            </MenuItem>
+            <MenuItem value="Add to Finished">
+              <p className="font-montserrat">Add to Finished</p>
+            </MenuItem>
           </Select>
           <div className="flex justify-center">
             <PrimaryButton text="Save" onClick={handleSave} />

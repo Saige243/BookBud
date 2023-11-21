@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 
 const CurrentlyReadingContainer = ({ props }) => {
   const { volumeInfo } = props
-  const { saveBook } = useBook()
+  const { addToWantToRead } = useBook()
 
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 

@@ -29,7 +29,7 @@ export default function BasicModal({
   const { currentUser } = React.useContext(AuthContext)
   const [open, setOpen] = React.useState(false)
   const [selectedValue, setSelectedValue] = React.useState('')
-  const { saveBook, addToCurrentlyReading, addToFinished } = useBook()
+  const { addToWantToRead, addToCurrentlyReading, addToFinished } = useBook()
 
   if (!currentUser) return null
 
@@ -49,7 +49,7 @@ export default function BasicModal({
     }
 
     if (selectedValue === 'Add to Want to Read') {
-      saveBook(currentUser._id, { bookId: bookId })
+      addToWantToRead(currentUser._id, { bookId: bookId })
     } else if (selectedValue === 'Add to Currently Reading') {
       addToCurrentlyReading(currentUser._id, { bookId: bookId })
     } else if (selectedValue === 'Add to Finished') {

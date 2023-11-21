@@ -10,7 +10,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 function MyBooks() {
   const { currentUser } = useContext(AuthContext)
   const {
-    useGetSavedBooks,
+    useGetWantToReadBooks,
     useGetCurrentlyReading,
     useGetFinishedBooks,
     isLoading,
@@ -27,7 +27,7 @@ function MyBooks() {
     currentUser?.finishedBooks.map((item: any) => item[0].bookId.bookId)
   )
 
-  const { savedBooks: savedBooksData } = useGetSavedBooks({
+  const { savedBooks: savedBooksData } = useGetWantToReadBooks({
     ids: savedBooks,
   })
 

@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify'
 
 function BookPage({ navigate }) {
   const { bookId } = useParams()
-  const { useGetBook, saveBook, addToCurrentlyReading } = useBook()
+  const { useGetBook, addToWantToRead, addToCurrentlyReading } = useBook()
   const { book } = useGetBook(bookId)
   const [displayBook, setDisplayBook] = useState<any>({})
   const [showFullDescription, setShowFullDescription] = useState(false)
@@ -38,8 +38,8 @@ function BookPage({ navigate }) {
     setShowFullDescription(!showFullDescription)
   }
 
-  const handleSaveBook = () => {
-    saveBook(currentUser._id, { bookId: bookId })
+  const handleaddToWantToRead = () => {
+    addToWantToRead(currentUser._id, { bookId: bookId })
       .then((res) => {
         toast.success(`${volumeInfo.title} added to library!`)
       })
@@ -104,7 +104,7 @@ function BookPage({ navigate }) {
               <GhostButton
                 text="Add to Want to Read"
                 className="text-xs/10"
-                onClick={() => handleSaveBook()}
+                onClick={() => handleaddToWantToRead()}
               />
               <GhostButton
                 text="Currently Reading"

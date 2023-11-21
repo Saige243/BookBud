@@ -33,7 +33,7 @@ const useBook = () => {
     }
   }
 
-  const useGetSavedBooks = ({ ids }: { ids: string[] | undefined }) => {
+  const useGetWantToReadBooks = ({ ids }: { ids: string[] | undefined }) => {
     const [savedBooks, setSavedBooks] = useState<string[]>([])
 
     useEffect(() => {
@@ -167,7 +167,7 @@ const useBook = () => {
     }
   }
 
-  const saveBook = async (userId: string, bookId: SavedBook[]) => {
+  const addToWantToRead = async (userId: string, bookId: SavedBook[]) => {
     try {
       const savedBooks = currentUser?.savedBooks.map((book: SavedBook[]) =>
         book.map((item) => item.bookId.bookId)
@@ -186,7 +186,7 @@ const useBook = () => {
 
       return response.data
     } catch (error) {
-      console.error('Error on saveBook:', error)
+      console.error('Error on addToWantToRead:', error)
       throw new Error('Save book failed')
     }
   }
@@ -248,8 +248,8 @@ const useBook = () => {
 
   return {
     useGetBook,
-    useGetSavedBooks,
-    saveBook,
+    useGetWantToReadBooks,
+    addToWantToRead,
     removeFromWantToRead,
     addToCurrentlyReading,
     removeFromCurrentlyReading,

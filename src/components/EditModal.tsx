@@ -60,8 +60,6 @@ export default function EditModal({
     }
   }
 
-  console.log('PARENT: ', parentComponent)
-
   return (
     <div>
       <button onClick={handleOpen}>{modalText}</button>

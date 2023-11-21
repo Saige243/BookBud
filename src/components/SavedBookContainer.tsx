@@ -14,12 +14,8 @@ function SavedBookContainer({
 }) {
   const { volumeInfo } = props
 
-  const openModal = (id) => {
-    // console.log('open modal', id)
-  }
-
   return (
-    <div className="flex flex-col rounded-md m-3 justify-around hover:opacity-80 pb-16">
+    <div className="flex flex-col rounded-md m-3 justify-around hover:opacity-80 pb-">
       <Link to={`/books/${props.id}`}>
         <div className="flex flex-col justify-center w-24 2xl:w-36 mr-2">
           <div className="relative h-40 2xl:h-60">
@@ -36,7 +32,6 @@ function SavedBookContainer({
                   }
                   onClick={(event) => {
                     event.preventDefault()
-                    openModal(props.id)
                   }}
                 />
               </div>

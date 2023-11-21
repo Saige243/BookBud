@@ -20,7 +20,7 @@ function SavedBookContainer({
         <div className="flex flex-col justify-center w-24 2xl:w-36 mr-2">
           <div className="relative h-40 2xl:h-60">
             <div className="absolute h-60 w-36 opacity-0 hover:opacity-100">
-              <div className="relative left-[83px] top-[180px]">
+              <div className="relative left-[43px] top-[100px] 2xl:left-[85px] 2xl:top-[180px]">
                 <PrimaryButton
                   text={
                     <EditModal

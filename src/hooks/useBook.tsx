@@ -119,7 +119,12 @@ const useBook = () => {
     }
   }
 
-  const addToCurrentlyReading = async (userId: string, bookId: string) => {
+  const addToCurrentlyReading = async (
+    userId: string,
+    bookId: string | undefined
+  ) => {
+    if (!bookId) throw new Error('No book id provided')
+
     try {
       const savedBooks: any = currentUser?.savedBooks.map((book) =>
         book.map((item: { bookId: string }) => item.bookId)
@@ -165,7 +170,12 @@ const useBook = () => {
     }
   }
 
-  const addToWantToRead = async (userId: string, bookId: string) => {
+  const addToWantToRead = async (
+    userId: string,
+    bookId: string | undefined
+  ) => {
+    if (!bookId) throw new Error('No book id provided')
+
     try {
       const savedBooks = currentUser?.savedBooks.map((book) =>
         book.map((item: { bookId: string }) => item.bookId)

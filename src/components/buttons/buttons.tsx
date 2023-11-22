@@ -16,7 +16,7 @@ export const PrimaryButton = ({
   return (
     <button
       onClick={onClick}
-      className={`bg-${color} hover:opacity-80 font-unbounded py-2 px-4 focus:outline-none focus:shadow-outline rounded-full ${className} `}
+      className={`bg-${color} hover:opacity-80 font-unbounded py-2 px-4 focus:outline-none focus:shadow-outline rounded-full ${className}`}
     >
       {text}
     </button>

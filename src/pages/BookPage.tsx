@@ -39,7 +39,7 @@ function BookPage({ navigate }) {
   }
 
   const handleaddToWantToRead = () => {
-    addToWantToRead(currentUser._id, { bookId: bookId })
+    addToWantToRead(currentUser._id, bookId)
       .then((res) => {
         toast.success(`${volumeInfo.title} added to library!`)
       })
@@ -49,7 +49,7 @@ function BookPage({ navigate }) {
   }
 
   const handleAddToCurrentlyReading = () => {
-    addToCurrentlyReading(currentUser._id, { bookId: bookId })
+    addToCurrentlyReading(currentUser._id, bookId)
       .then((res) => {
         toast.success(`${volumeInfo.title} added to currently reading!`)
       })
@@ -74,7 +74,7 @@ function BookPage({ navigate }) {
       />
       <div className="flex min-h-screen justify-center bg-BBblue">
         <div className="flex flex-col w-full md:w-4/6 px-20 bg-BBwhite pt-24 mt-6 rounded-t-full">
-          <div className="grid grid-cols-3 pt-4 ">
+          <div className="grid grid-cols-3 pt-4">
             <div className="flex flex-col place-items-center justify-center pt-2 text-center space-y-6">
               <div className="flex space-x-4">
                 <OrangeBook />
@@ -101,16 +101,20 @@ function BookPage({ navigate }) {
               alt={volumeInfo.title}
             />
             <div className="flex flex-col justify-center space-y-4 p-4">
-              <GhostButton
-                text="Add to Want to Read"
-                className="text-xs/10"
-                onClick={() => handleaddToWantToRead()}
-              />
-              <GhostButton
-                text="Currently Reading"
-                className="text-xs/10"
-                onClick={() => handleAddToCurrentlyReading()}
-              />
+              <div>
+                <GhostButton
+                  text="Want to Read"
+                  className="text-xs/10 px-4 w-[170px] hover:bg-BBblue hover:text-white hover:border-transparent"
+                  onClick={() => handleaddToWantToRead()}
+                />
+              </div>
+              <div>
+                <GhostButton
+                  text="Currently Reading"
+                  className="text-xs/10 px-4 w-[170px] hover:bg-BBblue hover:text-white hover:border-transparent"
+                  onClick={() => handleAddToCurrentlyReading()}
+                />
+              </div>
             </div>
           </div>
           <div className="pt-8">

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
   const { useGetCurrentlyReading, isLoading } = useBook()
+  const booksRead = currentUser?.finishedBooks?.length
 
   const [currentlyReading, setCurrentlyReading] = useState(
     currentUser?.currentlyReading?.map((item) => item[0].bookId.bookId) || []
@@ -43,7 +44,7 @@ const Sidebar = () => {
               {currentUser?.firstName} {currentUser?.lastName}
             </p>
             <p className="ml-1 font-montserrat text-xs text-BBprimary1">
-              Books Read:
+              Books Read: {booksRead}
             </p>
           </div>
         </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { GhostButton } from '../components/buttons/buttons'
 import BookContainer from '../components/BookContainer'
+import { ToastContainer } from 'react-toastify'
 
 function Dashboard({
   bookIds,
@@ -39,30 +40,44 @@ function Dashboard({
   }
 
   return (
-    <div className="px-6 bg-BBwhite min-h-screen">
-      <div className="hidden md:flex justify-between p-2">
-        {categories.map((category, i) => (
-          <GhostButton
-            text={category}
-            key={i}
-            className={
-              category === selectedCategory
-                ? selectedCategoryStyles
-                : 'bg-transparent text-BBprimary1 p-2 border-none'
-            }
-            onClick={() => handleCategorySelection(category)}
-          />
-        ))}
-      </div>
-      <div className="bg-BBwhite min-h-screen">
-        <div className="flex flex-row flex-wrap justify-evenly">
-          {!isLoading &&
-            displayedBooks.map((book, i) => (
-              <BookContainer props={book} key={i} />
-            ))}
+    <>
+      <div className="px-6 bg-BBwhite min-h-screen">
+        <div className="hidden md:flex justify-between p-2">
+          {categories.map((category, i) => (
+            <GhostButton
+              text={category}
+              key={i}
+              className={
+                category === selectedCategory
+                  ? selectedCategoryStyles
+                  : 'bg-transparent text-BBprimary1 p-2 border-none'
+              }
+              onClick={() => handleCategorySelection(category)}
+            />
+          ))}
+        </div>
+        <div className="bg-BBwhite min-h-screen">
+          <div className="flex flex-row flex-wrap justify-evenly">
+            {!isLoading &&
+              displayedBooks.map((book, i) => (
+                <BookContainer props={book} key={i} />
+              ))}
+          </div>
         </div>
       </div>
-    </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </>
   )
 }
 

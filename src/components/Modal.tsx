@@ -6,6 +6,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import useBook from '../hooks/useBook'
 import AuthContext from '../auth/AuthContext'
+import { toast } from 'react-toastify'
 
 const style = {
   position: 'absolute',
@@ -43,19 +44,42 @@ export default function BasicModal({
     setSelectedValue(event.target.value)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!selectedValue) {
       return
     }
 
     if (selectedValue === 'Add to Want to Read') {
       addToWantToRead(currentUser._id, bookId)
+        .then((response) => {
+          console.log('Response from addToWantToRead:', response)
+          toast.success(`Added to want to read`)
+        })
+        .catch((error) => {
+          console.error('Error adding to want to read:', error)
+          toast.error('Failed to add to want to read')
+        })
     } else if (selectedValue === 'Add to Currently Reading') {
       addToCurrentlyReading(currentUser._id, bookId)
+        .then((response) => {
+          console.log('Response from addToCurrentlyReading:', response.data)
+          toast.success(`Added to currently reading`)
+        })
+        .catch((error) => {
+          console.error('Error adding to currently reading:', error)
+          toast.error('Failed to add to currently reading')
+        })
     } else if (selectedValue === 'Add to Finished') {
       addToFinished(currentUser._id, bookId)
+        .then((response) => {
+          console.log('Response from addToFinished:', response.data)
+          toast.success(`Added to finished`)
+        })
+        .catch((error) => {
+          console.error('Error adding to finished:', error)
+          toast.error('Failed to add to finished')
+        })
     }
-
     handleClose()
   }
 

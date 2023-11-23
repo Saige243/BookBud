@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal'
 import { PrimaryButton } from './Buttons'
 import useBook from '../hooks/useBook'
 import AuthContext from '../auth/AuthContext'
+import { toast } from 'react-toastify'
 
 const style = {
   position: 'absolute',
@@ -47,14 +48,29 @@ export default function EditModal({
 
   const handleConfirm = async () => {
     if (innerText === 'Remove from want to read?') {
-      removeFromWantToRead(currentUser._id, bookId)
-      handleClose()
+      try {
+        await removeFromWantToRead(currentUser._id, bookId)
+        toast.success(`Removed from want to read!`)
+      } catch (error) {
+        console.error('Error removing from want to read:', error)
+        toast.error('Failed to remove from want to read')
+      }
     } else if (innerText === 'Remove from currently reading?') {
-      removeFromCurrentlyReading(currentUser._id, bookId)
-      handleClose()
+      try {
+        await removeFromCurrentlyReading(currentUser._id, bookId)
+        toast.success(`Removed from currently reading!`)
+      } catch (error) {
+        console.error('Error removing from currently reading:', error)
+        toast.error('Failed to remove from currently reading')
+      }
     } else if (innerText === 'Remove from finished?') {
-      removeFromFinished(currentUser._id, bookId)
-      handleClose()
+      try {
+        await removeFromFinished(currentUser._id, bookId)
+        toast.success(`Removed from finished!`)
+      } catch (error) {
+        console.error('Error removing from finished:', error)
+        toast.error('Failed to remove from finished')
+      }
     }
   }
 

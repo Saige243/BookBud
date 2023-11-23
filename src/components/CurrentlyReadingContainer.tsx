@@ -38,7 +38,7 @@ const CurrentlyReadingContainer = ({ props }) => {
         />
         <div className="pl-4 pt-2">
           <h1 className="text-sm font-unbounded">{truncatedTitle}</h1>
-          <p className="text-sm font-unbounded">{volumeInfo.authors}</p>
+          <p className="text-sm font-montserrat">{volumeInfo.authors[0]}</p>
         </div>
         {isModalOpen && (
           <div className="absolute h-24 w-72">

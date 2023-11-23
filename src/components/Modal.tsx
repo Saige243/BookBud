@@ -86,11 +86,11 @@ export default function BasicModal({
             fullWidth
             sx={customSelectStyle}
           >
-            <MenuItem value="Add to Want to Read">
-              <p className="font-montserrat">Add to Want to Read</p>
-            </MenuItem>
             <MenuItem value="Add to Currently Reading">
               <p className="font-montserrat">Add to Currently Reading</p>
+            </MenuItem>
+            <MenuItem value="Add to Want to Read">
+              <p className="font-montserrat">Add to Want to Read</p>
             </MenuItem>
             <MenuItem value="Add to Finished">
               <p className="font-montserrat">Add to Finished</p>

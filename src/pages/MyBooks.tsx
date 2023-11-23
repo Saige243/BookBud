@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useBook from '../hooks/useBook'
 import SavedBookContainer from '../components/SavedBookContainer'
 import CurrentlyReadingContainer from '../components/CurrentlyReadingContainer'
@@ -16,16 +16,27 @@ function MyBooks() {
     isLoading,
   } = useBook()
 
-  const [currentlyReading, setCurrentlyReading] = useState(
-    currentUser?.currentlyReading.map((item: any) => item[0].bookId)
-  )
-  const [savedBooks, setSavedBooks] = useState(
-    currentUser?.savedBooks.map((item: any) => item[0].bookId)
-  )
+  const [currentlyReading, setCurrentlyReading] = useState([])
+  const [savedBooks, setSavedBooks] = useState([])
+  const [finishedBooks, setFinishedBooks] = useState([])
 
-  const [finishedBooks, setFinishedBooks] = useState(
-    currentUser?.finishedBooks.map((item: any) => item[0].bookId)
-  )
+  useEffect(() => {
+    setCurrentlyReading(
+      currentUser?.currentlyReading.map(
+        (item: { bookId: string }) => item[0].bookId
+      ) || []
+    )
+    setSavedBooks(
+      currentUser?.savedBooks.map(
+        (item: { bookId: string }) => item[0].bookId
+      ) || []
+    )
+    setFinishedBooks(
+      currentUser?.finishedBooks.map(
+        (item: { bookId: string }) => item[0].bookId
+      ) || []
+    )
+  }, [currentUser])
 
   const { savedBooks: savedBooksData } = useGetWantToReadBooks({
     ids: savedBooks,

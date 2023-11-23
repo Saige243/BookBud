@@ -3,7 +3,6 @@ const router = express.Router()
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const user = require('./models/user')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -102,7 +101,11 @@ router.post('/books', async (req, res) => {
 
     await user.save()
 
-    res.status(200).json({ message: 'Book saved successfully' })
+    const updatedUser = await User.findById(userId).select('-password')
+
+    res
+      .status(200)
+      .json({ message: 'Book saved successfully', user: updatedUser })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })
@@ -123,7 +126,12 @@ router.delete('/books', async (req, res) => {
 
     await user.save()
 
-    res.status(200).json({ message: 'Book deleted from library successfully' })
+    const updatedUser = await User.findById(userId).select('-password')
+
+    res.status(200).json({
+      message: 'Book deleted from library successfully',
+      user: updatedUser,
+    })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })
@@ -145,7 +153,11 @@ router.post('/books/currently-reading', async (req, res) => {
 
     await user.save()
 
-    res.status(200).json({ message: 'Book added to currently reading' })
+    const updatedUser = await User.findById(userId).select('-password')
+
+    res
+      .status(200)
+      .json({ message: 'Book added to currently reading', user: updatedUser })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })
@@ -166,7 +178,12 @@ router.delete('/books/currently-reading', async (req, res) => {
 
     await user.save()
 
-    res.status(200).json({ message: 'Book removed from currently reading.' })
+    const updatedUser = await User.findById(userId).select('-password')
+
+    res.status(200).json({
+      message: 'Book removed from currently reading.',
+      user: updatedUser,
+    })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })
@@ -188,7 +205,11 @@ router.post('/books/finished', async (req, res) => {
 
     await user.save()
 
-    res.status(200).json({ message: 'Book added to finished' })
+    const updatedUser = await User.findById(userId).select('-password')
+
+    res
+      .status(200)
+      .json({ message: 'Book added to finished', user: updatedUser })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })
@@ -207,9 +228,13 @@ router.delete('/books/finished', async (req, res) => {
 
     user.finishedBooks.pull({ bookId: bookId })
 
+    const updatedUser = await User.findById(userId).select('-password')
+
     await user.save()
 
-    res.status(200).json({ message: 'Book removed from finished' })
+    res
+      .status(200)
+      .json({ message: 'Book removed from finished', user: updatedUser })
   } catch (error) {
     console.error('API:', error.message)
     res.status(500).json({ message: 'Server error' })

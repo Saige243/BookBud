@@ -21,7 +21,6 @@ export default function EditModal({
   modalText,
   bookId,
   innerText,
-  parentComponent,
   closeModal,
 }: {
   modalText: string | JSX.Element
@@ -47,7 +46,6 @@ export default function EditModal({
   const handleClose = () => setOpen(false)
 
   const handleConfirm = async () => {
-    console.log(currentUser?._id)
     if (innerText === 'Remove from want to read?') {
       removeFromWantToRead(currentUser._id, bookId)
       handleClose()

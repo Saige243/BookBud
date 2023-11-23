@@ -4,7 +4,7 @@ import AuthContext from '../auth/AuthContext'
 import { useContext } from 'react'
 
 const useBook = () => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser, setCurrentUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
 
   const useGetBook = (id: string | undefined) => {
@@ -144,6 +144,7 @@ const useBook = () => {
             bookId: bookId,
           }
         )
+        setCurrentUser(response.data.user)
         return response.data
       }
     } catch (error) {
@@ -163,6 +164,7 @@ const useBook = () => {
           },
         }
       )
+      setCurrentUser(response.data.user)
       return response.data
     } catch (error) {
       console.error('Error on removeBookFromCurrentlyReading:', error)
@@ -193,7 +195,7 @@ const useBook = () => {
         userId: userId,
         bookId: bookId,
       })
-
+      setCurrentUser(response.data.user)
       return response.data
     } catch (error) {
       console.error('Error on addToWantToRead:', error)
@@ -209,6 +211,7 @@ const useBook = () => {
           bookId: bookId,
         },
       })
+      setCurrentUser(response.data.user)
       return response.data
     } catch (error) {
       console.error('Error on removeBookFromSaved:', error)
@@ -225,6 +228,7 @@ const useBook = () => {
           bookId: bookId,
         }
       )
+      setCurrentUser(response.data.user)
       return response.data
     } catch (error) {
       console.error('Error on addToFinished:', error)
@@ -243,6 +247,7 @@ const useBook = () => {
           },
         }
       )
+      setCurrentUser(response.data.user)
       return response.data
     } catch (error) {
       console.error('Error on removeBookFromFinished:', error)

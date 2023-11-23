@@ -1,12 +1,14 @@
+import { SetStateAction } from 'react'
+
 export type User = {
   _id: string
   email: string
   username: string
   createdAt: string
   updatedAt: string
-  savedBooks: any[]
-  currentlyReading: any[]
-  finishedBooks: any[]
+  savedBooks: SetStateAction<never[]> | any
+  currentlyReading: SetStateAction<never[]> | any
+  finishedBooks: SetStateAction<never[]> | any
   firstName: string
   lastName: string
 } | null

@@ -14,7 +14,7 @@ const Sidebar = () => {
   const booksRead = currentUser?.finishedBooks?.length
 
   const [currentlyReading, setCurrentlyReading] = useState(
-    currentUser?.currentlyReading?.map((item) => item[0].bookId.bookId) || []
+    currentUser?.currentlyReading?.map((item) => item[0].bookId) || []
   )
 
   const { currentlyReading: currentlyReadingData } = useGetCurrentlyReading({

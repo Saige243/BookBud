@@ -4,19 +4,10 @@ import { Link } from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Bookmark'
 import Rating from '@mui/material/Rating'
 import Modal from './Modal'
-import { Book } from '../types'
-
-interface BookContainerProps {
-  id: string
-  volumeInfo: Book
-}
+import { BookContainerProps } from '../types'
 
 function BookContainer({ props }: { props: BookContainerProps }) {
   const { volumeInfo } = props
-
-  const openModal = (id: string) => {
-    // console.log('open modal', id)
-  }
 
   return (
     <div className="flex flex-col rounded-md md:m-3 justify-between hover:opacity-80 pb-4">
@@ -31,7 +22,6 @@ function BookContainer({ props }: { props: BookContainerProps }) {
                   }
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault()
-                    openModal(props.id)
                   }}
                 />
               </div>
@@ -42,10 +32,12 @@ function BookContainer({ props }: { props: BookContainerProps }) {
               alt={volumeInfo.title}
             />
           </div>
-          <h2 className="font-unbounded md:font-lg truncate pt-2">
+          <h2 className="font-unbounded text-xs md:text-sm truncate pt-2">
             {volumeInfo.title}
           </h2>
-          <h3 className="font-montserrat truncate">{volumeInfo.authors}</h3>
+          <h3 className="font-montserrat text-xs md:text-sm lg:text-base truncate">
+            {volumeInfo.authors}
+          </h3>
           <div className="flex place-items-center">
             <Rating
               name="read-only"

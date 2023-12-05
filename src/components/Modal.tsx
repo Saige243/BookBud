@@ -40,7 +40,9 @@ export default function BasicModal({
 
   const handleClose = () => setOpen(false)
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
     setSelectedValue(event.target.value)
   }
 

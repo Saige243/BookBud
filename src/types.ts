@@ -29,4 +29,13 @@ export type Book = {
   averageRating: number
 }
 
+export type BookContainerProps = {
+  id: string
+  volumeInfo: Book
+}
+
+export type SavedBooksArray = {
+  savedBooks: Book[]
+}
+
 export type SavedBook = { bookId: string }

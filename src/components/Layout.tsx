@@ -2,11 +2,11 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../auth/AuthContext'
 import { Link, Outlet } from 'react-router-dom'
-import LoginLogo from './LoginLogo'
 import SideNavCurrentlyReading from './SideNavCurrentlyReading'
 import useBook from '../hooks/useBook'
 import AccountMenuDropdown from './AccountMenuDropdown'
 import { useNavigate } from 'react-router-dom'
+import { Book } from '../types'
 
 const Sidebar = () => {
   const { currentUser } = useContext(AuthContext)
@@ -14,7 +14,7 @@ const Sidebar = () => {
   const booksRead = currentUser?.finishedBooks?.length
 
   const [currentlyReading, setCurrentlyReading] = useState(
-    currentUser?.currentlyReading?.map((item) => item[0].bookId) || []
+    currentUser?.currentlyReading?.map((item: Book) => item[0].bookId) || []
   )
 
   const { currentlyReading: currentlyReadingData } = useGetCurrentlyReading({
@@ -25,7 +25,9 @@ const Sidebar = () => {
 
   useEffect(() => {
     setCurrentlyReading(
-      currentUser?.currentlyReading?.map((item) => item[0].bookId.bookId) || []
+      currentUser?.currentlyReading?.map(
+        (item: Book) => item[0].bookId.bookId
+      ) || []
     )
   }, [currentUser])
 

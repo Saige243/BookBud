@@ -44,7 +44,7 @@ function BookPage({ navigate }) {
         toast.success(`${volumeInfo.title} added to library!`)
       })
       .catch((error: Error) => {
-        toast.warning(`${volumeInfo.title} is already in your library`)
+        toast.warning(`${volumeInfo.title} is already in your library!`)
       })
   }
 
@@ -54,7 +54,7 @@ function BookPage({ navigate }) {
         toast.success(`${volumeInfo.title} added to currently reading!`)
       })
       .catch((error: Error) => {
-        toast.warning(`${volumeInfo.title} you're already reading this book!`)
+        toast.warning(`You're already reading ${volumeInfo.title}!`)
       })
   }
 
@@ -72,7 +72,10 @@ function BookPage({ navigate }) {
         pauseOnHover
         theme="colored"
       />
-      <div className="flex min-h-screen justify-center bg-BBblue">
+      <div
+        className="flex min-h-screen justify-center bg-[url('/src/assets/images/books.png')]"
+        style={{ backgroundColor: '#F6F4E4' }}
+      >
         <div className="flex flex-col w-full md:w-4/6 px-20 bg-BBwhite pt-24 mt-6 rounded-t-full">
           <div className="grid grid-cols-3 pt-4">
             <div className="flex flex-col place-items-center justify-center pt-2 text-center space-y-6">

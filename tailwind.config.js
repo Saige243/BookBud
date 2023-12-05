@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/*.{html,js,ts,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        bookPageImage: "url('/src/assets/images/books.png')",
+      },
       colors: {
         BBprimary1: '#0D383E',
         BBpurple: '#BCA6E6',

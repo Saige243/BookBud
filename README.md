@@ -1,4 +1,4 @@
-/# BookBud!
+# BookBud!
 
 A better Goodreads.
 
